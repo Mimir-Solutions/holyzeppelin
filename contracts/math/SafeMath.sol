@@ -183,4 +183,14 @@ library SafeMath {
     function substractPercentage( uint256 total_, uint8 percentageToSub_ ) internal pure returns ( uint256 result_ ) {
         return sub( total_, div( mul( total_, percentageToSub_ ), 1000 ) );
     }
+
+    /**
+     * Taken from Hypersonic https://github.com/M2629/HyperSonic/blob/main/Math.sol
+     * @dev Returns the average of two numbers. The result is rounded towards
+     * zero.
+     */
+    function average(uint256 a, uint256 b) internal pure returns (uint256) {
+        // (a + b) / 2 can overflow, so we distribute
+        return (a / 2) + (b / 2) + ((a % 2 + b % 2) / 2);
+    }
 }
