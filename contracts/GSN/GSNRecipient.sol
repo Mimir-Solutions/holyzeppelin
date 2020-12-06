@@ -88,7 +88,7 @@ abstract contract GSNRecipient is IRelayRecipient {
      *
      * IMPORTANT: Contracts derived from {GSNRecipient} should never use `msg.sender`, and use {Context._msgSender} instead.
      */
-    function _msgSender() internal view virtual returns (address payable) {
+    function _msgSender() internal view virtual returns (address payable msgSender_) {
         if (Context._msgSender() != _relayHub) {
             return Context._msgSender();
         } else {

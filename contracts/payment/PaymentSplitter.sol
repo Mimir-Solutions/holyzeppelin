@@ -4,7 +4,7 @@ pragma solidity 0.7.4;
 import "hardhat/console.sol";
 
 import "../security/Context.sol";
-import "../math/SafeMath.sol";
+import "../utils/math/SafeMath.sol";
 
 /**
  * @title PaymentSplitter

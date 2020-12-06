@@ -8,7 +8,7 @@ import "./IERC777.sol";
 import "./IERC777Recipient.sol";
 import "./IERC777Sender.sol";
 import "../../token/ERC20/IERC20.sol";
-import "../../math/SafeMath.sol";
+import "../../utils/math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../introspection/IERC1820Registry.sol";
 

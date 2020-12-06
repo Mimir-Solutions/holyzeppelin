@@ -3,7 +3,7 @@ pragma solidity 0.7.4;
 
 import "hardhat/console.sol";
 
-import "../math/SafeMath.sol";
+import "../utils/math/SafeMath.sol";
 
 contract SafeMathMock {
     function mul(uint256 a, uint256 b) public pure returns (uint256) {

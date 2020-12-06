@@ -4,7 +4,7 @@ pragma solidity 0.7.4;
 import "hardhat/console.sol";
 
 import "./GSNRecipient.sol";
-import "../math/SafeMath.sol";
+import "../utils/math/SafeMath.sol";
 import "../access/Ownable.sol";
 import "../token/ERC20/SafeERC20.sol";
 import "../token/ERC20/ERC20.sol";
@@ -82,7 +82,7 @@ contract GSNRecipientERC20Fee is GSNRecipient {
      * actual charge, necessary because we cannot predict how much gas the execution will actually need. The remainder
      * is returned to the user in {_postRelayedCall}.
      */
-    function _preRelayedCall(bytes memory context) internal virtual override returns (bytes32) {
+    function _preRelayedCall(bytes memory context) internal virtual override returns ( bytes32 ) {
         (address from, uint256 maxPossibleCharge) = abi.decode(context, (address, uint256));
 
         // The maximum token charge is pre-charged from the user
