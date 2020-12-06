@@ -24,5 +24,5 @@ contract Create2Impl {
         return Create2.computeAddress(salt, codeHash, deployer);
     }
 
-    receive() payable external {}
+    receive() external payable {}
 }

@@ -16,15 +16,15 @@ contract DummyImplementation {
     value = 10;
   }
 
-  function initializePayable() payable public {
+  function initializePayable() public payable {
     value = 100;
   }
 
-  function initializeNonPayable(uint256 _value) public {
+  function initializeNonPayableWithValue(uint256 _value) public {
     value = _value;
   }
 
-  function initializePayable(uint256 _value) payable public {
+  function initializePayableWithValue(uint256 _value) public payable {
     value = _value;
   }
 
@@ -43,12 +43,12 @@ contract DummyImplementation {
   }
 
   function reverts() public pure {
-    require(false);
+    require(false, "DummyImplementation reverted");
   }
 }
 
 contract DummyImplementationV2 is DummyImplementation {
-  function migrate(uint256 newVal) payable public {
+  function migrate(uint256 newVal) public payable {
     value = newVal;
   }
 
