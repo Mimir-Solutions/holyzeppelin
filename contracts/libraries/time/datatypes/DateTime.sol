@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 import "./../../../utils/math/SafeMath.sol";
 
-library DateTime {
+library Time {
 
     using SafeMath for uint16;
     using SafeMath for uint8;
