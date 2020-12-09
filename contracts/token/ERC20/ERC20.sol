@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 import "../../security/Context.sol";
 import "./IERC20.sol";
-import "../../utils/math/SafeMath.sol";
+import "../../math/SafeMath.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.

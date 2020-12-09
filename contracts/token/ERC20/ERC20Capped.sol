@@ -4,7 +4,7 @@ pragma solidity 0.7.4;
 import "hardhat/console.sol";
 
 import "./ERC20.sol";
-import "../../utils/math/SafeMath.sol";
+import "../../math/SafeMath.sol";
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.

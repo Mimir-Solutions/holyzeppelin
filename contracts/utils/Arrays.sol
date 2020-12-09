@@ -3,7 +3,7 @@ pragma solidity 0.7.4;
 
 import "hardhat/console.sol";
 
-import "./math/Math.sol";
+import "../math/Math.sol";
 
 /**
  * @dev Collection of functions related to array types.

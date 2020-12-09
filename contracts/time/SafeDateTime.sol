@@ -8,7 +8,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.4;
 
-import "../../libraries/datatypes/time/DateTime.sol";
+import "./datatypes/DateTime.sol";
 
 contract SafeDateTime {
         /*
