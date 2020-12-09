@@ -8,14 +8,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.4;
 
-import "./datatypes/DateTime.sol";
+import "./datatypes/Time.sol";
 
 contract SafeDateTime {
         /*
          *  Date and Time utilities for ethereum contracts
          *
          */
-        using DateTime for DateTime.DateTime;
+        using Time for Time.DateTime;
 
         uint constant DAY_IN_SECONDS = 86400;
         uint constant YEAR_IN_SECONDS = 31536000;
@@ -59,7 +59,7 @@ contract SafeDateTime {
                 }
         }
 
-        function parseTimestamp(uint timestamp) internal pure returns ( DateTime.DateTime memory dt) {
+        function parseTimestamp(uint timestamp) internal pure returns ( Time.DateTime memory dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
                 uint8 i;

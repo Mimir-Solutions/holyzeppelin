@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 import "../access/AccessControl.sol";
 import "../security/Context.sol";
-import "../utils/Counters.sol";
+import "../math/Counters.sol";
 import "../token/ERC721/ERC721.sol";
 import "../token/ERC721/ERC721Burnable.sol";
 import "../token/ERC721/ERC721Pausable.sol";
