@@ -6,7 +6,7 @@
 // TODO Update to use SafeMath version of new intelligent primitives auto-boxers.
 // Might need to be redeployed on mainnet if update is significant.
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.4;
+pragma solidity 0.7.5;
 
 import "./datatypes/Time.sol";
 
