@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "../token/ERC20/ERC20Burnable.sol";
+import "../ERC20Burnable.sol";
 
 /**
  * @dev {ERC20} token, including:
@@ -24,7 +24,7 @@ contract ERC20PresetFixedSupply is ERC20Burnable {
         string memory symbol,
         uint256 initialSupply,
         address owner
-    ) public ERC20(name, symbol) {
+    ) ERC20(name, symbol) {
         _mint(owner, initialSupply);
     }
 }

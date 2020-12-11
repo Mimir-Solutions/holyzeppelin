@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "../token/ERC777/ERC777.sol";
+import "../ERC777.sol";
 
 /**
  * @dev {ERC777} token, including:
@@ -21,7 +21,7 @@ contract ERC777PresetFixedSupply is ERC777 {
         address[] memory defaultOperators,
         uint256 initialSupply,
         address owner
-    ) public ERC777(name, symbol, defaultOperators) {
+    ) ERC777(name, symbol, defaultOperators) {
         _mint(owner, initialSupply, "", "");
     }
 }
