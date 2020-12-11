@@ -1,30 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "../token/ERC20/ERC20Burnable.sol";
+import "./ERC777.sol";
 
 /**
- * @dev {ERC20} token, including:
+ * @dev {ERC777} token, including:
  *
  *  - Preminted initial supply
- *  - Ability for holders to burn (destroy) their tokens
  *  - No access control mechanism (for minting/pausing) and hence no governance
- *
- * This contract uses {ERC20Burnable} to include burn capabilities - head to
- * its documentation for details.
  */
-contract ERC20PresetFixedSupply is ERC20Burnable {
+contract ERC777PresetFixedSupply is ERC777 {
     /**
      * @dev Mints `initialSupply` amount of token and transfers them to `owner`.  
      *
-     * See {ERC20-constructor}.
+     * See {ERC777-constructor}.
      */
     constructor(
         string memory name,
         string memory symbol,
+        address[] memory defaultOperators,
         uint256 initialSupply,
         address owner
-    ) public ERC20(name, symbol) {
-        _mint(owner, initialSupply);
+    ) ERC777(name, symbol, defaultOperators) {
+        _mint(owner, initialSupply, "", "");
     }
 }
