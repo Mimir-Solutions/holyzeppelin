@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "./ERC777.sol";
+import "../ERC777.sol";
 
 /**
  * @dev {ERC777} token, including:

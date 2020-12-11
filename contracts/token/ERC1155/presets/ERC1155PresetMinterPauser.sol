@@ -3,11 +3,11 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../access/AccessControl.sol";
-import "../security/Context.sol";
-import "../token/ERC1155/ERC1155.sol";
-import "../token/ERC1155/ERC1155Burnable.sol";
-import "../token/ERC1155/ERC1155Pausable.sol";
+import "../../../access/AccessControl.sol";
+import "../../../security/Context.sol";
+import "../ERC1155.sol";
+import "../ERC1155Burnable.sol";
+import "../ERC1155Pausable.sol";
 
 /**
  * @dev {ERC1155} token, including:

@@ -3,12 +3,12 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../access/AccessControl.sol";
-import "../security/Context.sol";
-import "../math/Counters.sol";
-import "../token/ERC721/ERC721.sol";
-import "../token/ERC721/ERC721Burnable.sol";
-import "../token/ERC721/ERC721Pausable.sol";
+import "../../../access/AccessControl.sol";
+import "../../../security/Context.sol";
+import "../../../math/Counters.sol";
+import "../ERC721.sol";
+import "../ERC721Burnable.sol";
+import "../ERC721Pausable.sol";
 
 /**
  * @dev {ERC721} token, including:
