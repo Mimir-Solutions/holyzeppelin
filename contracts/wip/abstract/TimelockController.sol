@@ -1,6 +1,6 @@
 // // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
-// pragma experimental ABIEncoderV2;
+pragma solidity 0.7.5;
+pragma experimental ABIEncoderV2;
 
 // import "hardhat/console.sol";
 
@@ -20,7 +20,9 @@
 //  * to position this {TimelockController} as the owner of a smart contract, with
 //  * a multisig or a DAO as the sole proposer.
 //  */
-// contract TimelockController is AccessControl {
+contract TimelockController 
+    // is AccessControl 
+    {
 
 //     using SafeFullMath for uint256;
 
@@ -281,4 +283,4 @@
 //         emit MinDelayChange(_minDelay, newDelay);
 //         _minDelay = newDelay;
 //     }
-// }
+}

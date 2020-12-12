@@ -1,9 +1,9 @@
 // // // SPDX-License-Identifier: AGPL-3.0-or-later
-// // pragma solidity 0.7.5;
+pragma solidity 0.7.5;
 
 // // import "./EnumerableSet.sol";
 
-// library AddressSet {
+library AddressSet {
 
 //     using EnumerableSet for EnumerableSet.Set;
 
@@ -58,4 +58,4 @@
 //     function at(Set storage set, uint256 index) internal view returns ( address ) {
 //         return address(uint256(set._inner._at(index)));
 //     }
-// }
+}
