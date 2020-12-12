@@ -11,7 +11,7 @@ import "./ERC1155.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Burnable is ERC1155 {
+abstract contract ERC1155Burnable  is ERC1155 {
     function burn(address account, uint256 id, uint256 value) public virtual {
         require(
             account == Context._msgSender() || isApprovedForAll(account, Context._msgSender()),

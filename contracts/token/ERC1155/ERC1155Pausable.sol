@@ -3,8 +3,8 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./ERC1155.sol";
 import "../../utils/Pausable.sol";
+import "./ERC1155Burnable.sol";
 
 /**
  * @dev ERC1155 token with pausable token transfers, minting and burning.
@@ -15,7 +15,7 @@ import "../../utils/Pausable.sol";
  *
  * _Available since v3.1._
  */
-abstract contract ERC1155Pausable is ERC1155, Pausable {
+abstract contract ERC1155Pausable is ERC1155Burnable, Pausable {
     /**
      * @dev See {ERC1155-_beforeTokenTransfer}.
      *

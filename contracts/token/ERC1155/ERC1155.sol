@@ -9,7 +9,7 @@ import "./IERC1155Receiver.sol";
 import "../../security/Context.sol";
 import "../../introspection/ERC165.sol";
 import "../../math/SafeMath.sol";
-import "../../utils/Address.sol";
+import "../../datatypes/primitives/Address.sol";
 
 /**
  *
@@ -53,9 +53,8 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {_setURI}.
      */
-    constructor (string memory uri_) {
-        _setURI(uri_);
-
+    constructor () {
+        
         // register the supported interfaces to conform to ERC1155 via ERC165
         _registerInterface(_INTERFACE_ID_ERC1155);
 
@@ -73,7 +72,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
      * Clients calling this function must replace the `\{id\}` substring with the
      * actual token type ID.
      */
-    function uri(uint256) external view override returns (string memory) {
+    function uri(uint256) external virtual view override returns (string memory) {
         return _uri;
     }
 
@@ -84,7 +83,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
      *
      * - `account` cannot be the zero address.
      */
-    function balanceOf(address account, uint256 id) public view override returns (uint256) {
+    function balanceOf(address account, uint256 id) public virtual view override returns (uint256) {
         require(account != address(0), "ERC1155: balance query for the zero address");
         return _balances[id][account];
     }
@@ -101,6 +100,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         uint256[] memory ids
     )
         public
+        virtual
         view
         override
         returns (uint256[] memory)
@@ -130,7 +130,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {IERC1155-isApprovedForAll}.
      */
-    function isApprovedForAll(address account, address operator) public view override returns (bool) {
+    function isApprovedForAll(address account, address operator) public virtual view override returns (bool) {
         return _operatorApprovals[account][operator];
     }
 
@@ -367,7 +367,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         uint256 amount,
         bytes memory data
     )
-        private
+        internal virtual
     {
         if (to.isContract()) {
             try IERC1155Receiver(to).onERC1155Received(operator, from, id, amount, data) returns (bytes4 response) {
@@ -390,7 +390,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         uint256[] memory amounts,
         bytes memory data
     )
-        private
+        internal virtual
     {
         if (to.isContract()) {
             try IERC1155Receiver(to).onERC1155BatchReceived(operator, from, ids, amounts, data) returns (bytes4 response) {
@@ -405,7 +405,7 @@ contract ERC1155 is ERC165, IERC1155, IERC1155MetadataURI {
         }
     }
 
-    function _asSingletonArray(uint256 element) private pure returns (uint256[] memory) {
+    function _asSingletonArray(uint256 element) internal virtual view returns (uint256[] memory) {
         uint256[] memory array = new uint256[](1);
         array[0] = element;
 
