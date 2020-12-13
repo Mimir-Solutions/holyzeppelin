@@ -197,11 +197,11 @@ library SafeMath {
         return sub( total_, div( mul( total_, percentageToSub_ ), 1000 ) );
     }
 
-    function quadraticPricing( uint256 multiplier_, uint256 payment_ ) internal pure returns (uint256) {
+    function quadraticPricing( uint256 payment_, uint256 multiplier_ ) internal pure returns (uint256) {
         return sqrrt( mul( multiplier_, payment_ ) );
     }
 
-    function bondingCurve( uint256 multiplier_, uint256 supply_ ) internal pure returns (uint256) {
+    function bondingCurve( uint256 supply_, uint256 multiplier_ ) internal pure returns (uint256) {
         return mul( multiplier_, supply_ );
     }
 }
