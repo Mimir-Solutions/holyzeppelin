@@ -26,6 +26,7 @@ SOFTWARE.
 pragma solidity 0.7.5;
 
 import "../../math/SafeMath.sol";
+import "../../math/SafeMathInt.sol";
 import "../../proxy/Initializable.sol";
 import "../../access/Ownable.sol";
 import "../ERC20/IERC20.sol";
