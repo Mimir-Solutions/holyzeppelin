@@ -40,7 +40,7 @@ import "./IERC20.sol";
  *      We support splitting the currency in expansion and combining the currency on contraction by
  *      changing the exchange rate between the hidden 'gons' and the public 'fragments'.
  */
-contract UFragments is IERC20, Ownable {
+abstract contract UFragments is IERC20, Ownable {
     // PLEASE READ BEFORE CHANGING ANY ACCOUNTING OR MATH
     // Anytime there is division, there is a risk of numerical instability from rounding errors. In
     // order to minimize this risk, we adhere to the following guidelines:
@@ -82,7 +82,7 @@ contract UFragments is IERC20, Ownable {
     string internal _symbol;
     uint8 internal _decimals;
 
-    uint256 private constant DECIMALS = 9;
+    uint8 private constant DECIMALS = 9;
     uint256 private constant MAX_UINT256 = ~uint256(0);
     uint256 private constant INITIAL_FRAGMENTS_SUPPLY = 50 * 10**6 * 10**DECIMALS;
 
@@ -101,7 +101,7 @@ contract UFragments is IERC20, Ownable {
     // it's fully paid.
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
-    constructor( string storage name_, string storage symbol_, uint8 decimals_) {
+    constructor( string memory name_, string memory symbol_, uint8 decimals_) {
         
         _name = name_;
         _symbol = symbol_;

@@ -250,7 +250,7 @@ library EnumerableMap {
      * already present.
      */
     function set(Bytes32ToAddressMap storage map_, bytes32 key_, address value_) internal returns (bool) {
-        return _set( map_._inner, key_, bytes32( value_ ) );
+        return _set(map_._inner, key_, bytes32(uint256(value_)));
     }
 
     /**
@@ -265,7 +265,7 @@ library EnumerableMap {
     /**
      * @dev Returns true if the key is in the map. O(1).
      */
-    function contains(Bytes32ToAddressMap storage map_, uint256 key_) internal view returns (bool) {
+    function contains(Bytes32ToAddressMap storage map_, bytes32 key_) internal view returns (bool) {
         return _contains(map_._inner, key_ );
     }
 
