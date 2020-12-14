@@ -29,8 +29,7 @@ import "../../math/SafeMath.sol";
 import "../../math/SafeMathInt.sol";
 import "../../proxy/Initializable.sol";
 import "../../access/Ownable.sol";
-import "../ERC20/IERC20.sol";
-import "../ERC20/ERC20Detailed.sol";
+import "./ERC20Detailed.sol";
 
 /**
  * @title uFragments ERC20 token
