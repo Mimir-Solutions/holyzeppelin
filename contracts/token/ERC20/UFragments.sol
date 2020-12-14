@@ -98,25 +98,13 @@ contract UFragments is ERC20Detailed, Ownable {
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
     constructor() {
-<<<<<<< Updated upstream
         ERC20Detailed.initialize("Ampleforth", "AMPL", uint8(DECIMALS));
-
-        rebasePausedDeprecated = false;
-        tokenPausedDeprecated = false;
-
-        _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
-        _gonBalances[owner_] = TOTAL_GONS;
-        _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
-
-        emit Transfer(address(0x0), owner_, _totalSupply);
-=======
 
         _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
         _gonBalances[Context._msgSender()] = TOTAL_GONS;
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
 
         emit Transfer(address(0x0), Context._msgSender(), _totalSupply);
->>>>>>> Stashed changes
     }
 
     /**
