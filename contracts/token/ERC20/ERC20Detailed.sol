@@ -19,10 +19,10 @@ contract ERC20Detailed is Initializable, IERC20 {
   string private _symbol;
   uint8 private _decimals;
 
-  function initialize(string name, string symbol, uint8 decimals) public initializer {
-    _name = name;
-    _symbol = symbol;
-    _decimals = decimals;
+  function initialize(string name_, string symbol_, uint8 decimals_) public initializer {
+    _name = name_;
+    _symbol = symbol_;
+    _decimals = decimals_;
   }
 
   /**
