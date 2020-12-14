@@ -249,7 +249,7 @@ library EnumerableMap {
      * Returns true if the key was added to the map, that is if it was not
      * already present.
      */
-    function set(Bytes32ToAddressMap storage map_, bytes32 key_, address value) internal returns (bool) {
+    function set(Bytes32ToAddressMap storage map_, bytes32 key_, address value_) internal returns (bool) {
         return _set( map_._inner, key_, bytes32( value_ ) );
     }
 
@@ -286,7 +286,7 @@ library EnumerableMap {
     * - `index` must be strictly less than {length}.
     */
     function at(Bytes32ToAddressMap storage map_, uint256 index_) internal view returns ( bytes32, address ) {
-        ( bytes32 key_, bytes32 value_ ) = _at(map_._inner, index);
+        ( bytes32 key_, bytes32 value_ ) = _at(map_._inner, index_);
         return ( key_, address( value_ ) );
     }
 
