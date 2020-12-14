@@ -235,4 +235,76 @@ library EnumerableMap {
     function get(UintToAddressMap storage map, uint256 key, string memory errorMessage) internal view returns (address) {
         return address(uint256(_get(map._inner, bytes32(key), errorMessage)));
     }
+
+    // Bytes32ToAddressMap
+
+    struct Bytes32ToAddressMap {
+        Map _inner;
+    }
+
+    /**
+     * @dev Adds a key-value pair to a map, or updates the value for an existing
+     * key. O(1).
+     *
+     * Returns true if the key was added to the map, that is if it was not
+     * already present.
+     */
+    function set(Bytes32ToAddressMap storage map_, bytes32 key_, address value) internal returns (bool) {
+        return _set( map_._inner, key_, bytes32( value_ ) );
+    }
+
+    /**
+     * @dev Removes a value from a set. O(1).
+     *
+     * Returns true if the key was removed from the map, that is if it was present.
+     */
+    function remove(Bytes32ToAddressMap storage map_, bytes21 key_) internal returns (bool) {
+        return _remove( map_._inner, key_ );
+    }
+
+    /**
+     * @dev Returns true if the key is in the map. O(1).
+     */
+    function contains(Bytes32ToAddressMap storage map_, uint256 key_) internal view returns (bool) {
+        return _contains(map_._inner, key_ );
+    }
+
+    /**
+     * @dev Returns the number of elements in the map. O(1).
+     */
+    function length(Bytes32ToAddressMap storage map_) internal view returns (uint256) {
+        return _length(map_._inner);
+    }
+
+   /**
+    * @dev Returns the element stored at position `index` in the set. O(1).
+    * Note that there are no guarantees on the ordering of values inside the
+    * array, and it may change when more values are added or removed.
+    *
+    * Requirements:
+    *
+    * - `index` must be strictly less than {length}.
+    */
+    function at(Bytes32ToAddressMap storage map_, uint256 index_) internal view returns ( bytes32, address ) {
+        ( bytes32 key_, bytes32 value_ ) = _at(map_._inner, index);
+        return ( key_, address( value_ ) );
+    }
+
+    /**
+     * @dev Returns the value associated with `key`.  O(1).
+     *
+     * Requirements:
+     *
+     * - `key` must be in the map.
+     */
+    function get( Bytes32ToAddressMap storage map_, bytes32 key_ ) internal view returns (address) {
+        return address( _get( map_._inner, key_ ) );
+    }
+
+    /**
+     * @dev Same as {get}, with a custom error message when `key` is not in the map.
+     */
+    function get(Bytes32ToAddressMap storage map_, bytes32 key_, string memory errorMessage_ ) internal view returns ( address ) {
+        return address( _get( map_._inner, key_, errorMessage_ ) );
+    }
 }
