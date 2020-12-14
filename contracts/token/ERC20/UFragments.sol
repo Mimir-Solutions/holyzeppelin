@@ -101,7 +101,11 @@ abstract contract UFragments is IERC20, Ownable {
     // it's fully paid.
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
-    constructor( string memory name_, string memory symbol_, uint8 decimals_) {
+    constructor( 
+        string memory name_
+        , string memory symbol_
+        // , uint8 decimals_
+    ) {
         
         _name = name_;
         _symbol = symbol_;

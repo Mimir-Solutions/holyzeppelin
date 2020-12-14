@@ -114,7 +114,7 @@ contract ERC777 is IERC777, IERC20 {
      *
      * This implementation always returns `1`.
      */
-    function granularity() public view override returns (uint256) {
+    function granularity() public pure override returns (uint256) {
         return 1;
     }
 
