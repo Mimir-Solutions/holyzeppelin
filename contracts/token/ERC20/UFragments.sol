@@ -27,7 +27,6 @@ pragma solidity 0.7.5;
 
 import "../../math/SafeMath.sol";
 import "../../math/SafeMathInt.sol";
-import "../../proxy/Initializable.sol";
 import "../../access/Ownable.sol";
 import "./ERC20Detailed.sol";
 
@@ -73,9 +72,6 @@ contract UFragments is ERC20Detailed, Ownable {
         _;
     }
 
-    bool private rebasePausedDeprecated;
-    bool private tokenPausedDeprecated;
-
     modifier validRecipient(address to) {
         require(to != address(0x0));
         require(to != address(this));
@@ -102,6 +98,7 @@ contract UFragments is ERC20Detailed, Ownable {
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
     constructor() {
+<<<<<<< Updated upstream
         ERC20Detailed.initialize("Ampleforth", "AMPL", uint8(DECIMALS));
 
         rebasePausedDeprecated = false;
@@ -112,6 +109,14 @@ contract UFragments is ERC20Detailed, Ownable {
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
 
         emit Transfer(address(0x0), owner_, _totalSupply);
+=======
+
+        _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
+        _gonBalances[Context._msgSender()] = TOTAL_GONS;
+        _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
+
+        emit Transfer(address(0x0), Context._msgSender(), _totalSupply);
+>>>>>>> Stashed changes
     }
 
     /**

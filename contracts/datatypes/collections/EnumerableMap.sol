@@ -287,7 +287,7 @@ library EnumerableMap {
     */
     function at(Bytes32ToAddressMap storage map_, uint256 index_) internal view returns ( bytes32, address ) {
         ( bytes32 key_, bytes32 value_ ) = _at(map_._inner, index_);
-        return ( key_, address( value_ ) );
+        return ( key_, address( uint256( value_ ) ) );
     }
 
     /**
@@ -298,13 +298,13 @@ library EnumerableMap {
      * - `key` must be in the map.
      */
     function get( Bytes32ToAddressMap storage map_, bytes32 key_ ) internal view returns (address) {
-        return address( _get( map_._inner, key_ ) );
+        return address(uint256(_get(map_._inner, key_)));
     }
 
     /**
      * @dev Same as {get}, with a custom error message when `key` is not in the map.
      */
     function get(Bytes32ToAddressMap storage map_, bytes32 key_, string memory errorMessage_ ) internal view returns ( address ) {
-        return address( _get( map_._inner, key_, errorMessage_ ) );
+        return address(uint256(_get(map_._inner, key_, errorMessage_)));
     }
 }
