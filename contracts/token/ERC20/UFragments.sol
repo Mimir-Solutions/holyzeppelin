@@ -101,6 +101,19 @@ contract UFragments is ERC20Detailed, Ownable {
     // it's fully paid.
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
+    constructor() {
+        ERC20Detailed.initialize("Ampleforth", "AMPL", uint8(DECIMALS));
+
+        rebasePausedDeprecated = false;
+        tokenPausedDeprecated = false;
+
+        _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
+        _gonBalances[owner_] = TOTAL_GONS;
+        _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
+
+        emit Transfer(address(0x0), owner_, _totalSupply);
+    }
+
     /**
      * @param monetaryPolicy_ The address of the monetary policy contract to use for authentication.
      */
@@ -152,23 +165,6 @@ contract UFragments is ERC20Detailed, Ownable {
 
         emit LogRebase(epoch, _totalSupply);
         return _totalSupply;
-    }
-
-    function initialize(address owner_)
-        public
-        initializer
-    {
-        ERC20Detailed.initialize("Ampleforth", "AMPL", uint8(DECIMALS));
-        Ownable.initialize(owner_);
-
-        rebasePausedDeprecated = false;
-        tokenPausedDeprecated = false;
-
-        _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
-        _gonBalances[owner_] = TOTAL_GONS;
-        _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
-
-        emit Transfer(address(0x0), owner_, _totalSupply);
     }
 
     /**
