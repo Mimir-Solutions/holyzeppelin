@@ -12,7 +12,7 @@ import "../../introspection/ERC165.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../datatypes/collections/EnumerableSet.sol";
-import "../../utils/EnumerableMap.sol";
+import "../../datatypes/collections/EnumerableMap.sol";
 import "../../utils/Strings.sol";
 
 /**
