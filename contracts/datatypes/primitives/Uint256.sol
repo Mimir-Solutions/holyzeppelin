@@ -1,5 +1,5 @@
-// // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+// SPDX-License-Identifier: AGPL-3.0-or-later
+pragma solidity 0.7.5;
 
 // import "hardhat/console.sol";
 
@@ -17,7 +17,7 @@
 //  * class of bugs, so it's recommended to use it always.
 //  */
 //  // TODO needs versions for uint4, uint8, uint16, uint32, uint64, uint128, int4, int8, int16, int32, int64, int128, int256
-// library Uint256 {
+library Uint256 {
 //     /**
 //      * @dev Returns the addition of two unsigned integers, reverting on
 //      * overflow.
@@ -172,4 +172,4 @@
 //             c = 1;
 //         }
 //     }
-// }
+}

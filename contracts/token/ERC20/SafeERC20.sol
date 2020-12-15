@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./IERC20.sol";
+import "./interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 

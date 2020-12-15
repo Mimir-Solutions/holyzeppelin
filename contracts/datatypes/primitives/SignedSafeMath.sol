@@ -1,6 +1,5 @@
-// // SPDX-License-Identifier: MIT
-
-// pragma solidity ^0.6.0;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.5;
 
 // /**
 //  * @title SignedSafeMath
@@ -8,7 +7,7 @@
 //  */
 //  // TODO Needs to be decomposed into intelligent primitive autoboxers.
 //  // TODO needs versions for int4, int8, int16, int32, int64, int128, int256.
-// library SignedSafeMath {
+library SignedSafeMath {
 //     int256 constant private _INT256_MIN = -2**255;
 
 //     /**
@@ -91,4 +90,4 @@
 
 //         return c;
 //     }
-// }
+}

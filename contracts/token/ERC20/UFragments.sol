@@ -28,7 +28,7 @@ pragma solidity 0.7.5;
 import "../../math/SafeMath.sol";
 import "../../math/SafeMathInt.sol";
 import "../../access/Ownable.sol";
-import "./IERC20.sol";
+import "./interfaces/IERC20.sol";
 
 /**
  * @title uFragments ERC20 token

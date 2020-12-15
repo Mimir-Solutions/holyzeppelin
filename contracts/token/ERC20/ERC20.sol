@@ -4,7 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "../../security/Context.sol";
-import "./IERC20.sol";
+import "./interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
 
 /**
@@ -226,14 +226,22 @@ abstract contract ERC20 is IERC20 {
      *
      * - `to` cannot be the zero address.
      */
-    function _mint(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: mint to the zero address");
+    function _mint(address account_, uint256 ammount_) internal virtual {
+        console.log("ERC20::_mint: Minting %s %s tokens to %s.", ammount_, _symbol, account_);
+        console.log("Confirming that minting recipient isn't address 0.");
+        require(account_ != address(0), "ERC20: mint to the zero address");
+        console.log("Confirmed that minting recipient isn't address 0.");
 
-        _beforeTokenTransfer(address(0), account, amount);
+        _beforeTokenTransfer(address(0), account_, ammount_);
 
-        _totalSupply = _totalSupply.add(amount);
-        _balances[account] = _balances[account].add(amount);
-        emit Transfer(address(0), account, amount);
+        console.log("Adding %s to _totalSupply.", ammount_);
+        _totalSupply = _totalSupply.add(ammount_);
+        console.log("_totalSupply is %s.", _totalSupply);
+        console.log("Added %s to totalSupply.", _totalSupply);
+        console.log("Adding %s to balance for address %s.", ammount_, account_);
+        _balances[account_] = _balances[account_].add(ammount_);
+        console.log("Added %s to balance for address %s.", _balances[account_], account_);
+        emit Transfer(address(0), account_, ammount_);
     }
 
     /**

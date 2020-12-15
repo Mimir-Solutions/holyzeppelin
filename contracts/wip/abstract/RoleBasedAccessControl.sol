@@ -1,7 +1,7 @@
-// // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+// SPDX-License-Identifier: AGPL-3.0-or-later
+pragma solidity 0.7.5;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 // import "../libraries/constants/Roles.sol";
 // // import "../libraries/dataTypes/primitives/Address.sol";
@@ -46,7 +46,7 @@
 //  // *****************************************************************************************************
 //  // Should be turned into an Interface for clients to access both the AuthorizationPlatform and Authroization Datastore
 //  // *****************************************************************************************************
-// abstract contract RoleBasedAccessControl {
+abstract contract RoleBasedAccessControl {
 
 //     // using EnumerableSet for EnumerableSet.AddressSet;
 //     // using EnumerableSet for EnumerableSet.Bytes32Set;
@@ -312,4 +312,4 @@
 //     function _isApproveForRole( bytes32 role, address queryAddress ) internal view returns ( bool ) {
 //         return _roles[role].roleApproval[queryAddress];
 //     }
-// }
+}
