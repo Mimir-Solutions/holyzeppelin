@@ -4,7 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "../../security/Context.sol";
-import "./IERC20.sol";
+import "./interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
 
 /**
@@ -31,7 +31,7 @@ import "../../math/SafeMath.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-contract ERC20 is IERC20 {
+abstract contract ERC20 is IERC20 {
     using SafeMath for uint256;
 
     mapping (address => uint256) internal _balances;
@@ -53,10 +53,10 @@ contract ERC20 is IERC20 {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor (string memory name_, string memory symbol_) {
+    constructor (string memory name_, string memory symbol_, uint8 decimals_) {
         _name = name_;
         _symbol = symbol_;
-        _decimals = 18;
+        _decimals = decimals_;
     }
 
     /**
@@ -226,14 +226,22 @@ contract ERC20 is IERC20 {
      *
      * - `to` cannot be the zero address.
      */
-    function _mint(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: mint to the zero address");
+    function _mint(address account_, uint256 ammount_) internal virtual {
+        console.log("ERC20::_mint: Minting %s %s tokens to %s.", ammount_, _symbol, account_);
+        console.log("Confirming that minting recipient isn't address 0.");
+        require(account_ != address(0), "ERC20: mint to the zero address");
+        console.log("Confirmed that minting recipient isn't address 0.");
 
-        _beforeTokenTransfer(address(0), account, amount);
+        _beforeTokenTransfer(address(0), account_, ammount_);
 
-        _totalSupply = _totalSupply.add(amount);
-        _balances[account] = _balances[account].add(amount);
-        emit Transfer(address(0), account, amount);
+        console.log("Adding %s to _totalSupply.", ammount_);
+        _totalSupply = _totalSupply.add(ammount_);
+        console.log("_totalSupply is %s.", _totalSupply);
+        console.log("Added %s to totalSupply.", _totalSupply);
+        console.log("Adding %s to balance for address %s.", ammount_, account_);
+        _balances[account_] = _balances[account_].add(ammount_);
+        console.log("Added %s to balance for address %s.", _balances[account_], account_);
+        emit Transfer(address(0), account_, ammount_);
     }
 
     /**

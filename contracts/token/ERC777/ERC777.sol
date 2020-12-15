@@ -7,7 +7,7 @@ import "../../security/Context.sol";
 import "./IERC777.sol";
 import "./IERC777Recipient.sol";
 import "./IERC777Sender.sol";
-import "../../token/ERC20/IERC20.sol";
+import "../../token/ERC20/interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../introspection/IERC1820Registry.sol";
@@ -114,7 +114,7 @@ contract ERC777 is IERC777, IERC20 {
      *
      * This implementation always returns `1`.
      */
-    function granularity() public view override returns (uint256) {
+    function granularity() public pure override returns (uint256) {
         return 1;
     }
 

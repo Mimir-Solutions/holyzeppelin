@@ -1,6 +1,5 @@
-// // SPDX-License-Identifier: MIT
-
-// pragma solidity ^0.6.0;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.5;
 
 
 // /**
@@ -18,7 +17,7 @@
 //  * Can be combined with {SafeMath} and {SignedSafeMath} to extend it to smaller types, by performing
 //  * all math on `uint256` and `int256` and then downcasting.
 //  */
-// library SafeCast {
+library SafeCast {
 
 //     /**
 //      * @dev Returns the downcasted uint128 from uint256, reverting on
@@ -208,4 +207,4 @@
 //         require(value < 2**255, "SafeCast: value doesn't fit in an int256");
 //         return int256(value);
 //     }
-// }
+}

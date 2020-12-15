@@ -33,7 +33,7 @@ contract ERC20PresetMinterPauser is AccessControl, ERC20Burnable, ERC20Pausable 
      *
      * See {ERC20-constructor}.
      */
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+    constructor(string memory name, string memory symbol, uint8 decimals ) ERC20(name, symbol, decimals) {
         _setupRole(DEFAULT_ADMIN_ROLE, Context._msgSender());
 
         _setupRole(MINTER_ROLE, Context._msgSender());

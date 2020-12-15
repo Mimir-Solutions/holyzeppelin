@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./SafeERC20.sol";
+import "../token/ERC20/SafeERC20.sol";
 
 /**
  * @dev A token holder contract that will allow a beneficiary to extract the

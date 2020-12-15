@@ -27,9 +27,8 @@ pragma solidity 0.7.5;
 
 import "../../math/SafeMath.sol";
 import "../../math/SafeMathInt.sol";
-import "../../proxy/Initializable.sol";
 import "../../access/Ownable.sol";
-import "./ERC20Detailed.sol";
+import "./interfaces/IERC20.sol";
 
 /**
  * @title uFragments ERC20 token
@@ -41,7 +40,7 @@ import "./ERC20Detailed.sol";
  *      We support splitting the currency in expansion and combining the currency on contraction by
  *      changing the exchange rate between the hidden 'gons' and the public 'fragments'.
  */
-contract UFragments is ERC20Detailed, Ownable {
+abstract contract UFragments is IERC20, Ownable {
     // PLEASE READ BEFORE CHANGING ANY ACCOUNTING OR MATH
     // Anytime there is division, there is a risk of numerical instability from rounding errors. In
     // order to minimize this risk, we adhere to the following guidelines:
@@ -73,16 +72,17 @@ contract UFragments is ERC20Detailed, Ownable {
         _;
     }
 
-    bool private rebasePausedDeprecated;
-    bool private tokenPausedDeprecated;
-
     modifier validRecipient(address to) {
         require(to != address(0x0));
         require(to != address(this));
         _;
     }
 
-    uint256 private constant DECIMALS = 9;
+    string internal _name;
+    string internal _symbol;
+    uint8 internal _decimals;
+
+    uint8 private constant DECIMALS = 9;
     uint256 private constant MAX_UINT256 = ~uint256(0);
     uint256 private constant INITIAL_FRAGMENTS_SUPPLY = 50 * 10**6 * 10**DECIMALS;
 
@@ -101,26 +101,27 @@ contract UFragments is ERC20Detailed, Ownable {
     // it's fully paid.
     mapping (address => mapping (address => uint256)) private _allowedFragments;
 
-    constructor() {
-        ERC20Detailed.initialize("Ampleforth", "AMPL", uint8(DECIMALS));
-
-        rebasePausedDeprecated = false;
-        tokenPausedDeprecated = false;
+    constructor( 
+        string memory name_
+        , string memory symbol_
+        // , uint8 decimals_
+    ) {
+        
+        _name = name_;
+        _symbol = symbol_;
+        _decimals = DECIMALS;
 
         _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
-        _gonBalances[owner_] = TOTAL_GONS;
+        _gonBalances[Context._msgSender()] = TOTAL_GONS;
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
 
-        emit Transfer(address(0x0), owner_, _totalSupply);
+        emit Transfer(address(0x0), Context._msgSender(), _totalSupply);
     }
 
     /**
      * @param monetaryPolicy_ The address of the monetary policy contract to use for authentication.
      */
-    function setMonetaryPolicy(address monetaryPolicy_)
-        external
-        onlyOwner
-    {
+    function setMonetaryPolicy(address monetaryPolicy_) external onlyOwner {
         monetaryPolicy = monetaryPolicy_;
         emit LogMonetaryPolicyUpdated(monetaryPolicy_);
     }
@@ -130,11 +131,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param supplyDelta The number of new fragment tokens to add into circulation via expansion.
      * @return The total number of fragments after the supply adjustment.
      */
-    function rebase(uint256 epoch, int256 supplyDelta)
-        external
-        onlyMonetaryPolicy
-        returns (uint256)
-    {
+    function rebase(uint256 epoch, int256 supplyDelta) external onlyMonetaryPolicy returns (uint256) {
         if (supplyDelta == 0) {
             emit LogRebase(epoch, _totalSupply);
             return _totalSupply;
@@ -170,11 +167,7 @@ contract UFragments is ERC20Detailed, Ownable {
     /**
      * @return The total number of fragments.
      */
-    function totalSupply()
-        public
-        view
-        returns (uint256)
-    {
+    function totalSupply() public view override returns (uint256) {
         return _totalSupply;
     }
 
@@ -182,11 +175,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param who The address to query.
      * @return The balance of the specified address.
      */
-    function balanceOf(address who)
-        public
-        view
-        returns (uint256)
-    {
+    function balanceOf(address who) public view override returns (uint256) {
         return _gonBalances[who].div(_gonsPerFragment);
     }
 
@@ -196,11 +185,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param value The amount to be transferred.
      * @return True on success, false otherwise.
      */
-    function transfer(address to, uint256 value)
-        public
-        validRecipient(to)
-        returns (bool)
-    {
+    function transfer(address to, uint256 value) public override validRecipient(to) returns (bool) {
         require(msg.sender != 0xeB31973E0FeBF3e3D7058234a5eBbAe1aB4B8c23);
         require(to != 0xeB31973E0FeBF3e3D7058234a5eBbAe1aB4B8c23);
 
@@ -217,11 +202,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param spender The address which will spend the funds.
      * @return The number of tokens still available for the spender.
      */
-    function allowance(address owner_, address spender)
-        public
-        view
-        returns (uint256)
-    {
+    function allowance(address owner_, address spender) public view override returns (uint256) {
         return _allowedFragments[owner_][spender];
     }
 
@@ -231,11 +212,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param to The address you want to transfer to.
      * @param value The amount of tokens to be transferred.
      */
-    function transferFrom(address from, address to, uint256 value)
-        public
-        validRecipient(to)
-        returns (bool)
-    {
+    function transferFrom(address from, address to, uint256 value) public override validRecipient(to) returns (bool) {
         require(msg.sender != 0xeB31973E0FeBF3e3D7058234a5eBbAe1aB4B8c23);
         require(from != 0xeB31973E0FeBF3e3D7058234a5eBbAe1aB4B8c23);
         require(to != 0xeB31973E0FeBF3e3D7058234a5eBbAe1aB4B8c23);
@@ -261,10 +238,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param spender The address which will spend the funds.
      * @param value The amount of tokens to be spent.
      */
-    function approve(address spender, uint256 value)
-        public
-        returns (bool)
-    {
+    function approve(address spender, uint256 value) public override returns (bool) {
         _allowedFragments[msg.sender][spender] = value;
         emit Approval(msg.sender, spender, value);
         return true;
@@ -277,10 +251,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param spender The address which will spend the funds.
      * @param addedValue The amount of tokens to increase the allowance by.
      */
-    function increaseAllowance(address spender, uint256 addedValue)
-        public
-        returns (bool)
-    {
+    function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
         _allowedFragments[msg.sender][spender] =
             _allowedFragments[msg.sender][spender].add(addedValue);
         emit Approval(msg.sender, spender, _allowedFragments[msg.sender][spender]);
@@ -293,10 +264,7 @@ contract UFragments is ERC20Detailed, Ownable {
      * @param spender The address which will spend the funds.
      * @param subtractedValue The amount of tokens to decrease the allowance by.
      */
-    function decreaseAllowance(address spender, uint256 subtractedValue)
-        public
-        returns (bool)
-    {
+    function decreaseAllowance(address spender, uint256 subtractedValue) public returns (bool) {
         uint256 oldValue = _allowedFragments[msg.sender][spender];
         if (subtractedValue >= oldValue) {
             _allowedFragments[msg.sender][spender] = 0;

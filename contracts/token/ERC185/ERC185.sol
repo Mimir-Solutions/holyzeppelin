@@ -1,10 +1,11 @@
-// // SPDX-License-Identifier: MIT
-// pragma solidity 0.7.5;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.5;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 // import "../../security/Context.sol";
-// import "./IERC20.sol";
+import "../ERC20/ERC20.sol";
+import "./interfaces/IERC185.sol";
 // import "../../math/SafeMath.sol";
 
 // /**
@@ -31,7 +32,7 @@
 //  * functions have been added to mitigate the well-known issues around setting
 //  * allowances. See {IERC20-approve}.
 //  */
-// contract ERC185 is ERC20, IERC185 {
+contract ERC185 is ERC20, IERC185 {
 //     using SafeMath for uint256;
 
 //     mapping (address => uint256) internal _balances;
@@ -53,11 +54,7 @@
 //      * All three of these values are immutable: they can only be set once during
 //      * construction.
 //      */
-//     constructor (string memory name_, string memory symbol_) {
-//         _name = name_;
-//         _symbol = symbol_;
-//         _decimals = 18;
-//     }
+    constructor (string memory name_, string memory symbol_, uint8 decimals_) ERC20( name_, symbol_, decimals_) {}
 
 //     /**
 //      * @dev Returns the name of the token.
@@ -304,4 +301,4 @@
 //      * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
 //      */
 //     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
-// }
+}

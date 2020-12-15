@@ -1,5 +1,5 @@
-// // SPDX-License-Identifier: MIT
-// pragma solidity 0.7.5;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.5;
 
 // import "hardhat/console.sol";
 
@@ -18,7 +18,9 @@
 //  * whose only minter is the recipient, so the strategy must be implemented in a derived contract, making use of the
 //  * internal {_mint} function.
 //  */
-// contract GSNRecipientERC20Fee is GSNRecipient {
+contract GSNRecipientERC20Fee 
+    // is GSNRecipient 
+{
 //     using SafeERC20 for __unstable__ERC20Owned;
 //     using SafeMath for uint256;
 
@@ -152,4 +154,4 @@
 //             return super.transferFrom(sender, recipient, amount);
 //         }
 //     }
-// }
+}
