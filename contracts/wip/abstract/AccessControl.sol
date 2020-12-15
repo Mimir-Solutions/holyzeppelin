@@ -1,11 +1,11 @@
-// // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+// SPDX-License-Identifier: AGPL-3.0-or-later
+pragma solidity 0.7.5;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 // import "../libraries/datatypes/collections/EnumerableSet.sol";
 // import "../libraries/datatypes/primitives/Address.sol";
-// import "./Context.sol";
+import "./Context.sol";
 
 // /**
 //  * @dev Contract module that allows children to implement role-based access
@@ -42,7 +42,7 @@
 //  * grant and revoke this role. Extra precautions should be taken to secure
 //  * accounts that have been granted it.
 //  */
-// abstract contract AccessControl is Context {
+abstract contract AccessControl is Context {
 //     using EnumerableSet for EnumerableSet.AddressSet;
 //     using Address for address;
 
@@ -215,4 +215,4 @@
 //             emit RoleRevoked(role, account, Context._msgSender());
 //         }
 //     }
-// }
+}
