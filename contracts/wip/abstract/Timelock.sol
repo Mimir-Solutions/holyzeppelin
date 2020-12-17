@@ -9,7 +9,7 @@
 // Ctrl+f for XXX to see all the modifications.
 // SPDX-License-Identifier: MIT
 // XXX: pragma solidity ^0.5.16;
-pragma solidity 0.7.5;
+pragma solidity 0.8.0;
 
 // // XXX: import "./SafeMath.sol";
 // import "@openzeppelin/contracts/math/SafeMath.sol";
