@@ -4,7 +4,7 @@
  * Rinkerby: 0x92482Ba45A4D2186DafB486b322C6d0B88410FE7
 */
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.5;
+pragma solidity 0.8.0;
 
 interface IDateTime {
 
