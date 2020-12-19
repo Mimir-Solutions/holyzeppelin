@@ -42,13 +42,6 @@ contract ERC1820EnhancedRegistry is ERC1820Registry, ERC1820EnhancedRegistar {
     console.log("ERC1820_REGISTRY_INTERFACE_ERC165_ID interface ID: %s", ERC1820_REGISTRY_INTERFACE_ERC165_ID);
 
     console.log("Registering ERC1820Registry ERC165 interface ID.");
-    console.log("ERC165 interface ERC1820Registry ID: %s", ERC1820_REGISTRY_INTERFACE_ERC165_ID);
-    _registerERC165CompliantInterfaceID( address(this), ERC1820_REGISTRY_INTERFACE_ERC165_ID);
-    console.log("Registered ERC1820Registry ERC165 interface ID.");
-
-    // Derived contracts need only register support for their own interfaces,
-    // we register support for ERC1820Implementer itself here
-    console.log("Registering ERC1820Registry ERC165 interface ID.");
     console.log("ERC1820Registry interface ERC165 ID: %s", ERC1820_REGISTRY_INTERFACE_ERC165_ID);
     _registerInterface( ERC1820_REGISTRY_INTERFACE_ERC165_ID );
     console.log("Registered ERC1820Registry ERC165 interface ID.");
@@ -56,14 +49,25 @@ contract ERC1820EnhancedRegistry is ERC1820Registry, ERC1820EnhancedRegistar {
     console.log("Registering ERC1820Registry ERC165 interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ERC165_ID, address(this));
     _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ERC165_ID, address(this) );
     console.log("Registered ERC1820Registry ERC165 interface ID.");
-    
-    console.log("Registering ERC1820Registry ERC1820Implementer interface ID of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ID, address(this));
-    _registerERC1820CompliantInterfaceID( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
+
+    console.log("Registering ERC165 ERC165 interface ID.");
+    console.log("ERC165 interface ERC165 ID: %s", ERC165_INTERFACE_ID);
+    _registerERC165CompliantInterfaceID( address(this), ERC165_INTERFACE_ID);
+    console.log("Registered ERC165 ERC165 interface ID.");
+
+    console.log("Registering ERC1820Implementer ERC165 interface ID.");
+    console.log("ERC1820Implementer interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID);
+    _registerERC165CompliantInterfaceID( address(this), ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID);
     console.log("Registered ERC1820Implementer ERC165 interface ID.");
 
-    console.log("Registering ERC1820Registry ERC1820Registry interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
-    _registerERC1820CompliantInterfaceID( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
-    console.log("Registered ERC1820Registry ERC1820Registry interface ID.");
+    console.log("Registering ERC1820Registry ERC165 interface ID.");
+    console.log("ERC1820Registry ERC165 interface ID: %s", ERC1820_REGISTRY_INTERFACE_ERC165_ID);
+    _registerERC165CompliantInterfaceID( address(this), ERC1820_REGISTRY_INTERFACE_ERC165_ID);
+    console.log("Registered ERC1820Registry ERC165 interface ID.");
+
+    console.log("Registering ERC165 ERC1820 interface ID of %s for %s.", ERC165_INTERFACE_ERC1820_ID, address(this));
+    _registerERC1820CompliantInterfaceID( ERC165_INTERFACE_ERC1820_ID, address(this) );
+    console.log("Registered ERC165 ERC1820 interface ID.");
 
     console.log("Instantiated ERC1820EnhancedRegistry.");
   }

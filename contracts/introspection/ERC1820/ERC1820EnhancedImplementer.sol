@@ -15,8 +15,11 @@ import "./IERC1820Implementer.sol";
  */
 abstract contract ERC1820EnhancedImplementer is ERC165Enhanced, ERC1820Implementer {
 
+  bytes32 immutable public ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID;
+  bytes32 immutable public ERC165_INTERFACE_ERC1820_ID;
+
   constructor () {
-    console.log("Instantiating ERC1820Implementer.");
+    console.log("Instantiating ERC1820EnhancedImplementer.");
 
     console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
     ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID = bytes4(keccak256('canImplementInterfaceForAddress(bytes32,address)')));
@@ -26,13 +29,13 @@ abstract contract ERC1820EnhancedImplementer is ERC165Enhanced, ERC1820Implement
     // Derived contracts need only register support for their own interfaces,
     // we register support for ERC1820Implementer itself here
     console.log("Registering ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
-    console.log("IERC1820Implementer interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID);
+    console.log("ERC1820EnhancedImplementer interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID);
     _registerInterface( ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID );
     console.log("Registered ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
 
     console.log("Registering ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID, address(this));
     _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID, address(this) );
-    console.log("Registered IERC1820Implementer.");
+    console.log("Registered ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
 
     console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
     ERC165_INTERFACE_ERC1820_ID = keccak256('ERC165');
@@ -41,8 +44,8 @@ abstract contract ERC1820EnhancedImplementer is ERC165Enhanced, ERC1820Implement
 
     console.log("Registering ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID of %s for %s.", ERC165_INTERFACE_ERC1820_ID, address(this));
     _registerInterfaceForAddress( ERC165_INTERFACE_ERC1820_ID, address(this) );
-    console.log("Registered IERC1820Implementer.");
+    console.log("Registered ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
 
-    console.log("Instantiated ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
+    console.log("Instantiated ERC1820EnhancedImplementer.");
   }
 }
