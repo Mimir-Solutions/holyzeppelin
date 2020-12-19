@@ -44,7 +44,7 @@ library EnumerableSet {
      * Returns true if the value was added to the set, that is if it was not
      * already present.
      */
-    function _add(TinySet storage tinySet_, bytes32 value_) private returns (bool) {
+    function _add(TinySet storage tinySet_, bytes4 value_) private returns (bool) {
         if (!_contains(tinySet_, value_)) {
             tinySet_._values.push(value_);
             // The value is stored at length-1, but we add 1 to all indexes
@@ -62,7 +62,7 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function _remove(TinySet storage tinySet_, bytes32 value_) private returns (bool) {
+    function _remove(TinySet storage tinySet_, bytes4 value_) private returns (bool) {
         // We read and store the value's index to prevent multiple reads from the same storage slot
         uint256 valueIndex_ = tinySet_._indexes[value_];
 
@@ -99,7 +99,7 @@ library EnumerableSet {
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function _contains(TinySet storage tinySet_, bytes32 value_) private view returns (bool) {
+    function _contains(TinySet storage tinySet_, bytes4 value_) private view returns (bool) {
         return tinySet_._indexes[value_] != 0;
     }
 
@@ -120,9 +120,61 @@ library EnumerableSet {
     *
     * - `index` must be strictly less than {length}.
     */
-    function _at(TinySet storage tinySet_, uint256 index_) private view returns (bytes32) {
+    function _at(TinySet storage tinySet_, uint256 index_) private view returns (bytes4) {
         require(tinySet_._values.length > index_, "EnumerableSet: index out of bounds");
         return tinySet_._values[index_];
+    }
+
+    struct Bytes4Set {
+        TinySet _inner;
+    }
+
+    /**
+     * @dev Add a value to a set. O(1).
+     *
+     * Returns true if the value was added to the set, that is if it was not
+     * already present.
+     */
+    function add(Bytes4Set storage set, bytes32 value) internal returns (bool) {
+        return _add(set._inner, value);
+    }
+
+    /**
+     * @dev Removes a value from a set. O(1).
+     *
+     * Returns true if the value was removed from the set, that is if it was
+     * present.
+     */
+    function remove(Bytes4Set storage set, bytes32 value) internal returns (bool) {
+        return _remove(set._inner, value);
+    }
+
+    /**
+     * @dev Returns true if the value is in the set. O(1).
+     */
+    function contains(Bytes4Set storage set, bytes32 value) internal view returns (bool) {
+        return _contains(set._inner, value);
+    }
+
+    /**
+     * @dev Returns the number of values on the set. O(1).
+     */
+    function length(Bytes4Set storage set) internal view returns (uint256) {
+        return _length(set._inner);
+    }
+
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(Bytes4Set storage set, uint256 index) internal view returns ( bytes32 ) {
+        return _at(set._inner, index);
     }
 
     // To implement this library for multiple types with as little code
