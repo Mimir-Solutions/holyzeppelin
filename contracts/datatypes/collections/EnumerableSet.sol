@@ -282,6 +282,23 @@ library EnumerableSet {
         return set._values[index];
     }
 
+    function _getValues( Set storage set_ ) private view returns ( bytes32[] ) {
+      return set_._values;
+    }
+
+  // TODO needs insert function that maintains order.
+  // TODO needs NatSpec documentation comment.
+  /**
+   * Inserts new value by moving existing value at provided index to end of array and setting provided value at provided index
+   */
+  function _insert(Set storage set_, uint256 index_, bytes32 valueToInsert_ ) returns ( bool ) {
+    require(  index_ < set_._values.length );
+    require( !_contains( set_, valueToInsert_ ), "Remove value you wish to insert if you wish to reorder array." );
+    bytes32 existingValue_ = _at( set_, index_ );
+    set_._values[index_] = valueToInsert_;
+    return _add( set_, existingValue_);
+  }
+
     struct Bytes32Set {
         Set _inner;
     }
@@ -387,6 +404,18 @@ library EnumerableSet {
     function at(AddressSet storage set, uint256 index) internal view returns (address) {
         return address(uint256(_at(set._inner, index)));
     }
+
+    /**
+     * TODO Might require explicit conversion of bytes32[] to address[].
+     *  Might require iteration.
+     */
+    function getValues( AddressSet storage set_ ) internal view internal returns ( address[] ) {
+      return set._inner.getValue();
+    }
+
+    function _insert(AddressSet storage set_, uint256 index_, bytes32 valueToInsert_ ) returns ( bool ) {
+    return _insert( set_._inner, index_, valueToInsert_ );
+  }
 
 
     // UintSet

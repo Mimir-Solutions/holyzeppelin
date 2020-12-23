@@ -99,27 +99,39 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     /// @param _interfaceHash Keccak256 hash of the name of the interface as a string.
     /// E.g., 'web3.utils.keccak256("ERC777TokensRecipient")' for the 'ERC777TokensRecipient' interface.
     /// @param _implementer Contract address implementing '_interfaceHash' for '_addr'.
-    function setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) external {
-        address addr = _addr == address(0) ? msg.sender : _addr;
-        require(getManager(addr) == msg.sender, "Not the manager");
-
-        require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
-        if (_implementer != address(0) && _implementer != msg.sender) {
-            require(
-                ERC1820ImplementerInterface(_implementer)
-                    .canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC,
-                "Does not implement the interface"
-            );
-        }
-        interfaces[addr][_interfaceHash] = _implementer;
-        emit InterfaceImplementerSet(addr, _interfaceHash, _implementer);
+    function setInterfaceImplementer( address _addr, bytes32 _interfaceHash, address _implementer ) external {
+      address addr = _addr == address(0) ? msg.sender : _addr;
+      require(getManager(addr) == msg.sender, "Not the manager");
+      _setInterfaceImplementer _addr, _interfaceHash, _implementer );
     }
+
+  function _setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) internal virtual {
+    require( _implementer.isContract() );
+    require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
+    if (_implementer != address(0) && _implementer != msg.sender) {
+      require( _requireImplementsERC1820Interface( address _implementer, address addr, bytes32 _interfaceHash )
+        // ERC1820ImplementerInterface(_implementer)
+        //   .canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC,
+        //   "Does not implement the interface"
+        // );
+    }
+    interfaces[addr][_interfaceHash] = _implementer;
+    emit InterfaceImplementerSet(addr, _interfaceHash, _implementer);
+  }
+
+  function _requireImplementsERC1820Interface( address registry_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal {
+    require( IERC1820Implementer(registry_).canImplementInterfaceForAddress(_interfaceHash, addressToVerify_) == ERC1820_ACCEPT_MAGIC, "Does not implement the interface");
+  }
 
     /// @notice Sets '_newManager' as manager for '_addr'.
     /// The new manager will be able to call 'setInterfaceImplementer' for '_addr'.
     /// @param _addr Address for which to set the new manager.
     /// @param _newManager Address of the new manager for 'addr'. (Pass '0x0' to reset the manager to '_addr'.)
     function setManager(address _addr, address _newManager) external {
+         _setManager( _addr, _newManager );
+    }
+
+    function _setManager(address _addr, address _newManager) internal {
         require(getManager(_addr) == msg.sender, "Not the manager");
         managers[_addr] = _newManager == _addr ? address(0) : _newManager;
         emit ManagerChanged(_addr, _newManager);
@@ -128,7 +140,10 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     /// @notice Get the manager of an address.
     /// @param _addr Address for which to return the manager.
     /// @return Address of the manager for a given address.
-    function getManager(address _addr) public view returns(address) {
+    function getManager(address _addr) external view virtual returns(address) {
+        return _getManager(address _addr);
+    }
+    function _getManager(address _addr) internal view virtual returns(address) {
         // By default the manager of an address is the same address
         if (managers[_addr] == address(0)) {
             return _addr;
@@ -140,6 +155,10 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     /// @notice Compute the keccak256 hash of an interface given its name.
     /// @param _interfaceName Name of the interface.
     /// @return The keccak256 hash of an interface name.
+    function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
+        return keccak256(abi.encodePacked(_interfaceName));
+    }
+
     function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
         return keccak256(abi.encodePacked(_interfaceName));
     }
