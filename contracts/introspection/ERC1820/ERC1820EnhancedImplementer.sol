@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./IERC1820Implementer.sol";
+import "./ERC1820Implementer.sol";
 
 /**
  * @dev Implementation of the {IERC1820Implementer} interface.

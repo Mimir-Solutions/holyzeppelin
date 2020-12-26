@@ -1,11 +1,11 @@
 pragma solidity 0.5.17;
 
-import "../lib/SafeMath.sol";
+// import "../lib/SafeMath.sol";
 
 // Storage for a VELO token
 contract VELOTokenStorage {
 
-    using SafeMath for uint256;
+    // using SafeMath for uint256;
 
     /**
      * @dev Guard variable for re-entrancy checks. Not currently used

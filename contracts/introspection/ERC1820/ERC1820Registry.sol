@@ -2,9 +2,8 @@
 pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
-import "./ERC165/ERC165.sol";
-import "./ERC1820Implementer.sol";
-import "./intefraces/I1820Registry.sol";
+import "./ERC1820Registrar.sol";
+import "./interfaces/IERC1820Registry.sol";
 import "../../security/Context.sol";
 
 /**

@@ -1,10 +1,10 @@
-pragma solidity 0.5.12;
+pragma solidity 0.8.0;
 
-import "@nomiclabs/buidler/console.sol";
+import "hardhat/console.sol";
 
-import "@openzeppelin/contracts/math/Math.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/EnumerableSet.sol";
+import "../../../../math/Math.sol";
+import "../../../../math/SafeMath.sol";
+import "../../../../datatypes/collections/EnumerableSet.sol";
 
 interface IBPool {
     function getDenormalizedWeight(address token) external view returns(uint256);

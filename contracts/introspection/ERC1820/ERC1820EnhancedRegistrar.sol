@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.5;
+pragma solidity 0.8.0;
 import "hardhat/console.sol";
 
-import "../../access/Ownable.sol";
-import "./ERC1820/ERC1820Implementer.sol";
-import "./intefraces/IERC1820Registry.sol";
+import "./ERC1820Implementer.sol";
 
 /**
  * @dev As per the ERC1820 OepnZeppelin Implementation for setManager:
