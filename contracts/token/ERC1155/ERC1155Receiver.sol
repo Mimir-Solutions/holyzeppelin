@@ -3,7 +3,7 @@ pragma solidity 0.7.6;
 
 import "hardhat/console.sol";
 
-import "./interfaces/IERC1155Receiver.sol";
+import "./IERC1155Receiver.sol";
 import "../../introspection/ERC165/ERC165.sol";
 
 /**
