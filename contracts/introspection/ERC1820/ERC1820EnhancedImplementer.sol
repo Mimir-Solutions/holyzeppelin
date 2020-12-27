@@ -22,7 +22,7 @@ abstract contract ERC1820EnhancedImplementer is ERC165Enhanced, ERC1820Implement
     console.log("Instantiating ERC1820EnhancedImplementer.");
 
     console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
-    ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID = bytes4(keccak256('canImplementInterfaceForAddress(bytes32,address)')));
+    ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID = bytes4(keccak256('canImplementInterfaceForAddress(bytes32,address)'));
     console.log("Calculated ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID.");
     console.log("ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ERC165_ID);
     

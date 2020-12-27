@@ -101,7 +101,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     function setInterfaceImplementer( address _addr, bytes32 _interfaceHash, address _implementer ) external {
       address addr = _addr == address(0) ? msg.sender : _addr;
       require(getManager(addr) == msg.sender, "Not the manager");
-      _setInterfaceImplementer _addr, _interfaceHash, _implementer );
+      _setInterfaceImplementer( _addr, _interfaceHash, _implementer );
     }
 
   function _setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) internal virtual {

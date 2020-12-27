@@ -2,7 +2,7 @@
 pragma solidity 0.7.6
 
 
-import ".,/../introspection/ERC1820ERC1820EnhancedImplementer.sol";
+import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
 import "./ERC20Burnable.sol";
 import "../../security/Context.sol";
 

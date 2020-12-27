@@ -409,7 +409,7 @@ library EnumerableSet {
      * TODO Might require explicit conversion of bytes32[] to address[].
      *  Might require iteration.
      */
-    function getValues( AddressSet storage set_ ) internal view internal returns ( address[] ) {
+    function getValues( AddressSet storage set_ ) internal view returns ( address[] ) {
       return set._inner.getValue();
     }
 
