@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-pragma solidity 0.7.6;import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
+pragma solidity 0.7.6;
+
+import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
 import "./ERC20Burnable.sol";
 import "../../security/Context.sol";
 
