@@ -1,4 +1,4 @@
-pragma solidity 0.5.17;
+pragma solidity 0.7.6;
 
 import "./VELOTokenInterface.sol";
 import "./VELODelegate.sol";
