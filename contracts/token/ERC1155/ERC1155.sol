@@ -3,9 +3,9 @@ pragma solidity 0.7.6;
 
 import "hardhat/console.sol";
 
-import "./IERC1155.sol";
-import "./IERC1155MetadataURI.sol";
-import "./IERC1155Receiver.sol";
+import "./interfaces/IERC1155.sol";
+import "./interfaces/IERC1155MetadataURI.sol";
+import "./interfaces/IERC1155Receiver.sol";
 import "../../security/Context.sol";
 import "../../introspection/ERC165/ERC165.sol";
 import "../../math/SafeMath.sol";
