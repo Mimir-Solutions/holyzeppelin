@@ -1,4 +1,4 @@
-pragma solidity 0.7.6;
+pragma solidity ^0.5.17;
 
 interface ICHI {
     function mint(uint256 value) external;
