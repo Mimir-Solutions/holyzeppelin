@@ -107,19 +107,19 @@
 //       _setInterfaceImplementer( _addr, _interfaceHash, _implementer );
 //     }
 
-//   function _setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) internal virtual {
-//     require( _implementer.isContract() );
-//     require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
-//     if (_implementer != address(0) && _implementer != msg.sender) {
-//       require( _requireImplementsERC1820Interface( _implementer, addr, _interfaceHash )
-//         // Was previous evaluation. Moved to own internal function for reuse.
-//         // IERC1820Implementer(_implementer).canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC
-//           ,"Does not implement the interface"
-//         );
-//     }
-//     interfaces[addr][_interfaceHash] = _implementer;
-//     emit InterfaceImplementerSet(addr, _interfaceHash, _implementer);
-//   }
+  function _setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) internal virtual {
+    require( _implementer.isContract() );
+    require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
+    if (_implementer != address(0) && _implementer != msg.sender) {
+      require( _requireImplementsERC1820Interface( _implementer, addr, _interfaceHash )
+        // ERC1820ImplementerInterface(_implementer)
+        //   .canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC,
+        ,"Does not implement the interface"
+      );
+    }
+    interfaces[addr][_interfaceHash] = _implementer;
+    emit InterfaceImplementerSet(addr, _interfaceHash, _implementer);
+  }
 
 //   function _requireImplementsERC1820Interface( address registry_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal {
 //     require( IERC1820Implementer(registry_).canImplementInterfaceForAddress(_interfaceHash, addressToVerify_) == ERC1820_ACCEPT_MAGIC, "Does not implement the interface");
@@ -139,20 +139,20 @@
 //         emit ManagerChanged(_addr, _newManager);
 //     }
 
-//     // Get the manager of an address.
-//     /// @param _addr Address for which to return the manager.
-//     /// @return Address of the manager for a given address.
-//     function getManager(address _addr) external view virtual returns(address) {
-//         return _getManager( _addr );
-//     }
-//     function _getManager(address _addr) internal view virtual returns(address) {
-//         // By default the manager of an address is the same address
-//         if (managers[_addr] == address(0)) {
-//             return _addr;
-//         } else {
-//             return managers[_addr];
-//         }
-//     }
+    /// @notice Get the manager of an address.
+    /// @param _addr Address for which to return the manager.
+    /// @return Address of the manager for a given address.
+    function getManager(address _addr) external view virtual returns(address) {
+        return _getManager( _addr);
+    }
+    function _getManager(address _addr) internal view virtual returns(address) {
+        // By default the manager of an address is the same address
+        if (managers[_addr] == address(0)) {
+            return _addr;
+        } else {
+            return managers[_addr];
+        }
+    }
 
 //     // Compute the keccak256 hash of an interface given its name.
 //     /// @param _interfaceName Name of the interface.

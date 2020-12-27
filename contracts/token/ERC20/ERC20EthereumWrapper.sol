@@ -29,6 +29,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
   fallback() external payable {
     wrap();
   }
+
   receive() external payable {
     wrap();
   }
@@ -38,7 +39,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
   }
   
   function unwrap( uint256 amountToUnwrap_ ) public {
-    require( _balances[Context._msgSender()] >= amountToUnwrap_) ;
+    require( _balanceOf[Context._msgSender()] >= amountToUnwrap_) ;
     _unwrap( amountToUnwrap_ );
   }
 
@@ -48,8 +49,8 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
   }
 
   function unwrapFrom( address account_, uint256 amountToUnwrap_ ) public {
-    require( _balances[Context._msgSender()] >= amountToUnwrap_) ;
-    uint256 decreasedAllowance_ = allowance( account_, Context._msgSender() ).sub( amountToUnwrap_, "ERC20: burn amount exceeds allowance");
+    require( _balanceOf[Context._msgSender()] >= amountToUnwrap_) ;
+    uint256 decreasedAllowance_ = allowance( account_, Context._msgSender() ).sub( amount_, "ERC20: burn amount exceeds allowance");
     _approve( account_, Context._msgSender(), decreasedAllowance_ );
   }
 }
