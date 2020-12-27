@@ -40,7 +40,7 @@ abstract contract ERC165Enhanced is IERC165Enhanced, ERC165 {
       // Derived contracts need only register support for their own interfaces,
       // we register support for ERC165Enhanced itself here
       console.log("Calculating ERC165_ENHANCED_INTERFACE_ID.");
-      ERC165_ENHANCED_INTERFACE_ID = bytes4(keccak256('supportedFunctionSelectors()')));
+      ERC165_ENHANCED_INTERFACE_ID = bytes4(keccak256('supportedFunctionSelectors()'));
       console.log("Calculated ERC165_ENHANCED_INTERFACE_ID.");
       console.log("ERC165_ENHANCED_INTERFACE_ID interface ID: %s", ERC165_ENHANCED_INTERFACE_ID);
       console.log("Registering ERC165_ENHANCED_INTERFACE_ID.");

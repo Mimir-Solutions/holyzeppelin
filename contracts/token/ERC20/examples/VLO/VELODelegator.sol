@@ -344,7 +344,7 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         (bool success, bytes memory returnData) = callee.delegatecall(data);
         assembly {
             if eq(success, 0) {
-                revert(add(returnData, 0x20), returndatasize)
+                revert(add(returnData, 0x20), returndatasize())
             }
         }
         return returnData;
@@ -371,7 +371,7 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         (bool success, bytes memory returnData) = address(this).staticcall(abi.encodeWithSignature("delegateToImplementation(bytes)", data));
         assembly {
             if eq(success, 0) {
-                revert(add(returnData, 0x20), returndatasize)
+                revert(add(returnData, 0x20), returndatasize())
             }
         }
         return abi.decode(returnData, (bytes));
@@ -382,11 +382,11 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
 
         assembly {
             let free_mem_ptr := mload(0x40)
-            returndatacopy(free_mem_ptr, 0, returndatasize)
+            returndatacopy(free_mem_ptr, 0, returndatasize())
 
             switch success
-            case 0 { revert(free_mem_ptr, returndatasize) }
-            default { return(add(free_mem_ptr, 0x40), returndatasize) }
+            case 0 { revert(free_mem_ptr, returndatasize()) }
+            default { return(add(free_mem_ptr, 0x40), returndatasize()) }
         }
     }
 
@@ -395,11 +395,11 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
 
         assembly {
             let free_mem_ptr := mload(0x40)
-            returndatacopy(free_mem_ptr, 0, returndatasize)
+            returndatacopy(free_mem_ptr, 0, returndatasize())
 
             switch success
-            case 0 { revert(free_mem_ptr, returndatasize) }
-            default { return(free_mem_ptr, returndatasize) }
+            case 0 { revert(free_mem_ptr, returndatasize()) }
+            default { return(free_mem_ptr, returndatasize()) }
         }
     }
 
@@ -407,7 +407,7 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
      * @notice Delegates execution to an implementation contract
      * @dev It returns to the external caller whatever the implementation returns or forwards reverts
      */
-    function () external payable {
+    receive () external payable {
         require(msg.value == 0,"VELODelegator:fallback: cannot send value to fallback");
 
         // delegate all other functions to current implementation

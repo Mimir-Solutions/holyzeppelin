@@ -37,7 +37,7 @@ abstract contract ERC20Burnable is ERC20 {
      * `amount`.
      */
     function burnFrom( address account_, uint256 amount_ ) public virtual {
-        _burnFrom( address account_, uint256 amount_ ) 
+        _burnFrom(account_, amount_ );
     }
 
     function _burnFrom( address account_, uint256 amount_ ) public virtual {

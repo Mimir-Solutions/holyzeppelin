@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-pragma solidity 0.7.6
-
-
-import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
+pragma solidity 0.7.6;import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
 import "./ERC20Burnable.sol";
 import "../../security/Context.sol";
 
@@ -27,7 +24,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
     console.log("Instantiated ERC20EthereumWrapper.");
   }
 
-  function() external payable {
+  receive() external payable {
     wrap();
   }
   
@@ -37,7 +34,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
   
   function unwrap( uint256 amountToUnwrap_ ) public {
     require( _balanceOf[Context._msgSender()] >= amountToUnwrap_) ;
-    _unwrap( uint256 amountToUnwrap_ );
+    _unwrap( amountToUnwrap_ );
   }
 
   function _unwrap( uint256 amountToUnwrap_ ) public {
@@ -45,7 +42,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
     Context._msgSender().transfer(amountToUnwrap_);
   }
 
-  function unwrapFrom( address account_ uint256 amountToUnwrap_ ) public {
+  function unwrapFrom( address account_, uint256 amountToUnwrap_ ) public {
     require( _balanceOf[Context._msgSender()] >= amountToUnwrap_) ;
     uint256 decreasedAllowance_ = allowance( account_, Context._msgSender() ).sub( amount_, "ERC20: burn amount exceeds allowance");
     _approve( account_, Context._msgSender(), decreasedAllowance_ );

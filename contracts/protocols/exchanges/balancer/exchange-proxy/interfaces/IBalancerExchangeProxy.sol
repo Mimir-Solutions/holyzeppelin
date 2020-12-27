@@ -79,5 +79,5 @@ interface ExchangeProxy is Ownable {
 
     function isETH(TokenInterface token) internal pure returns(bool);
 
-    function() external payable {};
+    receive() external payable;
 }

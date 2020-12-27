@@ -561,5 +561,5 @@ contract ExchangeProxy is Ownable {
         return (address(token) == ETH_ADDRESS);
     }
 
-    function() external payable {}
+    receive() external payable {}
 }

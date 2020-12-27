@@ -23,7 +23,7 @@ import "./ERC1820Implementer.sol";
  */
 abstract contract ERC1820EnhancedRegistar is ERC1820EnhancedImplementer {
 
-  function _registerERC165CompliantInterfaceID( address implementer_. bytes4 interfaceID_ ) private {
+  function _registerERC165CompliantInterfaceID( address implementer_, bytes4 interfaceID_ ) private {
     registry.updateERC165Cache( implementer_, interfaceID_ );
   }
 }
