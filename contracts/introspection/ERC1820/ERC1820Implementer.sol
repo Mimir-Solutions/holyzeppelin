@@ -26,7 +26,7 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
     console.log("Instantiating ERC1820Implementer.");
 
     console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ID.");
-    ERC1820_IMPLEMENTER_INTERFACE_ID = keccak256("ERC1820Implementer");
+    ERC1820_IMPLEMENTER_INTERFACE_ID = _interfaceHash("ERC1820Implementer");
     console.log("Calculated ERC1820_IMPLEMENTER_INTERFACE_ID.");
     console.log("ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ID);
     
@@ -56,5 +56,13 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
   function _registerInterfaceForAddress(bytes32 interfaceHash_, address account_) internal virtual {
     require( ERC165Checker.supportsInterface(account_, interfaceHash_) );
     _supportedInterfaces[interfaceHash_][account_] = true;
+  }
+
+  function _interfaceHash(string calldata _interfaceName) internal pure returns(bytes32) {
+    return keccak256(abi.encodePacked(_interfaceName));
+  }
+
+  function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
+    return _interfaceHash( _interfaceName );
   }
 }

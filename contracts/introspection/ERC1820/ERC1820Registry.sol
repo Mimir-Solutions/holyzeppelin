@@ -158,10 +158,6 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
         return keccak256(abi.encodePacked(_interfaceName));
     }
 
-    function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
-        return keccak256(abi.encodePacked(_interfaceName));
-    }
-
     /* --- ERC165 Related Functions --- */
     /* --- Developed in collaboration with William Entriken. --- */
 
