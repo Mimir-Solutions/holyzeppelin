@@ -4,6 +4,7 @@ import "hardhat/console.sol";
 
 import "./ERC1820Registrar.sol";
 import "./interfaces/IERC1820Registry.sol";
+import "./interfaces/IERC1820Implementer.sol";
 import "../../security/Context.sol";
 
 /**
@@ -21,6 +22,8 @@ import "../../security/Context.sol";
  * For an in-depth explanation and source code analysis, see the EIP text.
  */
 contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
+
+  using IERC1820Implementer for IERC1820Implementer;
 
   // @notice Indicates a contract is the 'implementer' of 'interfaceHash' for 'addr'.
   event InterfaceImplementerSet(address indexed addr, bytes32 indexed interfaceHash, address indexed implementer);
@@ -108,11 +111,11 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     require( _implementer.isContract() );
     require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
     if (_implementer != address(0) && _implementer != msg.sender) {
-      require( _requireImplementsERC1820Interface( implementer, addr, _interfaceHash ) );
-        // ERC1820ImplementerInterface(_implementer)
-        //   .canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC,
-        //   "Does not implement the interface"
-        // );
+      require( _requireImplementsERC1820Interface( _implementer, addr, _interfaceHash )
+        // Was previous evaluation. Moved to own internal function for reuse.
+        // IERC1820Implementer(_implementer).canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC
+          ,"Does not implement the interface"
+        );
     }
     interfaces[addr][_interfaceHash] = _implementer;
     emit InterfaceImplementerSet(addr, _interfaceHash, _implementer);
