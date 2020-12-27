@@ -58,11 +58,11 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
     _supportedInterfaces[interfaceHash_][account_] = true;
   }
 
-  function _interfaceHash(string calldata _interfaceName) internal pure returns(bytes32) {
-    return keccak256(abi.encodePacked(_interfaceName));
-  }
+  // function _interfaceHash(string calldata _interfaceName) internal pure returns(bytes32) {
+  //   return keccak256(abi.encodePacked(_interfaceName));
+  // }
 
-  function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
-    return _interfaceHash( _interfaceName );
-  }
+  // function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
+  //   return _interfaceHash( _interfaceName );
+  // }
 }
