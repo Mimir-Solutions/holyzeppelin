@@ -3,6 +3,7 @@ pragma solidity 0.7.6;
 import "hardhat/console.sol";
 
 import "./ERC1820Implementer.sol";
+import "./interfaces/IERC1820Registry.sol";
 
 /**
  * @dev As per the ERC1820 OepnZeppelin Implementation for setManager:

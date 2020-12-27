@@ -66,7 +66,7 @@ library EnumerableSet {
         // We read and store the value's index to prevent multiple reads from the same storage slot
         uint256 valueIndex_ = tinySet_._indexes[value_];
 
-        if (valueIndex != 0) { // Equivalent to contains(set, value)
+        if (valueIndex_ != 0) { // Equivalent to contains(set, value)
             // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
             // the array, and then remove the last element (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
@@ -80,9 +80,9 @@ library EnumerableSet {
             bytes32 lastvalue_ = tinySet_._values[lastIndex_];
 
             // Move the last value to the index where the value to delete is
-            set._values[toDeleteIndex_] = lastvalue;
+            tinySet_._values[toDeleteIndex_] = lastIndex_;
             // Update the index for the moved value
-            set._indexes[lastvalue_] = toDeleteIndex_ + 1; // All indexes are 1-based
+            tinySet_._indexes[lastvalue_] = toDeleteIndex_ + 1; // All indexes are 1-based
 
             // Delete the slot where the moved value was stored
             tinySet_._values.pop();
@@ -410,7 +410,7 @@ library EnumerableSet {
      *  Might require iteration.
      */
     function getValues( AddressSet storage set_ ) internal view returns ( address[] ) {
-      return set._inner.getValue();
+      return set_._inner.getValue();
     }
 
     function _insert(AddressSet storage set_, uint256 index_, bytes32 valueToInsert_ ) internal returns ( bool ) {

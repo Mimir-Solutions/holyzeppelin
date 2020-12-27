@@ -23,7 +23,9 @@ library Math {
 }
 
 
-contract VELOToken is VELOGovernanceToken {
+contract VELOToken 
+//is VELOGovernanceToken 
+{
   //   // Modifiers
   //   modifier onlyGov() {
   //       require(msg.sender == gov);

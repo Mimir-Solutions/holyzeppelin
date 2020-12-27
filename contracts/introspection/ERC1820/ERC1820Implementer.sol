@@ -54,7 +54,7 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
    * {IERC1820Registry-interfaceHash}.
    */
   function _registerInterfaceForAddress(bytes32 interfaceHash_, address account_) internal virtual {
-    require( ERC165Checker.supportsInterface(account_, interfaceHash_) );
+    //require( ERC165Checker.supportsInterface(account_, interfaceHash_) );
     _supportedInterfaces[interfaceHash_][account_] = true;
   }
 

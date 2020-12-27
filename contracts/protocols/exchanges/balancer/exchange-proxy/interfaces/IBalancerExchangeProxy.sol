@@ -17,6 +17,8 @@
 
 pragma solidity 0.7.6;
 pragma experimental ABIEncoderV2;
+import "../../../../../access/Ownable.sol";
+import "../../../../../math/SafeMath.sol";
 
 interface ExchangeProxy is Ownable {
 
@@ -47,37 +49,37 @@ interface ExchangeProxy is Ownable {
 
     function setRegistry(address _registry) external;
 
-    function batchSwapExactIn( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
+    // function batchSwapExactIn( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
 
-    function batchSwapExactOut( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn ) public;
+    // function batchSwapExactOut( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn ) public;
 
-    function multihopBatchSwapExactIn( Swap[][] memory swapSequences, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
+    // function multihopBatchSwapExactIn( Swap[][] memory swapSequences, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
 
-    function multihopBatchSwapExactOut( Swap[][] memory swapSequences, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn ) public payable returns (uint totalAmountIn);
+    // function multihopBatchSwapExactOut( Swap[][] memory swapSequences, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn ) public payable returns (uint totalAmountIn);
 
-    function smartSwapExactIn( TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut, uint nPools ) public payable returns (uint totalAmountOut);
+    // function smartSwapExactIn( TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut, uint nPools ) public payable returns (uint totalAmountOut);
 
-    function smartSwapExactOut( TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountOut, uint maxTotalAmountIn, uint nPools ) public payable returns (uint totalAmountIn);
+    // function smartSwapExactOut( TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountOut, uint maxTotalAmountIn, uint nPools ) public payable returns (uint totalAmountIn);
 
-    function viewSplitExactIn( address tokenIn, address tokenOut, uint swapAmount, uint nPools ) public view returns (Swap[] memory swaps, uint totalOutput);
+    // function viewSplitExactIn( address tokenIn, address tokenOut, uint swapAmount, uint nPools ) public view returns (Swap[] memory swaps, uint totalOutput);
 
-    function viewSplitExactOut( address tokenIn, address tokenOut, uint swapAmount, uint nPools ) public view returns (Swap[] memory swaps, uint totalOutput);
+    // function viewSplitExactOut( address tokenIn, address tokenOut, uint swapAmount, uint nPools ) public view returns (Swap[] memory swaps, uint totalOutput);
 
-    function getPoolData( address tokenIn, address tokenOut, address poolAddress ) internal view returns (Pool memory);
+    // function getPoolData( address tokenIn, address tokenOut, address poolAddress ) internal view returns (Pool memory);
 
-    function calcEffectiveLiquidity( uint tokenWeightIn, uint tokenBalanceOut, uint tokenWeightOut ) internal pure returns (uint effectiveLiquidity);
+    // function calcEffectiveLiquidity( uint tokenWeightIn, uint tokenBalanceOut, uint tokenWeightOut ) internal pure returns (uint effectiveLiquidity);
 
-    function calcTotalOutExactIn( uint[] memory bestInputAmounts, Pool[] memory bestPools ) internal pure returns (uint totalOutput);
+    // function calcTotalOutExactIn( uint[] memory bestInputAmounts, Pool[] memory bestPools ) internal pure returns (uint totalOutput);
 
-    function calcTotalOutExactOut( uint[] memory bestInputAmounts, Pool[] memory bestPools) internal pure returns (uint totalOutput);
+    // function calcTotalOutExactOut( uint[] memory bestInputAmounts, Pool[] memory bestPools) internal pure returns (uint totalOutput);
 
-    function transferFromAll(TokenInterface token, uint amount) internal returns(bool);
+    // function transferFromAll(TokenInterface token, uint amount) internal returns(bool);
 
-    function getBalance(TokenInterface token) internal view returns (uint);
+    // function getBalance(TokenInterface token) internal view returns (uint);
 
-    function transferAll(TokenInterface token, uint amount) internal returns(bool);
+    // function transferAll(TokenInterface token, uint amount) internal returns(bool);
 
-    function isETH(TokenInterface token) internal pure returns(bool);
+    // function isETH(TokenInterface token) internal pure returns(bool);
 
     fallback() external payable;
     receive() external payable;

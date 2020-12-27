@@ -2,7 +2,7 @@
 pragma solidity 0.7.6;
 import "hardhat/console.sol";
 
-import "./ERC1820Implementer.sol";
+import "./ERC1820EnhancedImplementer.sol";
 
 /**
  * @dev As per the ERC1820 OepnZeppelin Implementation for setManager:
@@ -24,6 +24,6 @@ import "./ERC1820Implementer.sol";
 abstract contract ERC1820EnhancedRegistar is ERC1820EnhancedImplementer {
 
   function _registerERC165CompliantInterfaceID( address implementer_, bytes4 interfaceID_ ) private {
-    registry.updateERC165Cache( implementer_, interfaceID_ );
+    //registry.updateERC165Cache( implementer_, interfaceID_ );
   }
 }

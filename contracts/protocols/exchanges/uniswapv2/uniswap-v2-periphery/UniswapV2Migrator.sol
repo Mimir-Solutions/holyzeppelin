@@ -3,7 +3,7 @@ pragma solidity 0.7.6;
 
 // import './dependencies/uniswap-lib/contracts/libraries/TransferHelper.sol';
 
-// import './interfaces/IUniswapV2Migrator.sol';
+import './interfaces/IUniswapV2Migrator.sol';
 // import './interfaces/V1/IUniswapV1Factory.sol';
 // import './interfaces/V1/IUniswapV1Exchange.sol';
 // import './interfaces/IUniswapV2Router01.sol';

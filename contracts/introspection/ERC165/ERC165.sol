@@ -60,7 +60,7 @@ abstract contract ERC165 is IERC165 {
      */
     function supportsInterface(bytes4 _interfaceId) public view override returns (bool) {
       console.log("Self identifying that %s implements interface %s.", address(this), _interfaceId);
-      return _supportedInterfaces[interfaceId];
+      return _supportedInterfaces[_interfaceId];
     }
 
     /**
@@ -74,8 +74,8 @@ abstract contract ERC165 is IERC165 {
      *
      * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
      */
-    function _registerInterface(bytes4 interfaceId_) internal virtual {
-        require(interfaceId_ != 0xffffffff, "ERC165: invalid interface id");
+    function _registerInterface(bytes4 _interfaceId) internal virtual {
+        require(_interfaceId != 0xffffffff, "ERC165: invalid interface id");
         _supportedInterfaces[_interfaceId] = true;
     }
 }

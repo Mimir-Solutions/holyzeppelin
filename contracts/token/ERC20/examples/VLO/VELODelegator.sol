@@ -64,7 +64,7 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
 
         delegateToImplementation(abi.encodeWithSignature("_becomeImplementation(bytes)", becomeImplementationData));
 
-        emit NewImplementation(oldImplementation, implementation);
+    //    emit NewImplementation(oldImplementation, implementation);
     }
 
     /**
