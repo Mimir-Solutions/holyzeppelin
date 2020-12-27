@@ -1,4 +1,6 @@
-pragma solidity ^0.7.0;
+// TODO confirm actual license on Etherscan
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.6;
 
 interface ICHI {
     function mint(uint256 value) external;

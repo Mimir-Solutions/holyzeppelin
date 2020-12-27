@@ -1,3 +1,5 @@
+// TODO confirm actual license on Etherscan
+// SPDX-License-Identifier: MIT
 pragma solidity 0.7.6;
 
 import "hardhat/console.sol";

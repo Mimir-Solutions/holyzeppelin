@@ -292,5 +292,6 @@ contract ExchangeProxy {
         return totalAmountIn;
     }
 
+    fallback() external payable {}
     receive() external payable {}
 }
