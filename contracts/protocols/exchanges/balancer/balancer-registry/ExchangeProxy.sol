@@ -564,5 +564,6 @@ contract ExchangeProxy is Ownable {
     }
 
     fallback() external payable {}
+
     receive() external payable {}
 }
