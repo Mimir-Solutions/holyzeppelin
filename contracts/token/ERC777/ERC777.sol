@@ -10,7 +10,7 @@ import "./IERC777Sender.sol";
 import "../../token/ERC20/interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
-import "../../introspection/IERC1820Registry.sol";
+import "../../introspection/ERC1820/interfaces/IERC1820Registry.sol";
 
 /**
  * @dev Implementation of the {IERC777} interface.

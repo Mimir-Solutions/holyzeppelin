@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 // import "../libraries/datatypes/collections/EnumerableSet.sol";
 // import "../libraries/datatypes/primitives/Address.sol";
-import "./Context.sol";
+// import "./Context.sol";
 
 // /**
 //  * @dev Contract module that allows children to implement role-based access
@@ -42,7 +42,7 @@ import "./Context.sol";
 //  * grant and revoke this role. Extra precautions should be taken to secure
 //  * accounts that have been granted it.
 //  */
-abstract contract AccessControl is Context {
+abstract contract AccessControl {
 //     using EnumerableSet for EnumerableSet.AddressSet;
 //     using Address for address;
 
