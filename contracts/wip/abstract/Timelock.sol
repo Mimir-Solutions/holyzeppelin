@@ -45,7 +45,7 @@ contract Timelock {
 //         admin_initialized = false;
 //     }
 
-//     // XXX: function() external payable { }
+//     // XXX: fallback() external payable { }
 //     receive() external payable { }
 
 //     function setDelay(uint delay_) public {

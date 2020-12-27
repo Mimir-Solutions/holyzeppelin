@@ -108,8 +108,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     require( _implementer.isContract() );
     require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
     if (_implementer != address(0) && _implementer != msg.sender) {
-        require(true);
-      //require( _requireImplementsERC1820Interface( address _implementer, address addr, bytes32 _interfaceHash )
+      require( _requireImplementsERC1820Interface( implementer, addr, _interfaceHash ) );
         // ERC1820ImplementerInterface(_implementer)
         //   .canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC,
         //   "Does not implement the interface"
@@ -141,7 +140,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     /// @param _addr Address for which to return the manager.
     /// @return Address of the manager for a given address.
     function getManager(address _addr) external view virtual returns(address) {
-        return _getManager(addr);
+        return _getManager( _addr );
     }
     function _getManager(address _addr) internal view virtual returns(address) {
         // By default the manager of an address is the same address

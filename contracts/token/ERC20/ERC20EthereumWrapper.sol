@@ -24,6 +24,9 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
     console.log("Instantiated ERC20EthereumWrapper.");
   }
 
+  fallback() external payable {
+    wrap();
+  }
   receive() external payable {
     wrap();
   }
