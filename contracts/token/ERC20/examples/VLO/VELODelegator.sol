@@ -269,7 +269,6 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
     /**
       * @notice Accepts transfer of gov rights. msg.sender must be pendingGov
       * @dev Gov function for pending gov to accept role and update gov
-      * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
       */
     function _acceptGov()
         external

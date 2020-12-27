@@ -45,11 +45,11 @@ interface ExchangeProxy is Ownable {
     //     weth = TokenInterface(_weth);
     // }
 
-    function setRegistry(address _registry) external onlyOwner;
+    function setRegistry(address _registry) external;
 
     function batchSwapExactIn( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
 
-    function batchSwapExactOut( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn );
+    function batchSwapExactOut( Swap[] memory swaps, TokenInterface tokenIn, TokenInterface tokenOut, uint maxTotalAmountIn ) public;
 
     function multihopBatchSwapExactIn( Swap[][] memory swapSequences, TokenInterface tokenIn, TokenInterface tokenOut, uint totalAmountIn, uint minTotalAmountOut ) public payable returns (uint totalAmountOut);
 

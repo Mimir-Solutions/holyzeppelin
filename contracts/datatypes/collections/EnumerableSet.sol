@@ -291,7 +291,7 @@ library EnumerableSet {
   /**
    * Inserts new value by moving existing value at provided index to end of array and setting provided value at provided index
    */
-  function _insert(Set storage set_, uint256 index_, bytes32 valueToInsert_ ) returns ( bool ) {
+  function _insert(Set storage set_, uint256 index_, bytes32 valueToInsert_ ) external returns ( bool ) {
     require(  index_ < set_._values.length );
     require( !_contains( set_, valueToInsert_ ), "Remove value you wish to insert if you wish to reorder array." );
     bytes32 existingValue_ = _at( set_, index_ );
@@ -413,7 +413,7 @@ library EnumerableSet {
       return set._inner.getValue();
     }
 
-    function _insert(AddressSet storage set_, uint256 index_, bytes32 valueToInsert_ ) returns ( bool ) {
+    function _insert(AddressSet storage set_, uint256 index_, bytes32 valueToInsert_ ) internal returns ( bool ) {
     return _insert( set_._inner, index_, valueToInsert_ );
   }
 
