@@ -60,7 +60,7 @@ Signed raw transaction for chainId 1:
 */
 // File: @openzeppelin/contracts/math/Math.sol
 
-pragma solidity ^0.6.0;
+pragma solidity 0.7.6;
 
 /**
  * @dev Standard math utilities missing in the Solidity language.
@@ -91,8 +91,6 @@ library Math {
 }
 
 // File: @openzeppelin/contracts/math/SafeMath.sol
-
-pragma solidity ^0.6.0;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -245,8 +243,6 @@ library SafeMath {
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
-pragma solidity ^0.6.0;
-
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
  */
@@ -322,12 +318,6 @@ interface IERC20 {
 }
 
 // File: contracts/ChiToken.sol
-
-pragma solidity ^0.6.0;
-
-
-
-
 
 abstract contract ERC20WithoutTotalSupply is IERC20 {
     using SafeMath for uint256;
