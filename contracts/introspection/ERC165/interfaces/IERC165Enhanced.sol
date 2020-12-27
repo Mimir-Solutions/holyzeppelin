@@ -28,6 +28,6 @@ import "./IERC165.sol";
  */
 abstract contract IERC165Enhanced is IERC165 {
 
-    function supportedFunctionSelectors() public returns (bytes4[]);
+    function supportedFunctionSelectors() public returns (bytes4[] memory);
     
 }

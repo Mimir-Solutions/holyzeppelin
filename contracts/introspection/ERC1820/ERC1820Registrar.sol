@@ -42,7 +42,7 @@ abstract contract ERC1820Registar is ERC1820Implementer {
     registry.setManager( address(this), newManager_ );
   }
 
-  function _registerERC1820CompliantInterfaceID( string erc1820CompliantInterfaceID_, address manager_, address interfaceCallReceiver_, address implementer_ ) private {
+  function _registerERC1820CompliantInterfaceID( string calldata erc1820CompliantInterfaceID_, address manager_, address interfaceCallReceiver_, address implementer_ ) private {
     registry.setInterfaceImplementer(
       interfaceCallReceiver_,
       registry.interfaceHash( erc1820CompliantInterfaceID_ ),

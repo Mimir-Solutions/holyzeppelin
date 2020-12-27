@@ -282,7 +282,7 @@ library EnumerableSet {
         return set._values[index];
     }
 
-    function _getValues( Set storage set_ ) private view returns ( bytes32[] ) {
+    function _getValues( Set storage set_ ) private view returns (bytes32[] storage ) {
       return set_._values;
     }
 
@@ -409,7 +409,7 @@ library EnumerableSet {
      * TODO Might require explicit conversion of bytes32[] to address[].
      *  Might require iteration.
      */
-    function getValues( AddressSet storage set_ ) internal view returns ( address[] ) {
+    function getValues( AddressSet storage set_ ) internal view returns ( address[] storage) {
       return set_._inner.getValue();
     }
 

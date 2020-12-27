@@ -66,7 +66,7 @@ abstract contract ERC165Enhanced is IERC165Enhanced, ERC165 {
       _supportedFunctionSelectors.push(_functionSelectorToRegister);
     }
 
-    function supportedFunctionSelectors() public returns (bytes4[]) {
+    function supportedFunctionSelectors() public returns (bytes4[] memory) {
       return _supportedFunctionSelectors;
     }
 }
