@@ -13,7 +13,7 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplemen
     console.log("Instantiating ERC20EthereumWrapper.");
 
     console.log("Calculating ERC20_ETHEREUM_WRAPPER_INTERFACE_ID.");
-    ERC20_ETHEREUM_WRAPPER_INTERFACE_ID = _interfaceHash( "ERC20EthereumWrapper" );
+    ERC20_ETHEREUM_WRAPPER_INTERFACE_ID = keccak256( "ERC20EthereumWrapper" );
     console.log("Calculated ERC20_ETHEREUM_WRAPPER_INTERFACE_ID.");
     console.log("ERC20_ETHEREUM_WRAPPER_INTERFACE_ID interface ID: %s", ERC20_ETHEREUM_WRAPPER_INTERFACE_ID);
     
