@@ -23,7 +23,7 @@ import "../../security/Context.sol";
  */
 contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
 
-  using IERC1820Implementer for IERC1820Implementer;
+  
 
   // @notice Indicates a contract is the 'implementer' of 'interfaceHash' for 'addr'.
   event InterfaceImplementerSet(address indexed addr, bytes32 indexed interfaceHash, address indexed implementer);
