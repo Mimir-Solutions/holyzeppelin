@@ -1,11 +1,11 @@
-// // SPDX-License-Identifier: MIT
-// pragma solidity 0.7.6;
-// import "hardhat/console.sol";
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.6;
+import "hardhat/console.sol";
 
-// import "../ERC165/ERC165.sol";
-// import "./ERC1820Implementer.sol";
-// import "./ERC1820Registry.sol";
-// import "../../security/Context.sol";
+import "../ERC165/ERC165.sol";
+import "./ERC1820Implementer.sol";
+import "./ERC1820Registry.sol";
+import "../../security/Context.sol";
 
 /**
  * @dev Interface of the global ERC1820 Registry, as defined in the

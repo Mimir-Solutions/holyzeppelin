@@ -26,7 +26,7 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
     console.log("Instantiating ERC1820Implementer.");
 
     console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ID.");
-    ERC1820_IMPLEMENTER_INTERFACE_ID = _interfaceHash("ERC1820Implementer");
+    ERC1820_IMPLEMENTER_INTERFACE_ID = keccak256("ERC1820Implementer");
     console.log("Calculated ERC1820_IMPLEMENTER_INTERFACE_ID.");
     console.log("ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ID);
     
