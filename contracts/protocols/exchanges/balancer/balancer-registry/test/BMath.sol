@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity 0.5.12;
+pragma solidity 0.7.5;
 
 import "./BNum.sol";
 
@@ -125,10 +125,6 @@ contract BMath is BBronze, BConst, BNum {
         public pure
         returns (uint poolAmountOut)
     {
-        // Charge the trading fee for the proportion of tokenAi
-        ///  which is implicitly traded to the other pool tokens.
-        // That proportion is (1- weightTokenIn)
-        // tokenAiAfterFee = tAi * (1 - (1-weightTi) * poolFee);
         uint normalizedWeight = bdiv(tokenWeightIn, totalWeight);
         uint zaz = bmul(bsub(BONE, normalizedWeight), swapFee); 
         uint tokenAmountInAfterFee = bmul(tokenAmountIn, bsub(BONE, zaz));

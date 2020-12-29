@@ -7,7 +7,7 @@ import "./IERC1155.sol";
 import "./IERC1155MetadataURI.sol";
 import "./IERC1155Receiver.sol";
 import "../../security/Context.sol";
-import "../../introspection/ERC165.sol";
+import "../../introspection/ERC165/ERC165.sol";
 import "../../math/SafeMath.sol";
 import "../../datatypes/primitives/Address.sol";
 

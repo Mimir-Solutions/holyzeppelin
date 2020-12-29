@@ -4,11 +4,11 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "../../security/Context.sol";
-import "./IERC721.sol";
-import "./IERC721Metadata.sol";
-import "./IERC721Enumerable.sol";
-import "./IERC721Receiver.sol";
-import "../../introspection/ERC165.sol";
+import "./interfaces/IERC721.sol";
+import "./interfaces/IERC721Metadata.sol";
+import "./interfaces/IERC721Enumerable.sol";
+import "./interfaces/IERC721Receiver.sol";
+import "../../introspection/ERC165/ERC165.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../datatypes/collections/EnumerableSet.sol";

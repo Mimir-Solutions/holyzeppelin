@@ -11,11 +11,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity 0.5.12;
+// TODO update with correct identifier for GPLV3
+// SPDX-License-Identifier: MIT
+pragma solidity 0.7.5;
 pragma experimental ABIEncoderV2;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "../../../../math/SafeMath.sol";
+import "../../../../access/Ownable.sol";
 
 interface PoolInterface {
     function swapExactAmountIn(address, uint, address, uint, uint) external returns (uint, uint);
@@ -561,5 +563,7 @@ contract ExchangeProxy is Ownable {
         return (address(token) == ETH_ADDRESS);
     }
 
-    function() external payable {}
+    fallback() external payable {}
+
+    receive() external payable {}
 }

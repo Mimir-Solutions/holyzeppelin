@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./IERC721Receiver.sol";
+import "./interfaces/IERC721Receiver.sol";
 
   /**
    * @dev Implementation of the {IERC721Receiver} interface.

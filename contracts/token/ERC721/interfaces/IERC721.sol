@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../../introspection/IERC165.sol";
+import "../../../introspection/ERC165/interfaces/IERC165.sol";
 
 /**
  * @dev Required interface of an ERC721 compliant contract.

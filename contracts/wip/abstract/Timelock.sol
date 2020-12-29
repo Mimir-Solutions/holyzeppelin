@@ -8,7 +8,7 @@
 //
 // Ctrl+f for XXX to see all the modifications.
 // SPDX-License-Identifier: MIT
-// XXX: pragma solidity ^0.5.16;
+// XXX: pragma solidity 0.7.5;
 pragma solidity 0.7.5;
 
 // // XXX: import "./SafeMath.sol";
@@ -45,7 +45,7 @@ contract Timelock {
 //         admin_initialized = false;
 //     }
 
-//     // XXX: function() external payable { }
+//     // XXX: fallback() external payable { }
 //     receive() external payable { }
 
 //     function setDelay(uint delay_) public {

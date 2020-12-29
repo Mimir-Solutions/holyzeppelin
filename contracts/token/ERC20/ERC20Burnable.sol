@@ -36,10 +36,14 @@ abstract contract ERC20Burnable is ERC20 {
      * - the caller must have allowance for ``accounts``'s tokens of at least
      * `amount`.
      */
-    function burnFrom(address account, uint256 amount) public virtual {
-        uint256 decreasedAllowance = allowance(account, Context._msgSender()).sub(amount, "ERC20: burn amount exceeds allowance");
+    function burnFrom( address account_, uint256 amount_ ) public virtual {
+        _burnFrom( account_, amount_ );
+    }
 
-        _approve(account, Context._msgSender(), decreasedAllowance);
-        _burn(account, amount);
+    function _burnFrom( address account_, uint256 amount_ ) public virtual {
+        uint256 decreasedAllowance_ = allowance( account_, Context._msgSender() ).sub( amount_, "ERC20: burn amount exceeds allowance");
+
+        _approve( account_, Context._msgSender(), decreasedAllowance_ );
+        _burn( account_, amount_ );
     }
 }
