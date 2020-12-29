@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.6;
+pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
@@ -49,7 +49,7 @@ library EnumerableSet {
             tinySet_._values.push(value_);
             // The value is stored at length-1, but we add 1 to all indexes
             // and use 0 as a sentinel value
-            tinySet_._indexes[value_] = tinySet_.value_.length;
+            tinySet_._indexes[value_] = tinySet_._values.length;
             return true;
         } else {
             return false;

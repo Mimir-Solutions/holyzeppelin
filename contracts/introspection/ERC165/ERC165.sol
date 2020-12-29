@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.6;
+pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
@@ -45,9 +45,9 @@ abstract contract ERC165 is IERC165 {
       // Derived contracts need only register support for their own interfaces,
       // we register support for ERC165 itself here
       ERC165_INTERFACE_ID = bytes4(keccak256('supportsInterface(bytes4)'));
-      console.log("Calculating ERC165_INTERFACE_ID.");
-      console.log("IERC165Enhanced interface ID: %s", ERC165_INTERFACE_ID);
-      console.log("Registering ERC165_INTERFACE_ID.");
+      // console.log("Calculating ERC165_INTERFACE_ID.");
+      // console.log("IERC165Enhanced interface ID: %s", string( ERC165_INTERFACE_ID ) );
+      // console.log("Registering ERC165_INTERFACE_ID.");
       _registerInterface(bytes4(keccak256('supportsInterface(bytes4)')));
       console.log("Registered ERC165_INTERFACE_ID.");
       console.log("Instantiated ERC165.");
@@ -59,7 +59,7 @@ abstract contract ERC165 is IERC165 {
      * Time complexity O(1), guaranteed to always use less than 30 000 gas.
      */
     function supportsInterface(bytes4 interfaceId_) public view override returns (bool) {
-      console.log("Self identifying that %s implements interface %s.", address(this), interfaceId_);
+      // console.log("Self identifying that %s implements interface %s.", address(this), interfaceId_);
       return _supportedInterfaces[interfaceId_];
     }
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.7.6;
+pragma solidity 0.7.5;
 
 /**
  * @dev This is the interface that {BeaconProxy} expects of its beacon.

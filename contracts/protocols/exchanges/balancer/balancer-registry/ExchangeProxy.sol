@@ -13,7 +13,7 @@
 
 // TODO update with correct identifier for GPLV3
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.6;
+pragma solidity 0.7.5;
 pragma experimental ABIEncoderV2;
 
 import "../../../../math/SafeMath.sol";

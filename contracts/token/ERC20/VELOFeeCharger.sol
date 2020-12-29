@@ -1,4 +1,4 @@
-pragma solidity 0.7.6;
+pragma solidity 0.7.5;
 
 // import "../lib/ICHI.sol";
 // import {VELOTokenInterface as IVELO} from "../token/VELOTokenInterface.sol";
