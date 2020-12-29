@@ -18,21 +18,18 @@ import "./interfaces/IERC1820Implementer.sol";
 abstract contract ERC1820Implementer is IERC1820Implementer {
   bytes32 constant public ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
 
-  bytes32 immutable public ERC1820_IMPLEMENTER_INTERFACE_ID;
+  bytes32 constant public ERC1820_IMPLEMENTER_INTERFACE_ID = keccak256("ERC1820Implementer");
 
   mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
 
   constructor () {
     console.log("Instantiating ERC1820Implementer.");
 
-    console.log("Calculating ERC1820_IMPLEMENTER_INTERFACE_ID.");
-    ERC1820_IMPLEMENTER_INTERFACE_ID = keccak256("ERC1820Implementer");
-    console.log("Calculated ERC1820_IMPLEMENTER_INTERFACE_ID.");
-    console.log("ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", ERC1820_IMPLEMENTER_INTERFACE_ID);
+    // console.log("ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", string(uint256(ERC1820_IMPLEMENTER_INTERFACE_ID)));
     
     // Derived contracts need only register support for their own interfaces,
     // we register support for ERC1820Implementer itself here
-    console.log("Registering ERC1820Implementer of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ID, address(this));
+    // console.log("Registering ERC1820Implementer of %s for %s.", string(bytes32(uint256(ERC1820_IMPLEMENTER_INTERFACE_ID))), address(this));
     _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
     console.log("Registered ERC1820Implementer.");
 

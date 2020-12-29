@@ -1,27 +1,26 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
-import "../../introspection/ERC1820/ERC1820EnhancedImplementer.sol";
 import "./ERC20Burnable.sol";
 import "../../security/Context.sol";
+import "../../math/SafeMath.sol";
 
-abstract contract ERC20EthereumWrapper is ERC20Burnable, ERC1820EnhancedImplementer {
+abstract contract ERC20EthereumWrapper is ERC20Burnable {
 
-  bytes32 immutable public ERC20_ETHEREUM_WRAPPER_INTERFACE_ID;
+  using SafeMath for uint256;
+
+  bytes32 constant public ERC20_ETHEREUM_WRAPPER_INTERFACE_ID = keccak256( "ERC20EthereumWrapper" );
 
   constructor () {
     console.log("Instantiating ERC20EthereumWrapper.");
 
-    console.log("Calculating ERC20_ETHEREUM_WRAPPER_INTERFACE_ID.");
-    ERC20_ETHEREUM_WRAPPER_INTERFACE_ID = keccak256( "ERC20EthereumWrapper" );
-    console.log("Calculated ERC20_ETHEREUM_WRAPPER_INTERFACE_ID.");
-    console.log("ERC20_ETHEREUM_WRAPPER_INTERFACE_ID interface ID: %s", ERC20_ETHEREUM_WRAPPER_INTERFACE_ID);
+    // console.log("ERC20_ETHEREUM_WRAPPER_INTERFACE_ID interface ID: %s", ERC20_ETHEREUM_WRAPPER_INTERFACE_ID);
     
-    // Derived contracts need only register support for their own interfaces,
-    // we register support for ERC20EthereumWrapper itself here
-    console.log("Registering ERC20EthereumWrapper of %s for %s.", ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this));
-    _registerInterfaceForAddress( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this) );
-    console.log("Registered ERC20EthereumWrapper.");
+    // // Derived contracts need only register support for their own interfaces,
+    // // we register support for ERC20EthereumWrapper itself here
+    // console.log("Registering ERC20EthereumWrapper of %s for %s.", ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this));
+    // _registerInterfaceForAddress( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this) );
+    // console.log("Registered ERC20EthereumWrapper.");
 
     console.log("Instantiated ERC20EthereumWrapper.");
   }

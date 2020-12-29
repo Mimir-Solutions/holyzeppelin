@@ -2,10 +2,10 @@
 pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
-import "./ERC1820Registrar.sol";
 import "./interfaces/IERC1820Registry.sol";
-import "./interfaces/IERC1820Implementer.sol";
+import "./ERC1820Implementer.sol";
 import "../../security/Context.sol";
+import "../../datatypes/primitives/Address.sol";
 
 /**
  * @dev Interface of the global ERC1820 Registry, as defined in the
@@ -21,12 +21,14 @@ import "../../security/Context.sol";
  *
  * For an in-depth explanation and source code analysis, see the EIP text.
  */
-contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
+contract ERC1820Registry is IERC1820Registry, ERC1820Implementer {
+
+  using Address for address;
 
   // @notice Indicates a contract is the 'implementer' of 'interfaceHash' for 'addr'.
-  event InterfaceImplementerSet(address indexed addr, bytes32 indexed interfaceHash, address indexed implementer);
+  // event InterfaceImplementerSet(address indexed addr, bytes32 indexed interfaceHash, address indexed implementer);
   //  Indicates 'newManager' is the address of the new manager for 'addr'.
-  event ManagerChanged(address indexed addr, address indexed newManager);
+  // event ManagerChanged(address indexed addr, address indexed newManager);
 
   // ERC165 Invalid ID.
   bytes4 constant internal INVALID_ID = 0xffffffff;
@@ -35,7 +37,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
   // Magic value which is returned if a contract implements an interface on behalf of some other address.
   // bytes32 constant internal ERC1820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC1820_ACCEPT_MAGIC"));
 
-  bytes immutable public ERC1820_REGISTRY_INTERFACE_ID;
+  bytes32 constant public ERC1820_REGISTRY_INTERFACE_ID = keccak256("ERC1820Registry");
 
   //  mapping from addresses and interface hashes to their implementers.
   mapping(address => mapping(bytes32 => address)) internal interfaces;
@@ -47,30 +49,27 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
   constructor () {
     console.log("Instantiating ERC1820Registry.");
 
-    console.log("Calculating ERC1820_REGISTRY_INTERFACE_ID.");
-    ERC1820_REGISTRY_INTERFACE_ID = keccak256("ERC1820Registry");
-    console.log("Calculated ERC1820_REGISTRY_INTERFACE_ID.");
-    console.log("ERC1820_REGISTRY_INTERFACE_ID interface ID: %s", ERC1820_REGISTRY_INTERFACE_ID);
+    // console.log("ERC1820_REGISTRY_INTERFACE_ID interface ID: %s", ERC1820_REGISTRY_INTERFACE_ID);
 
-    console.log("Registering ERC1820Registry ERC1820 interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
-    _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
-    console.log("Registered ERC1820Registry ERC1820 interface ID.");
+    // console.log("Registering ERC1820Registry ERC1820 interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
+    // _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
+    // console.log("Registered ERC1820Registry ERC1820 interface ID.");
 
-    console.log("Setting this contract as it's own registry.");
-    _setRegistry( address(this) );
-    console.log("Set this contract as it's own registry.");
+    // console.log("Setting this contract as it's own registry.");
+    // _setRegistry( address(this) );
+    // console.log("Set this contract as it's own registry.");
 
-    _setManager( address(this) );
+    // _setManager( address(this) );
     
-    console.log("Registering ERC1820Registry ERC1820Implementer interface ID of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ID, address(this));
-    _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
-    console.log("Registered ERC1820Implementer ERC165 interface ID.");
+    // console.log("Registering ERC1820Registry ERC1820Implementer interface ID of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ID, address(this));
+    // _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
+    // console.log("Registered ERC1820Implementer ERC165 interface ID.");
 
-    console.log("Registering ERC1820Registry ERC1820Registry interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
-    _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
-    console.log("Registered ERC1820Registry ERC1820Registry interface ID.");
+    // console.log("Registering ERC1820Registry ERC1820Registry interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
+    // _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
+    // console.log("Registered ERC1820Registry ERC1820Registry interface ID.");
 
-    console.log("Instantiated ERC1820Registry.");
+    // console.log("Instantiated ERC1820Registry.");
   }
 
   /**
@@ -82,7 +81,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
    * @return The address of the contract which implements the interface '_interfaceHash' for '_addr'
    * or '0' if '_addr' did not register an implementer for this interface.
    */
-  function getInterfaceImplementer(address _addr, bytes32 _interfaceHash) external view returns (address) {
+  function getInterfaceImplementer(address _addr, bytes32 _interfaceHash) external view override returns (address) {
     address addr = _addr == address(0) ? msg.sender : _addr;
     if (isERC165Interface(_interfaceHash)) {
       bytes4 erc165InterfaceHash = bytes4(_interfaceHash);
@@ -99,7 +98,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     /// @param _interfaceHash Keccak256 hash of the name of the interface as a string.
     /// E.g., 'web3.utils.keccak256("ERC777TokensRecipient")' for the 'ERC777TokensRecipient' interface.
     /// @param _implementer Contract address implementing '_interfaceHash' for '_addr'.
-    function setInterfaceImplementer( address _addr, bytes32 _interfaceHash, address _implementer ) external {
+    function setInterfaceImplementer( address _addr, bytes32 _interfaceHash, address _implementer ) external override {
       address addr = _addr == address(0) ? msg.sender : _addr;
       require(_getManager(addr) == msg.sender, "Not the manager");
       _setInterfaceImplementer( _addr, _interfaceHash, _implementer );
@@ -109,7 +108,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     require( _implementer.isContract() );
     require(!isERC165Interface(_interfaceHash), "Must not be an ERC165 hash");
     if (_implementer != address(0) && _implementer != msg.sender) {
-      require( _requireImplementsERC1820Interface( _implementer, addr_, _interfaceHash )
+      require( _doesImplementsERC1820Interface( _implementer, addr_, _interfaceHash )
         // Was previous evaluation. Moved to own internal function for reuse.
         // IERC1820Implementer(_implementer).canImplementInterfaceForAddress(_interfaceHash, addr) == ERC1820_ACCEPT_MAGIC
           ,"Does not implement the interface"
@@ -119,15 +118,15 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     emit InterfaceImplementerSet(addr_, _interfaceHash, _implementer);
   }
 
-  function _requireImplementsERC1820Interface( address registry_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal {
-    require( IERC1820Implementer(registry_).canImplementInterfaceForAddress(interfaceToVerify_, addressToVerify_) == ERC1820_ACCEPT_MAGIC, "Does not implement the interface");
+  function _doesImplementsERC1820Interface( address registry_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal returns ( bool ) {
+    return ( IERC1820Implementer(registry_).canImplementInterfaceForAddress(interfaceToVerify_, addressToVerify_) == ERC1820_ACCEPT_MAGIC );
   }
 
     // Sets '_newManager' as manager for '_addr'.
     /// The new manager will be able to call 'setInterfaceImplementer' for '_addr'.
     /// @param _addr Address for which to set the new manager.
     /// @param _newManager Address of the new manager for 'addr'. (Pass '0x0' to reset the manager to '_addr'.)
-    function setManager(address _addr, address _newManager) external {
+    function setManager(address _addr, address _newManager) external override {
          _setManager( _addr, _newManager );
     }
 
@@ -140,7 +139,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     // Get the manager of an address.
     /// @param _addr Address for which to return the manager.
     /// @return Address of the manager for a given address.
-    function getManager(address _addr) external view virtual returns(address) {
+    function getManager(address _addr) external view virtual override returns(address) {
         return _getManager( _addr );
     }
     function _getManager(address _addr) internal view virtual returns(address) {
@@ -155,7 +154,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     // Compute the keccak256 hash of an interface given its name.
     /// @param _interfaceName Name of the interface.
     /// @return The keccak256 hash of an interface name.
-    function interfaceHash(string calldata _interfaceName) external pure returns(bytes32) {
+    function interfaceHash(string calldata _interfaceName) external pure override returns(bytes32) {
         return keccak256(abi.encodePacked(_interfaceName));
     }
 
@@ -165,7 +164,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     // Updates the cache with whether the contract implements an ERC165 interface or not.
     /// @param _contract Address of the contract for which to update the cache.
     /// @param _interfaceId ERC165 interface for which to update the cache.
-    function updateERC165Cache(address _contract, bytes4 _interfaceId) external {
+    function updateERC165Cache(address _contract, bytes4 _interfaceId) external override {
         interfaces[_contract][_interfaceId] = implementsERC165InterfaceNoCache(
             _contract, _interfaceId) ? _contract : address(0);
         erc165Cached[_contract][_interfaceId] = true;
@@ -178,7 +177,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     /// @param _contract Address of the contract to check.
     /// @param _interfaceId ERC165 interface to check.
     /// @return True if '_contract' implements '_interfaceId', false otherwise.
-    function implementsERC165Interface(address _contract, bytes4 _interfaceId) public view returns (bool) {
+    function implementsERC165Interface(address _contract, bytes4 _interfaceId) public view override returns (bool) {
         if (!erc165Cached[_contract][_interfaceId]) {
             return implementsERC165InterfaceNoCache(_contract, _interfaceId);
         }
@@ -189,7 +188,7 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registar {
     /// @param _contract Address of the contract to check.
     /// @param _interfaceId ERC165 interface to check.
     /// @return True if '_contract' implements '_interfaceId', false otherwise.
-    function implementsERC165InterfaceNoCache(address _contract, bytes4 _interfaceId) public view returns (bool) {
+    function implementsERC165InterfaceNoCache(address _contract, bytes4 _interfaceId) public view override returns (bool) {
         uint256 success;
         uint256 result;
 
