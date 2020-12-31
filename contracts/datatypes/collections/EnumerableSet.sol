@@ -261,16 +261,16 @@ library EnumerableSet {
      * TODO Might require explicit conversion of bytes32[] to address[].
      *  Might require iteration.
      */
-    // function getValues( AddressSet storage set_ ) internal view returns ( address[] storage ) {
+    function getValues( AddressSet storage set_ ) internal view returns ( address[] memory ) {
 
-    //   address[] storage addressArray;
+      address[] memory addressArray;
 
-    //   for( uint256 iteration_ = 0; _length(set_._inner) >= iteration_; iteration_++ ){
-    //     addressArray.push( _at( set_._inner, iteration_ ) );
-    //   }
+      for( uint256 iteration_ = 0; _length(set_._inner) >= iteration_; iteration_++ ){
+        addressArray[iteration_] = at( set_, iteration_ );
+      }
 
-    //   return addressArray;
-    // }
+      return addressArray;
+    }
 
   function insert(AddressSet storage set_, uint256 index_, address valueToInsert_ ) internal returns ( bool ) {
     return _insert( set_._inner, index_, bytes32(uint256(valueToInsert_)) );

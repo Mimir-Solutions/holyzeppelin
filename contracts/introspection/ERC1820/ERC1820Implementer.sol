@@ -23,23 +23,25 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
   mapping(bytes32 => mapping(address => bool)) private _supportedInterfaces;
 
   constructor () {
-    console.log("Instantiating ERC1820Implementer.");
+    console.log( "Instantiating ERC1820Implementer." );
 
-    // console.log("ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", string(uint256(ERC1820_IMPLEMENTER_INTERFACE_ID)));
+    // TODO switch to using a proper bytes32 to string conversion.
+    console.log( "ERC1820_IMPLEMENTER_INTERFACE_ID interface ID: %s", address( uint256( ERC1820_IMPLEMENTER_INTERFACE_ID ) ) );
     
     // Derived contracts need only register support for their own interfaces,
     // we register support for ERC1820Implementer itself here
-    // console.log("Registering ERC1820Implementer of %s for %s.", string(bytes32(uint256(ERC1820_IMPLEMENTER_INTERFACE_ID))), address(this));
-    _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
-    console.log("Registered ERC1820Implementer.");
+    // TODO switch to using a proper bytes32 to string conversion.
+    console.log("Registering ERC1820Implementer of %s for %s.", address( uint256( ERC1820_IMPLEMENTER_INTERFACE_ID ) ), address(this));
+    _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address( this ) );
+    console.log( "Registered ERC1820Implementer." );
 
-    console.log("Instantiated ERC1820_IMPLEMENTER_INTERFACE_ID.");
+    console.log( "Instantiated ERC1820_IMPLEMENTER_INTERFACE_ID." );
   }
 
   /**
     * See {IERC1820Implementer-canImplementInterfaceForAddress}.
     */
-  function canImplementInterfaceForAddress(bytes32 interfaceHashQuery_, address account) public view override returns (bytes32) {
+  function canImplementInterfaceForAddress( bytes32 interfaceHashQuery_, address account ) public view override returns ( bytes32 ) {
     return _supportedInterfaces[interfaceHashQuery_][account] ? ERC1820_ACCEPT_MAGIC : bytes32(0x00);
   }
 
@@ -50,7 +52,7 @@ abstract contract ERC1820Implementer is IERC1820Implementer {
    * See {IERC1820Registry-setInterfaceImplementer} and
    * {IERC1820Registry-interfaceHash}.
    */
-  function _registerInterfaceForAddress(bytes32 interfaceHash_, address account_) internal virtual {
+  function _registerInterfaceForAddress( bytes32 interfaceHash_, address account_) internal virtual {
     //require( ERC165Checker.supportsInterface(account_, interfaceHash_) );
     _supportedInterfaces[interfaceHash_][account_] = true;
   }

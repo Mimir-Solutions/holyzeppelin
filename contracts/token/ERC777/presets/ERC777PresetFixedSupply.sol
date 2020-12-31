@@ -9,19 +9,24 @@ import "../ERC777.sol";
  *  - Preminted initial supply
  *  - No access control mechanism (for minting/pausing) and hence no governance
  */
-contract ERC777PresetFixedSupply is ERC777 {
+abstract contract ERC777PresetFixedSupply 
+  // is 
+  // ERC777 
+{
     /**
      * @dev Mints `initialSupply` amount of token and transfers them to `owner`.  
      *
      * See {ERC777-constructor}.
      */
     constructor(
-        string memory name,
-        string memory symbol,
-        address[] memory defaultOperators,
-        uint256 initialSupply,
-        address owner
-    ) ERC777(name, symbol, defaultOperators) {
-        _mint(owner, initialSupply, "", "");
+        // string memory name,
+        // string memory symbol,
+        // address[] memory defaultOperators,
+        // uint256 initialSupply,
+        // address owner
+    ) 
+      // ERC777(name, symbol, defaultOperators)
+    {
+        // _mint(owner, initialSupply, "", "");
     }
 }

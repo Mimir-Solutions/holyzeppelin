@@ -30,7 +30,7 @@ import "../../introspection/ERC1820/interfaces/IERC1820Registry.sol";
 contract ERC777 
   // is 
   // IERC777, 
-  // ERC20 
+  // ERC20
 {
   
   // using SafeMath for uint256;
