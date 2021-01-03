@@ -10,18 +10,18 @@
 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.7.5;
 
-contract BColor {
+abstract contract BColor {
     function getColor()
-        external view
+        external pure virtual
         returns (bytes32);
 }
 
 contract BBronze is BColor {
     function getColor()
-        external view
+        external pure override
         returns (bytes32) {
             return bytes32("BRONZE");
         }

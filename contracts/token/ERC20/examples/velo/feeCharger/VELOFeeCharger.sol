@@ -1,12 +1,13 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
 import "../lib/ICHI.sol";
-import {VELOTokenInterface as IVELO} from "../token/VELOTokenInterface.sol";
+// import {VELOTokenInterface as IVELO} from "../token/VELOTokenInterface.sol";
 
 contract VELOFeeCharger {
 
   ICHI public constant chi = ICHI(0x0000000000004946c0e9F43F4Dee607b0eF1fA1c);
-  IVELO public velo;
+  // IVELO public velo;
 
   uint256 public govFactor;
   address public gov;
@@ -36,8 +37,10 @@ contract VELOFeeCharger {
     _;
   }
 
-  constructor(address velo_) public {
-    velo	   = IVELO(velo_);
+  constructor(
+    // address velo_
+  ) {
+    // velo	   = IVELO(velo_);
 
     // government levers
     gov            = msg.sender;
@@ -64,7 +67,12 @@ contract VELOFeeCharger {
     beneficiary = beneficiary_;
   }
 
-  function chargeFee(uint256 fEMA, uint256 sEMA, uint256 totalSupply, uint256 _amount) public {
+  function chargeFee(
+    // uint256 fEMA,
+    uint256 sEMA, 
+    uint256 totalSupply, 
+    uint256 _amount
+  ) public {
     uint256 chi_fee = 
       calc_fee_gas(max_gas_block, min_gas_tx, sEMA, _amount, totalSupply, gov_fee_factor);
 
@@ -96,7 +104,7 @@ contract VELOFeeCharger {
   }
 
   function calc_fee_ratio_discrete(
-    uint256 ema1_vt,
+    // uint256 ema1_vt,
     uint256 ema2_vt,
     uint256 tx_size,
     uint256 total_supply,
@@ -138,18 +146,20 @@ contract VELOFeeCharger {
   //       8 and 135 to approximate the gas fee for the
   //       velocity transaction
   function calc_fee_gas(
-    uint256 max_gas_block,
-    uint256 min_gas_tx,
-    uint256 ema_long,
-    uint256 tx_size,
-    uint256 total_supply,
+    uint256 max_gas_block_,
+    uint256 min_gas_tx_,
+    uint256 ema_long_,
+    uint256 tx_size_,
+    uint256 total_supply_,
     uint256 _gov_fee_factor
   ) public pure returns (uint256) {
-    uint256 max_gas_chi_per_block = max_gas_block;
-    uint256 min_gas_chi_fee_per_tx = min_gas_tx;
+    uint256 max_gas_chi_per_block = max_gas_block_;
+    uint256 min_gas_chi_fee_per_tx = min_gas_tx_;
 
     uint256 tx_fee_ratio_disc =
-      calc_fee_ratio_discrete(0, ema_long, tx_size, total_supply, _gov_fee_factor);
+      calc_fee_ratio_discrete(
+        // 0, 
+        ema_long_, tx_size_, total_supply_, _gov_fee_factor);
 
     uint256 tx_fee_chi_disc =
       max_gas_chi_per_block * tx_fee_ratio_disc / 100 / 10**18;

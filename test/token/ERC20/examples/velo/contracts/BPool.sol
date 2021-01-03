@@ -10,7 +10,7 @@
 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.7.5;
 
 import "./BToken.sol";
@@ -83,7 +83,7 @@ contract BPool is BBronze, BToken, BMath {
     mapping(address=>Record) private  _records;
     uint private _totalWeight;
 
-    constructor() public {
+    constructor() {
         _controller = msg.sender;
         _factory = msg.sender;
         _swapFee = MIN_FEE;
