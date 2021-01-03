@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../../utils/Pausable.sol";
+import "../../security/flow/Pausable.sol";
 import "./ERC1155Burnable.sol";
 
 /**

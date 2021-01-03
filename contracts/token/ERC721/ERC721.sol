@@ -10,10 +10,10 @@ import "./interfaces/IERC721Enumerable.sol";
 import "./interfaces/IERC721Receiver.sol";
 import "../../introspection/ERC165/ERC165.sol";
 import "../../math/SafeMath.sol";
-import "../../utils/Address.sol";
+import "../../datatypes/primitives/Address.sol";
 import "../../datatypes/collections/EnumerableSet.sol";
 import "../../datatypes/collections/EnumerableMap.sol";
-import "../../utils/Strings.sol";
+import "../../datatypes/primitives/Uint256.sol";
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
@@ -24,7 +24,7 @@ contract ERC721 is ERC165, IERC721, IERC721Metadata, IERC721Enumerable {
     using Address for address;
     using EnumerableSet for EnumerableSet.UintSet;
     using EnumerableMap for EnumerableMap.UintToAddressMap;
-    using Strings for uint256;
+    using Uint256 for uint256;
 
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`

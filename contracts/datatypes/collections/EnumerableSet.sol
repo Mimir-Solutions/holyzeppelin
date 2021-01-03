@@ -151,6 +151,66 @@ library EnumerableSet {
     return _add( set_, existingValue_);
   }
 
+  struct Bytes4Set {
+    Set _inner;
+  }
+
+  /**
+   * @dev Add a value to a set. O(1).
+   *
+   * Returns true if the value was added to the set, that is if it was not
+   * already present.
+   */
+  function add(Bytes4Set storage set, bytes4 value) internal returns (bool) {
+    return _add(set._inner, value);
+  }
+
+  /**
+   * @dev Removes a value from a set. O(1).
+   *
+   * Returns true if the value was removed from the set, that is if it was
+   * present.
+   */
+  function remove(Bytes4Set storage set, bytes4 value) internal returns (bool) {
+    return _remove(set._inner, value);
+  }
+
+  /**
+   * @dev Returns true if the value is in the set. O(1).
+   */
+  function contains(Bytes4Set storage set, bytes4 value) internal view returns (bool) {
+    return _contains(set._inner, value);
+  }
+
+  /**
+   * @dev Returns the number of values on the set. O(1).
+   */
+  function length(Bytes4Set storage set) internal view returns (uint256) {
+    return _length(set._inner);
+  }
+
+  /**
+   * @dev Returns the value stored at position `index` in the set. O(1).
+   *
+   * Note that there are no guarantees on the ordering of values inside the
+   * array, and it may change when more values are added or removed.
+   *
+   * Requirements:
+   *
+   * - `index` must be strictly less than {length}.
+   */
+  function at(Bytes4Set storage set, uint256 index) internal view returns ( bytes4 ) {
+    return _at(set._inner, index);
+  }
+
+  function getValues( Bytes4Set storage set_ ) internal view returns ( bytes4[] storage ) {
+    return set_._inner;
+  }
+
+  function insert( Bytes4Set storage set_, uint256 index_, bytes4 valueToInsert_ ) internal returns ( bool ) {
+    return _insert( set_._inner, index_, valueToInsert_ );
+  }
+
     struct Bytes32Set {
         Set _inner;
     }
@@ -202,6 +262,20 @@ library EnumerableSet {
     function at(Bytes32Set storage set, uint256 index) internal view returns ( bytes32 ) {
         return _at(set._inner, index);
     }
+
+  function getValues( Bytes32Set storage set_ ) internal view returns ( bytes4[] storage ) {
+    bytes4[] memory bytes4Array_;
+
+      for( uint256 iteration_ = 0; _length(set_._inner) >= iteration_; iteration_++ ){
+        bytes4Array_[iteration_] = at( set_, iteration_ );
+      }
+
+      return bytes4Array_;
+  }
+
+  function insert( Bytes32Set storage set_, uint256 index_, bytes32 valueToInsert_ ) internal returns ( bool ) {
+    return _insert( set_._inner, index_, valueToInsert_ );
+  }
 
     // AddressSet
 

@@ -4,7 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "../../math/SafeMath.sol";
-import "../../utils/Arrays.sol";
+import "../../datatypes/primitives/Arrays.sol";
 import "../../math/Counters.sol";
 import "./ERC20.sol";
 

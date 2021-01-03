@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../../access/Ownable.sol";
+import "../../security/access/Ownable.sol";
 import "../../security/Context.sol";
 import "./ERC20.sol";
 import "../../math/SafeMath.sol";

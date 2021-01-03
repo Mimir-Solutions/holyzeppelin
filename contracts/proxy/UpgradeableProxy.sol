@@ -4,7 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "./Proxy.sol";
-import "../utils/Address.sol";
+import "../datatypes/primitives/Address.sol";
 
 /**
  * @dev This contract implements an upgradeable proxy. It is upgradeable because calls are delegated to an
