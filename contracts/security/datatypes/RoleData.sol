@@ -1,5 +1,5 @@
 // // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+pragma solidity 0.7.5;
 
 // import "../../dataTypes/collections/AddressSet.sol";
 // import "../../dataTypes/collections/Bytes32Set.sol";
@@ -10,7 +10,7 @@
 // /**
 //  * @notice Datatype for reuse in the authroization system.
 //  */
-// library RoleData {
+library RoleData {
 
 //     using AddressSet for AddressSet.Set;
 //     using Bytes32Set for Bytes32Set.Set;
@@ -28,4 +28,4 @@
 //         mapping(bytes32 => Role) roles;
 //     }
 
-// }
+}

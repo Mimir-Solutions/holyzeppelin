@@ -1,7 +1,7 @@
 // // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+pragma solidity 0.7.5;
 
-// library AuthorizationDatastoreEvents {
+library AuthorizationDatastoreEvents {
 
 //     /**
 //      * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`
@@ -39,4 +39,4 @@
 //     event NewContractRegistered( address indexed newRegisteredContract, bytes32 indexed rootRole, address indexed rootAdminAddress );
 
 //     event CreatedRole( address indexed _contract, address indexed submitter, bytes32 role );
-// }
+}

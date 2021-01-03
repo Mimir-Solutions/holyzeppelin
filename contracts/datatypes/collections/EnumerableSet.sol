@@ -200,11 +200,15 @@ library EnumerableSet {
    * - `index` must be strictly less than {length}.
    */
   function at(Bytes4Set storage set, uint256 index) internal view returns ( bytes4 ) {
-    return _at(set._inner, index);
+    return bytes4( _at( set._inner, index ) );
   }
 
-  function getValues( Bytes4Set storage set_ ) internal view returns ( bytes4[] storage ) {
-    return set_._inner;
+  function getValues( Bytes4Set storage set_ ) internal view returns ( bytes4[] memory ) {
+    bytes4[] memory bytes4Array_;
+    for( uint256 iteration_ = 0; _length( set_._inner ) > iteration_; iteration_++ ) {
+      bytes4Array_[iteration_] = bytes4( _at( set_._inner, iteration_ ) );
+    }
+    return bytes4Array_;
   }
 
   function insert( Bytes4Set storage set_, uint256 index_, bytes4 valueToInsert_ ) internal returns ( bool ) {
@@ -263,11 +267,11 @@ library EnumerableSet {
         return _at(set._inner, index);
     }
 
-  function getValues( Bytes32Set storage set_ ) internal view returns ( bytes4[] storage ) {
+  function getValues( Bytes32Set storage set_ ) internal view returns ( bytes4[] memory ) {
     bytes4[] memory bytes4Array_;
 
-      for( uint256 iteration_ = 0; _length(set_._inner) >= iteration_; iteration_++ ){
-        bytes4Array_[iteration_] = at( set_, iteration_ );
+      for( uint256 iteration_ = 0; _length( set_._inner ) >= iteration_; iteration_++ ){
+        bytes4Array_[iteration_] = bytes4( at( set_, iteration_ ) );
       }
 
       return bytes4Array_;

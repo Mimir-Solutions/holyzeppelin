@@ -1,7 +1,7 @@
 // // SPDX-License-Identifier: AGPL-3.0-or-later
-// pragma solidity 0.7.5;
+pragma solidity 0.7.5;
 
-// library RoleBasedAccessControlEvents {
+library RoleBasedAccessControlEvents {
 
 //     event RoleAdminChanged( bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole );
 
@@ -16,4 +16,4 @@
 //     event ApprovalRevoked( bytes32 indexed role, address indexed approver, address indexed disapprovedAccount );
 
 //     event RoleRevoked( bytes32 indexed role, address indexed account, address indexed sender );
-// }
+}
