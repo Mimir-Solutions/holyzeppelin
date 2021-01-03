@@ -2,6 +2,9 @@
 
 pragma solidity 0.7.5;
 
+// TODO need to update to Safemath
+// TODO remove update ot Safemtoh with update ot Solidity ^0.8.0
+// TODO consolidate SafeMath and Math libraries
 /**
  * @dev Standard math utilities missing in the Solidity language.
  */

@@ -4,7 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "./ERC20.sol";
-import "../../utils/Pausable.sol";
+import "../../security/flow/Pausable.sol";
 
 /**
  * @dev ERC20 token with pausable token transfers, minting and burning.

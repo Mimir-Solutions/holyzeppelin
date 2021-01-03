@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 import "./interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
-import "../../utils/Address.sol";
+import "../../datatypes/primitives/Address.sol";
 
 /**
  * @title SafeERC20

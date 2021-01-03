@@ -3,7 +3,7 @@
 pragma solidity 0.7.5;
 
 import "./Proxy.sol";
-import "../utils/Address.sol";
+import "../datatypes/primitives/Address.sol";
 import "./IBeacon.sol";
 
 /**
