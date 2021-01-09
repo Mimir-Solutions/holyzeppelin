@@ -8,7 +8,6 @@ import "./interfaces/IERC1820Registrar.sol";
 import "./interfaces/IERC1820Registry.sol";
 import "../../datatypes/collections/EnumerableMap.sol";
 import "../../datatypes/collections/EnumerableSet.sol";
-import "../../datatypes/collections/EnumerableSet.sol";
 import "../../security/Context.sol";
 
 /**

@@ -104,8 +104,8 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
     emit InterfaceImplementerSet(addr_, _interfaceHash, _implementer);
   }
 
-  function _doesImplementsERC1820Interface( address registry_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal view returns ( bool ) {
-    return ( IERC1820Implementer(registry_).canImplementInterfaceForAddress(interfaceToVerify_, addressToVerify_) == ERC1820_ACCEPT_MAGIC );
+  function _doesImplementsERC1820Interface( address implementer_, address addressToVerify_, bytes32 interfaceToVerify_ ) internal view returns ( bool ) {
+    return ( IERC1820Implementer(implementer_).canImplementInterfaceForAddress(interfaceToVerify_, addressToVerify_) == ERC1820_ACCEPT_MAGIC );
   }
 
     // Sets '_newManager' as manager for '_addr'.
