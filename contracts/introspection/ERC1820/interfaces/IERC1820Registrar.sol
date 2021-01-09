@@ -10,10 +10,15 @@ import "hardhat/console.sol";
  * {IERC1820Registry}.
  */
 interface IERC1820Registrar {
-    /**
-     * @dev Returns the address for the external registry this 
-     */
-    function getRegistries() external view returns ( address[] memory );
 
-    function registerWithRegistry( address newRegistry_ ) external returns ( bool );
+  /*
+   * TODO update to Natspec comment
+   * Exposes _setRegistryManager() internal function.
+   * Internal implementation separated from external exposure to minimize gas costs when using internal function.
+   */
+  function setRegistryManager( address newRegistryManager_ ) external returns ( bool );
+
+  function registerWithNewRegistry( address newRegistry_ ) external returns ( bool );
+
+  function getRegistries() external view returns ( address[] memory );
 }

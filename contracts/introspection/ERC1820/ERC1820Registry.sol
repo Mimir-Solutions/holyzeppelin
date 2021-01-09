@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "./interfaces/IERC1820Registry.sol";
-import "./ERC1820Implementer.sol";
+import "./ERC1820Registrar.sol";
 import "../../security/Context.sol";
 import "../../datatypes/primitives/Address.sol";
 
@@ -21,7 +21,7 @@ import "../../datatypes/primitives/Address.sol";
  *
  * For an in-depth explanation and source code analysis, see the EIP text.
  */
-contract ERC1820Registry is IERC1820Registry, ERC1820Implementer {
+contract ERC1820Registry is IERC1820Registry, ERC1820Registrar {
 
   using Address for address;
 
@@ -46,30 +46,16 @@ contract ERC1820Registry is IERC1820Registry, ERC1820Implementer {
   //  flag for each address and erc165 interface to indicate if it is cached.
   mapping(address => mapping(bytes4 => bool)) internal erc165Cached;
 
-  constructor () {
+  constructor( address[] memory registriesToRegisterWith_, address registryManager_ ) ERC1820Registrar( registriesToRegisterWith_, registryManager_ ) {
     console.log("Instantiating ERC1820Registry.");
 
-    // console.log("ERC1820_REGISTRY_INTERFACE_ID interface ID: %s", ERC1820_REGISTRY_INTERFACE_ID);
+    console.log("ERC1820_REGISTRY_INTERFACE_ID interface ID: %s", address( uint256( ERC1820_REGISTRY_INTERFACE_ID) ) );
 
-    // console.log("Registering ERC1820Registry ERC1820 interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
-    // _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
-    // console.log("Registered ERC1820Registry ERC1820 interface ID.");
+    _addERC1820InterfaceIDToSelf( ERC1820_REGISTRY_INTERFACE_ID );
 
-    // console.log("Setting this contract as it's own registry.");
-    // _setRegistry( address(this) );
-    // console.log("Set this contract as it's own registry.");
+    _addRegistry( address(this) );
 
-    // _setManager( address(this) );
-    
-    // console.log("Registering ERC1820Registry ERC1820Implementer interface ID of %s for %s.", ERC1820_IMPLEMENTER_INTERFACE_ID, address(this));
-    // _registerInterfaceForAddress( ERC1820_IMPLEMENTER_INTERFACE_ID, address(this) );
-    // console.log("Registered ERC1820Implementer ERC165 interface ID.");
-
-    // console.log("Registering ERC1820Registry ERC1820Registry interface ID of %s for %s.", ERC1820_REGISTRY_INTERFACE_ID, address(this));
-    // _registerInterfaceForAddress( ERC1820_REGISTRY_INTERFACE_ID, address(this) );
-    // console.log("Registered ERC1820Registry ERC1820Registry interface ID.");
-
-    // console.log("Instantiated ERC1820Registry.");
+    console.log("Instantiated ERC1820Registry.");
   }
 
   /**

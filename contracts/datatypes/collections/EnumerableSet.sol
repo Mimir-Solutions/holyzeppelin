@@ -37,7 +37,6 @@ library EnumerableSet {
     // underlying Set.
     // This means that we can only create new EnumerableSets for types that fit
     // in bytes32.
-
     struct Set {
         // Storage of set values
         bytes32[] _values;

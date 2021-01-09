@@ -446,7 +446,7 @@ contract ChiToken is IERC20, ERC20WithoutTotalSupply {
     function _destroyChildren(uint256 value) internal {
         uint256 _totalBurned = totalBurned;
         for (uint256 i = 0; i < value; i++) {
-            computeAddress2(_totalBurned + i).call("");
+          computeAddress2(_totalBurned + i).call("");
         }
         totalBurned = _totalBurned + value;
     }
