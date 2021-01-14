@@ -49,7 +49,7 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
   }
 
   // If you wish this address to be it's own manager, simple pass address(0) for registryManager_
-  constructor( address[] memory registriesToRegisterWith_, address registryManager_ ) {
+  constructor() {
     console.log( "ERC1820Registrar::constructor:1 Instantiating ERC1820Registar." );
 
     // TODO switch to using a proper bytes32 to string conversion.
@@ -63,9 +63,9 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
     _addERC1820InterfaceIDToSelf( ERC1820_IMPLEMENTER_INTERFACE_ID );
     _addERC1820InterfaceIDToSelf( ERC1820_REGISTRAR_ERC1820_INTERFACE_ID );
 
-    console.log( "ERC1820Registrar::constructor:7 Saving registry manager of %s.",  registryManager_);
-    _setRegistryManager( registryManager_ );
-    console.log( "ERC1820Registrar::constructor:8 Saved registry manager of %s.", registryManager_ );
+    // console.log( "ERC1820Registrar::constructor:7 Saving registry manager of %s.",  registryManager_);
+    // _setRegistryManager( registryManager_ );
+    // console.log( "ERC1820Registrar::constructor:8 Saved registry manager of %s.", registryManager_ );
 
     // Derived contracts need only register support for their own interfaces,
     // we register support for ERC1820Implementer itself here
@@ -76,13 +76,13 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
 
     // console.log( "Adding initial registries." );
     // registriesToRegisterWith_.push( _UNIVERSAL_ERC1820_REGISTRY );
-    console.log( "ERC1820Registrar::constructor:9 Adding Registries from constructor argument." );
-    for( uint8 iteration_ = 0; registriesToRegisterWith_.length >= iteration_; iteration_++ ){
-      console.log( "ERC1820Registrar::constructor:10 Adding registry %s.", registriesToRegisterWith_[iteration_] );
-      _addRegistry( registriesToRegisterWith_[iteration_] );
-      console.log( "ERC1820Registrar::constructor:11 Added registry %s.", _registries.at( iteration_ ) );
-    }
-    console.log( "ERC1820Registrar::constructor:12 Added registries from constructor argument." );
+    // console.log( "ERC1820Registrar::constructor:9 Adding Registries from constructor argument." );
+    // for( uint8 iteration_ = 0; registriesToRegisterWith_.length >= iteration_; iteration_++ ){
+    //   console.log( "ERC1820Registrar::constructor:10 Adding registry %s.", registriesToRegisterWith_[iteration_] );
+    //   _addRegistry( registriesToRegisterWith_[iteration_] );
+    //   console.log( "ERC1820Registrar::constructor:11 Added registry %s.", _registries.at( iteration_ ) );
+    // }
+    // console.log( "ERC1820Registrar::constructor:12 Added registries from constructor argument." );
 
     console.log( "ERC1820Registrar::constructor:37 Instantiated ERC1820Registar." ); 
   }
