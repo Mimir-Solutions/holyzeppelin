@@ -29,11 +29,9 @@ pragma solidity 0.7.5;
 
 interface IDAI {
 
-  event Approval(address indexed src, address indexed guy, uint wad);
-  event Transfer(address indexed src, address indexed dst, uint wad);
 
     // --- Auth ---
-  function wards() public;
+  function wards() external returns ( uint256 );
 
   function rely(address guy) external;
 
@@ -42,7 +40,7 @@ interface IDAI {
     // --- Token ---
   function transfer(address dst, uint wad) external returns (bool);
 
-  function transferFrom(address src, address dst, uint wad) public returns (bool);
+  function transferFrom(address src, address dst, uint wad) external returns (bool);
 
   function mint(address usr, uint wad) external;
 
