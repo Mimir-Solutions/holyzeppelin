@@ -29,7 +29,7 @@ import "./libraries/LibNote.sol";
 
 /* import "./lib.sol"; */
 
-contract Dai is IDAI, LibNote {
+contract DAI is IDAI, LibNote {
     // --- Auth ---
     mapping (address => uint) public wards;
 

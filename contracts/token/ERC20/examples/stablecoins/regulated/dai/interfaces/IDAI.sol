@@ -27,7 +27,7 @@ pragma solidity 0.7.5;
 
 /* import "./lib.sol"; */
 
-contract Dai is LibNote {
+interface IDAI {
 
   event Approval(address indexed src, address indexed guy, uint wad);
   event Transfer(address indexed src, address indexed dst, uint wad);
