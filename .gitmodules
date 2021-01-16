@@ -1,3 +1,0 @@
-[submodule "toIntegrate/soliditylabs/ERC20-Permit"]
-	path = toIntegrate/soliditylabs/ERC20-Permit
-	url = git@github.com:soliditylabs/ERC20-Permit.git
