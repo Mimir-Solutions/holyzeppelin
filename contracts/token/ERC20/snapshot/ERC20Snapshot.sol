@@ -3,10 +3,10 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../../math/SafeMath.sol";
-import "../../datatypes/primitives/Arrays.sol";
-import "../../math/Counters.sol";
-import "./ERC20.sol";
+import "../../../datatypes/primitives/Arrays.sol";
+import "../../../math/Counters.sol";
+import "../../../math/SafeMath.sol";
+import "../ERC20.sol";
 
 /**
  * @dev This contract extends an ERC20 token with a snapshot mechanism. When a snapshot is created, the balances and

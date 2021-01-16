@@ -25,10 +25,10 @@ SOFTWARE.
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "../../math/SafeMath.sol";
-import "../../math/SafeMathInt.sol";
-import "../../security/access/Ownable.sol";
-import "./interfaces/IERC20.sol";
+import "../../../math/SafeMath.sol";
+import "../../../math/SafeMathInt.sol";
+import "../../../security/access/Ownable.sol";
+import "../interfaces/IERC20.sol";
 
 /**
  * @title uFragments ERC20 token

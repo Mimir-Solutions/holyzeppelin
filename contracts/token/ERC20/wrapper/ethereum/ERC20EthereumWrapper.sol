@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.7.5;
 
-import "./ERC20Burnable.sol";
-import "../../security/Context.sol";
-import "../../math/SafeMath.sol";
+import "../../burnable/ERC20Burnable.sol";
+import "../../../../security/Context.sol";
+import "../../../../math/SafeMath.sol";
 // import "../../datatypes/primitives/Bytes32.sol";
 
 // TODO swithc to ERC777 with operator for transfering ETH to other pair.

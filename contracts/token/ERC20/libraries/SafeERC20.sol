@@ -3,9 +3,9 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "./interfaces/IERC20.sol";
-import "../../math/SafeMath.sol";
-import "../../datatypes/primitives/Address.sol";
+import "../interfaces/IERC20.sol";
+import "../../../math/SafeMath.sol";
+import "../../../datatypes/primitives/Address.sol";
 
 /**
  * @title SafeERC20

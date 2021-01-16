@@ -6,8 +6,8 @@ import "hardhat/console.sol";
 import "../../../security/access/rbac/AccessControl.sol";
 import "../../../security/Context.sol";
 import "../ERC20.sol";
-import "../ERC20Burnable.sol";
-import "../ERC20Pausable.sol";
+import "../burnable/ERC20Burnable.sol";
+import "../pausable/ERC20Pausable.sol";
 
 /**
  * @dev {ERC20} token, including:

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.5;
 
-import "../ERC20Burnable.sol";
+import "../burnable/ERC20Burnable.sol";
 
 /**
  * @dev {ERC20} token, including:
