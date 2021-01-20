@@ -6,6 +6,8 @@
 // SPDX-License-Identifier: Unlicensed
 pragma solidity 0.7.5;
 
+import "hardhat/console.sol";
+
 import "./interfaces/IDAI.sol";
 import "./libraries/LibNote.sol";
 
@@ -54,7 +56,7 @@ contract DAI is LibNote {
     uint256 public totalSupply;
 
     mapping (address => uint)                      public balanceOf;
-    mapping (address => mapping (address => uint)) public allowance;
+    mapping (address => mapping (address => uint)) private allowances;
     mapping (address => uint)                      public nonces;
 
     // event Approval(address indexed src, address indexed guy, uint wad);
@@ -85,18 +87,27 @@ contract DAI is LibNote {
         ));
     }
 
+    function allowance( address account_, address sender_ ) external view returns ( uint ) {
+      return _allowance( account_, sender_ );
+    }
+
+    function _allowance( address account_, address sender_ ) internal view returns ( uint ) {
+      console.log( "Cotract::DAI::_allowance:1 Getting allowance of %s from %s for %s.", allowances[account_][sender_], account_, sender_ );
+      return allowances[account_][sender_];
+    }
+
     // --- Token ---
     function transfer(address dst, uint wad) external returns (bool) {
         return transferFrom(msg.sender, dst, wad);
     }
 
-    function transferFrom(address src, address dst, uint wad)
-        public returns (bool)
-    {
-        require(balanceOf[src] >= wad, "Dai/insufficient-balance");
-        if (src != msg.sender && allowance[src][msg.sender] != uint(-1)) {
-            require(allowance[src][msg.sender] >= wad, "Dai/insufficient-allowance");
-            allowance[src][msg.sender] = sub(allowance[src][msg.sender], wad);
+    function transferFrom(address src, address dst, uint wad) public returns (bool) {
+      console.log( "Contract::DAI::transferFrom:1 Confirming that %s is approved to tansfer %s from %s.", msg.sender, wad, src );
+      console.log( "Contract::DAI::transferFrom:1 Currently %s is approved to transfer %s from %s.", msg.sender, allowances[src][msg.sender], src );
+      require(balanceOf[src] >= wad, "Dai/insufficient-balance");
+        if (src != msg.sender && _allowance( src, msg.sender ) != uint(-1)) {
+            require(_allowance( src, msg.sender ) >= wad, "Dai/insufficient-allowance");
+            allowances[src][msg.sender] = sub(_allowance( src, msg.sender ), wad);
         }
         balanceOf[src] = sub(balanceOf[src], wad);
         balanceOf[dst] = add(balanceOf[dst], wad);
@@ -105,26 +116,40 @@ contract DAI is LibNote {
     }
 
     function mint(address usr, uint wad) external auth {
-        balanceOf[usr] = add(balanceOf[usr], wad);
-        totalSupply    = add(totalSupply, wad);
-        emit Transfer(address(0), usr, wad);
+      console.log( "Contract::DAI::mint:1 Minting %s to %s on call from $s.", wad, usr, msg.sender );
+      balanceOf[usr] = add(balanceOf[usr], wad);
+      console.log( "Contract::DAI::mint:2 Minted %s to %s on call from $s.", wad, usr, msg.sender );
+      console.log( "Contract::DAI::mint:3 Ballance of $s is now $s.", usr, balanceOf[usr] );
+      console.log( "Contract::DAI::mint:4 Increasing total supply from %s.", totalSupply );
+      totalSupply    = add(totalSupply, wad);
+      console.log( "Contract::DAI::mint:5 Increased total supply to %s.", totalSupply );
+      console.log( "Contract::DAI::mint:6 Emitting Trasfer event." );
+      emit Transfer(address(0), usr, wad);
+      console.log( "Contract::DAI::mint:7 Emited Trasfer event." );
     }
 
     function burn(address usr, uint wad) external {
         require(balanceOf[usr] >= wad, "Dai/insufficient-balance");
-        if (usr != msg.sender && allowance[usr][msg.sender] != uint(-1)) {
-            require(allowance[usr][msg.sender] >= wad, "Dai/insufficient-allowance");
-            allowance[usr][msg.sender] = sub(allowance[usr][msg.sender], wad);
+        if (usr != msg.sender && _allowance( usr, msg.sender ) != uint(-1)) {
+            require(_allowance( usr, msg.sender ) >= wad, "Dai/insufficient-allowance");
+            allowances[usr][msg.sender] = sub(_allowance( usr, msg.sender ), wad);
         }
         balanceOf[usr] = sub(balanceOf[usr], wad);
         totalSupply    = sub(totalSupply, wad);
         emit Transfer(usr, address(0), wad);
     }
 
-    function approve(address usr, uint wad) external returns (bool) {
-        allowance[msg.sender][usr] = wad;
-        emit Approval(msg.sender, usr, wad);
-        return true;
+    function _approve(address usr, uint wad) internal returns (bool) {
+      console.log( "Contract::DAI::_approve:1 Approving %s to transfer %s from %s.", usr, wad, msg.sender );
+      allowances[msg.sender][usr] = wad;
+      console.log( "Contract::DAI::_approve:2 Approved %s to transfer %s from %s.", usr, _allowance( msg.sender, usr ), msg.sender );
+      emit Approval(msg.sender, usr, wad);
+      return true;
+    }
+
+    function approve(address usr_, uint wad_ ) external returns (bool) {
+      console.log( "Contract::DAI::_approve:1 Approving %s to transfer %s from %s from external call.", usr_, wad_, msg.sender );
+      return _approve( usr_, wad_ ) ;
     }
 
     // --- Alias ---
@@ -161,7 +186,7 @@ contract DAI is LibNote {
         require(expiry == 0 || block.timestamp <= expiry, "Dai/permit-expired");
         require(nonce == nonces[holder]++, "Dai/invalid-nonce");
         uint wad = allowed ? uint(-1) : 0;
-        allowance[holder][spender] = wad;
+        allowances[holder][spender] = wad;
         emit Approval(holder, spender, wad);
     }
 }

@@ -254,21 +254,25 @@ abstract contract ERC20 is IERC20, ERC1820Implementer {
      */
     // Present in ERC777
     function _mint(address account_, uint256 ammount_) internal virtual {
-        console.log("ERC20::_mint: Minting %s %s tokens to %s.", ammount_, _symbol, account_);
-        console.log("Confirming that minting recipient isn't address 0.");
+        console.log("ERC20::_mint:1 Minting %s %s tokens to %s.", ammount_, _symbol, account_);
+        console.log("ERC20::_mint:2 Confirming that minting recipient isn't address 0.");
         require(account_ != address(0), "ERC20: mint to the zero address");
-        console.log("Confirmed that minting recipient isn't address 0.");
+        console.log("ERC20::_mint:3 Confirmed that minting recipient isn't address 0.");
 
-        _beforeTokenTransfer(address(0), account_, ammount_);
+        console.log( "ERC20::_mint:4 Calling _beforeTokenTransfer." );
+        _beforeTokenTransfer(address( this ), account_, ammount_);
+        console.log( "ERC20::_mint:5 Called _beforeTokenTransfer." );
 
-        console.log("Adding %s to _totalSupply.", ammount_);
+        console.log("ERC20::_mint:6 Adding %s to _totalSupply.", ammount_);
         _totalSupply = _totalSupply.add(ammount_);
-        console.log("_totalSupply is %s.", _totalSupply);
-        console.log("Added %s to totalSupply.", _totalSupply);
-        console.log("Adding %s to balance for address %s.", ammount_, account_);
+        console.log("ERC20::_mint:7 _totalSupply is %s.", _totalSupply);
+        console.log("ERC20::_mint:8 Added %s to totalSupply.", _totalSupply);
+        console.log("ERC20::_mint:9 Adding %s to balance for address %s.", ammount_, account_);
         _balances[account_] = _balances[account_].add(ammount_);
-        console.log("Added %s to balance for address %s.", _balances[account_], account_);
-        emit Transfer(address(0), account_, ammount_);
+        console.log("ERC20::_mint:10 Added %s to balance for address %s.", _balances[account_], account_);
+        console.log( "ERC20::_mint:11 Emitting Transfer event." );
+        emit Transfer(address( this ), account_, ammount_);
+        console.log( "ERC20::_mint:12 Emited Transfer event." );
     }
 
     /**
