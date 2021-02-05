@@ -4,8 +4,8 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "../../math/SafeMath.sol";
-import "../../access/Ownable.sol";
-import "../../utils/Address.sol";
+import "../../security/access/Ownable.sol";
+import "../../datatypes/primitives/Address.sol";
 
  /**
   * @title Escrow

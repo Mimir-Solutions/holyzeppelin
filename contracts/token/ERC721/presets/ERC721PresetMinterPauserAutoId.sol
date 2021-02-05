@@ -3,7 +3,7 @@ pragma solidity 0.7.5;
 
 import "hardhat/console.sol";
 
-import "../../../access/AccessControl.sol";
+import "../../../security/access/rbac/AccessControl.sol";
 import "../../../security/Context.sol";
 import "../../../math/Counters.sol";
 import "../ERC721.sol";

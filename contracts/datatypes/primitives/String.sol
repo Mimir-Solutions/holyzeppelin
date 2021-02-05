@@ -79,6 +79,7 @@ library String {
     //     }
     // }
 
+  // TODO needs update to Solidity 0.7.5
     //important -> hex string to bytes
     // function toBytes(string memory self) pure internal returns (bytes memory )
     // {
@@ -118,4 +119,56 @@ library String {
 
     //     return bArray;
     // }
+
+    function strConcat(string memory a, string memory b, string memory c, string memory d, string memory e) internal pure returns (string memory) {
+      bytes memory ba = bytes(a);
+      bytes memory bb = bytes(b);
+      bytes memory bc = bytes(c);
+      bytes memory bd = bytes(d);
+      bytes memory be = bytes(e);
+      string memory abcde = new string(ba.length + bb.length + bc.length + bd.length + be.length);
+      bytes memory babcde = bytes(abcde);
+      uint k = 0;
+      for (uint i = 0; i < ba.length; i++) babcde[k++] = ba[i];
+      for (uint i = 0; i < bb.length; i++) babcde[k++] = bb[i];
+      for (uint i = 0; i < bc.length; i++) babcde[k++] = bc[i];
+      for (uint i = 0; i < bd.length; i++) babcde[k++] = bd[i];
+      for (uint i = 0; i < be.length; i++) babcde[k++] = be[i];
+      return string(babcde);
+    }
+
+    function strConcat(string memory a, string memory b, string memory c, string memory d) internal pure returns (string memory) {
+        return strConcat(a, b, c, d, "");
+    }
+
+    function strConcat(string memory a, string memory b, string memory c) internal pure returns (string memory) {
+        return strConcat(a, b, c, "", "");
+    }
+
+    function strConcat(string memory a, string memory b) internal pure returns (string memory) {
+        return strConcat(a, b, "", "", "");
+    }
+
+    function uint2str(uint i) internal pure returns (string memory _uintAsString) {
+        if (i == 0) {
+            return "0";
+        }
+        uint j = i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len - 1;
+        while (i != 0) {
+            bstr[k--] = byte(uint8(48 + i % 10));
+            i /= 10;
+        }
+        return string(bstr);
+    }
+
+    function bool2str(bool b) internal pure returns (string memory _boolAsString) {
+        _boolAsString = b ? "1" : "0";
+    }
 }
