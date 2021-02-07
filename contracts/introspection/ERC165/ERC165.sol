@@ -7,17 +7,26 @@ import "./interfaces/IERC165.sol";
 
 /**
  * @dev Implementation of the {IERC165} interface.
+ *  This is an example of how to calculate the ERC165 interfce ID based on ERC777
+ *     bytes4(keccak256('balanceOf(address)')) == 0x70a08231
+ *     bytes4(keccak256('ownerOf(uint256)')) == 0x6352211e
+ *     bytes4(keccak256('approve(address,uint256)')) == 0x095ea7b3
+ *     bytes4(keccak256('getApproved(uint256)')) == 0x081812fc
+ *     bytes4(keccak256('setApprovalForAll(address,bool)')) == 0xa22cb465
+ *     bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c5
+ *     bytes4(keccak256('transferFrom(address,address,uint256)')) == 0x23b872dd
+ *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) == 0x42842e0e
+ *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)')) == 0xb88d4fde
+ *
+ *     => 0x70a08231 ^ 0x6352211e ^ 0x095ea7b3 ^ 0x081812fc ^
+ *        0xa22cb465 ^ 0xe985e9c5 ^ 0x23b872dd ^ 0x42842e0e ^ 0xb88d4fde == 0x80ac58cd
  *
  * Contracts may inherit from this and call {_registerInterface} to declare
  * their support of an interface.
  */
-// TODO to define and provide function IDs based in call / delegateCall signatures.
-/*
- *     bytes4(keccak256("supportsInterface(bytes4)")) == 0x01ffc9a7
- */
 abstract contract ERC165 is IERC165 {
-    /*
-     * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
+    /**
+     * @param ERC165_INTERFACE_ID Calculated using the forumula bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
     bytes4 public constant ERC165_INTERFACE_ID = bytes4( keccak256( "supportsInterface(bytes4)" ) );
 
@@ -26,18 +35,22 @@ abstract contract ERC165 is IERC165 {
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
-    constructor() {
-      console.log("ERC165::constructor:1 Instantiating ERC165.");
-      
-      // Derived contracts need only register support for their own interfaces,
-      // Registering ERC165 interface to facilitate validation from other contracts.
-      // not having it registered would require special consideration of the ERC165 interface.
-      console.log("ERC165::constructor:2 ERC165 interface ID: %s", address( uint256( bytes32( ERC165_INTERFACE_ID ) ) ) );
-      console.log("ERC165::constructor:3 Registering ERC165_INTERFACE_ID with self.");
-      _registerInterface( ERC165_INTERFACE_ID );
-      console.log("ERC165::constructor:4 Registered ERC165_INTERFACE_ID with self.");
+    constructor () {
+      console.log("Instantiating ERC165.");
 
-      console.log("ERC165::constructor:5 Instantiated ERC165.");
+      console.log("Calculating ERC165_INTERFACE_ID.");
+      ERC165_INTERFACE_ID = bytes4(keccak256('supportsInterface(bytes4)'));
+      console.log("IERC165Enhanced interface ID: %s", string( ERC165_INTERFACE_ID ) );
+      console.log("Calculated ERC165_INTERFACE_ID.");
+
+      
+      // We register support for ERC165 itself here.
+      // Derived contracts need only register support for their own interfaces.
+      console.log("Registering ERC165_INTERFACE_ID.");
+      _registerInterface(bytes4(keccak256('supportsInterface(bytes4)')));
+      console.log("Registered ERC165_INTERFACE_ID.");
+
+      console.log("Instantiated ERC165.");
     }
 
     /**

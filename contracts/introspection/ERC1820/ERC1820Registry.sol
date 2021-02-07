@@ -70,23 +70,8 @@
 //     console.log("Instantiated ERC1820Registry.");
 //   }
 
-//   /**
-//    *  Query if an address implements an interface and through which contract.
-//    * @param _addr Address being queried for the implementer of an interface.
-//    * (If '_addr' is the zero address then 'msg.sender' is assumed.)
-//    * @param _interfaceHash Keccak256 hash of the name of the interface as a string.
-//    * E.g., 'web3.utils.keccak256("ERC777TokensRecipient")' for the 'ERC777TokensRecipient' interface.
-//    * @return The address of the contract which implements the interface '_interfaceHash' for '_addr'
-//    * or '0' if '_addr' did not register an implementer for this interface.
-//    */
-//   function getInterfaceImplementer(address _addr, bytes32 _interfaceHash) external view override returns (address) {
-//     address addr = _addr == address(0) ? msg.sender : _addr;
-//     if (isERC165Interface(_interfaceHash)) {
-//       bytes4 erc165InterfaceHash = bytes4(_interfaceHash);
-//         return implementsERC165Interface(addr, erc165InterfaceHash) ? addr : address(0);
-//     }
-//     return interfaces[addr][_interfaceHash];
-//   }
+    console.log("Instantiated ERC1820Registry.");
+  }
 
 //     // Sets the contract which implements a specific interface for an address.
 //     /// Only the manager defined for that address can set it.
