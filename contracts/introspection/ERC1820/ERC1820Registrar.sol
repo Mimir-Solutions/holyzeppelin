@@ -42,18 +42,18 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
   EnumerableSet.AddressSet private _registries;
 
   modifier onlyManager() {
-    console.log( "ERC1820Registrar::onlyManager:1 Confimging msg.sender is registry manager." );
-    require( Context._msgSender() == registryManager, "msg.sender is not the registry amanger." );
-    console.log( "ERC1820Registrar::onlyManager:2 Confimed msg.sender is registry manager." );
+    console.log( "Contract::holyzeppelin::ERC1820Registrar::onlyManager:01 Confimging msg.sender is registry manager." );
+    require( msg.sender == registryManager, "Contract::holyzeppelin::ERC1820Registrar::onlyManager:require:01 msg.sender is not the registry amanger." );
+    console.log( "ERC1820Registrar::onlyManager:02 Confimed msg.sender is registry manager." );
     _;
   }
 
   // If you wish this address to be it's own manager, simple pass address(0) for registryManager_
   constructor() {
-    console.log( "ERC1820Registrar::constructor:1 Instantiating ERC1820Registar." );
+    console.log( "Contract::holyzeppelin::ERC1820Registrar::constructor:01 Instantiating ERC1820Registar." );
 
     // TODO switch to using a proper bytes32 to string conversion.
-    console.log( "ERC1820Registrar::constructor:2 ERC1820_REGISTRAR_ERC1820_INTERFACE_ID interface ID: %s", address( uint256( ERC1820_REGISTRAR_ERC1820_INTERFACE_ID ) ) );
+    console.log( "Contract::holyzeppelin::ERC1820Registrar::constructor:02 ERC1820_REGISTRAR_ERC1820_INTERFACE_ID interface ID: %s", address( uint256( ERC1820_REGISTRAR_ERC1820_INTERFACE_ID ) ) );
     
     _addERC165InterfaceIDToSelf( ERC165_INTERFACE_ID );
     _addERC165InterfaceIDToSelf( ERC1820_IMPLEMENTER_ERC165_INTERFACE_ID );
@@ -178,21 +178,21 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
   }
 
   function _addRegistry( address newRegistry_ ) internal virtual returns ( bool ) {
-    console.log( "ERC1820Registrar::_addRegistry:1 Confirming registry was not already added," );
-    require( !_registries.contains( newRegistry_ ), "Registry already added." );
-    console.log( "Registry is not present." );
-    console.log( "Adding registry." );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:01 Confirming registry was not already added," );
+    require( !_registries.contains( newRegistry_ ), "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:02 Registry already added." );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:03 Registry is not present." );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:04 Adding registry." );
     _registries.add( newRegistry_ );
-    console.log( "Added registry." );
-    console.log( "Returning true to indicate success," );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:05 Added registry." );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_addRegistry:07 Returning true to indicate success," );
     return true;
   }
 
   function _updateRegistryERC165Cache( address registry_, bytes4 erc165InterfaceIDToRegister_ ) internal virtual returns ( bool ) {
-    console.log( "Registering ERC165 iterface %s with registry %s.", address( uint256( bytes32( erc165InterfaceIDToRegister_ ) ) ), registry_ );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_updateRegistryERC165Cache:01 Registering ERC165 iterface %s with registry %s.", address( uint256( bytes32( erc165InterfaceIDToRegister_ ) ) ), registry_ );
     IERC1820Registry( registry_ ).updateERC165Cache( address( this ), erc165InterfaceIDToRegister_ );
-    console.log( "Registered ERC165 iterface %s with registry %s.", address( uint256( bytes32( erc165InterfaceIDToRegister_ ) ) ), registry_ );
-    console.log( "Returning true to indicate success." );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_updateRegistryERC165Cache:02 Registered ERC165 iterface %s with registry %s.", address( uint256( bytes32( erc165InterfaceIDToRegister_ ) ) ), registry_ );
+    console.log( "Contracts::holyzeppelin::ERC1820Registrar::_updateRegistryERC165Cache:03 Returning true to indicate success." );
     return true;
   }
 
@@ -214,13 +214,13 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
 
   function _registerWitRegistry( address newRegistry_ ) internal virtual returns ( bool ) {
     console.log( "Registering with new registry." );
-    for( uint8 iteration_ = 0; _erc165ImplementedInterfaces.length() >= iteration_; iteration_++ ){
+    for( uint8 iteration_ = 0; _erc165ImplementedInterfaces.length() > iteration_; iteration_++ ){
       console.log( "Registering ERC165 iterface %s with registry %s.", address( uint256( bytes32( _erc165ImplementedInterfaces.at( iteration_ ) ) ) ), newRegistry_ );
       IERC1820Registry( newRegistry_ ).updateERC165Cache( address( this ), _erc165ImplementedInterfaces.at( iteration_ ) );
       console.log( "Registered ERC165 iterface %s with registry %s.", address( uint256( bytes32( _erc165ImplementedInterfaces.at( iteration_ ) ) ) ), newRegistry_ );
     }
 
-    for( uint8 iteration_ = 0; _erc1820ImplementedInterfaces.length() >= iteration_; iteration_++ ){
+    for( uint8 iteration_ = 0; _erc1820ImplementedInterfaces.length() > iteration_; iteration_++ ){
       console.log( "Registering ERC1820 iterface %s with registry %s.", address( uint256( _erc1820ImplementedInterfaces.at( iteration_ ) ) ), newRegistry_ );
       IERC1820Registry( newRegistry_ ).setInterfaceImplementer( address( this ), _erc1820ImplementedInterfaces.at( iteration_ ), address( this ) );
       console.log( "Registered ERC1820 iterface %s with registry %s.", address( uint256( _erc1820ImplementedInterfaces.at( iteration_ ) ) ), newRegistry_);
@@ -234,7 +234,7 @@ abstract contract ERC1820Registrar is IERC1820Registrar, ERC165ImplementerERC182
 
   function _registerWithRegisties() internal virtual {
     console.log( "ERC1820Registrar::constructor:29 Registering interface IDs." );
-    for( uint8 iteration_; _registries.length() > iteration_; iteration_++ ) {
+    for( uint8 iteration_ = 0; _registries.length() > iteration_; iteration_++ ) {
       console.log( "ERC1820Registrar::constructor:30 Registering ERC165 interface ID of %s with registry %s.", address( uint256( bytes32( _erc165ImplementedInterfaces.at( iteration_ ) ) ) ), _registries.at( iteration_ ) );
       _registerWitRegistry( _registries.at( iteration_ ) );
       console.log( "ERC1820Registrar::constructor:31 Registered ERC165 interface ID of %s with registry %s.", address( uint256( bytes32( _erc165ImplementedInterfaces.at( iteration_ ) ) ) ), _registries.at( iteration_ ) );

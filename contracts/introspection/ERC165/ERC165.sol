@@ -4,6 +4,7 @@ pragma solidity 0.7.5;
 import "hardhat/console.sol";
 
 import "./interfaces/IERC165.sol";
+import "../../datatypes/primitives/Bytes4.sol";
 
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -25,10 +26,13 @@ import "./interfaces/IERC165.sol";
  * their support of an interface.
  */
 abstract contract ERC165 is IERC165 {
+
+  using Bytes4 for bytes4;
     /**
-     * @param ERC165_INTERFACE_ID Calculated using the forumula bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
+     * @dev ERC165_INTERFACE_ID Calculated using the forumula bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
-    bytes4 public constant ERC165_INTERFACE_ID = bytes4( keccak256( "supportsInterface(bytes4)" ) );
+    bytes4 public constant ERC165_INTERFACE_ID = type(IERC165).interfaceId;
+    //  = bytes4( keccak256( "supportsInterface(bytes4)" ) );
 
     /**
      * @dev Mapping of interface ids to whether or not it's supported.
@@ -36,21 +40,13 @@ abstract contract ERC165 is IERC165 {
     mapping(bytes4 => bool) private _supportedInterfaces;
 
     constructor () {
-      console.log("Instantiating ERC165.");
+      console.log("Contract::holyzeppelin::ERC165::constructor:01 Instantiating ERC165.");
 
-      console.log("Calculating ERC165_INTERFACE_ID.");
-      ERC165_INTERFACE_ID = bytes4(keccak256('supportsInterface(bytes4)'));
-      console.log("IERC165Enhanced interface ID: %s", string( ERC165_INTERFACE_ID ) );
-      console.log("Calculated ERC165_INTERFACE_ID.");
+      console.log("Contract::holyzeppelin::ERC165::constructor:02 Registering ERC165_INTERFACE_ID.");
+      _registerInterface(ERC165_INTERFACE_ID);
+      console.log("Contract::holyzeppelin::ERC165::constructor:03 Registered ERC165_INTERFACE_ID.");
 
-      
-      // We register support for ERC165 itself here.
-      // Derived contracts need only register support for their own interfaces.
-      console.log("Registering ERC165_INTERFACE_ID.");
-      _registerInterface(bytes4(keccak256('supportsInterface(bytes4)')));
-      console.log("Registered ERC165_INTERFACE_ID.");
-
-      console.log("Instantiated ERC165.");
+      console.log("Contract::holyzeppelin::ERC165::constructor:04 Instantiated ERC165.");
     }
 
     /**
@@ -58,8 +54,8 @@ abstract contract ERC165 is IERC165 {
      *
      * Time complexity O(1), guaranteed to always use less than 30 000 gas.
      */
-    function supportsInterface( bytes4 interfaceId_ ) public view override returns (bool) {
-      console.log("ERC165::supportsInterface:1 Self identifying that %s implements interface %s.", address(this), address( uint256( bytes32( interfaceId_ ) ) ) );
+    function supportsInterface( bytes4 interfaceId_ ) external view override returns (bool) {
+      console.log( "Contract::holyzeppelin::ERC165::supportsInterface:01 Does this contract at %s implement interface %s? %s", address( this ), interfaceId_.toString, _supportedInterfaces[interfaceId_] );
       return _supportedInterfaces[interfaceId_];
     }
 
@@ -75,11 +71,7 @@ abstract contract ERC165 is IERC165 {
      * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
      */
     function _registerInterface( bytes4 interfaceId_ ) internal virtual {
-      console.log( "ERC165::_registerInterface:1 Confirming interface %s is valid ERC165 interface ID.", address ( uint256( bytes32( interfaceId_ ) ) ) );
       require(interfaceId_ != 0xffffffff, "ERC165: invalid interface id");
-      console.log( "ERC165::_registerInterface:2 Confirmed interface %s is valid ERC165 interface ID.", address ( uint256( bytes32( interfaceId_ ) ) ) );
-      console.log( "ERC165::_registerInterface:3 Setting implementation self report of interface %s.", address( uint256( bytes32( interfaceId_ ) ) ) );
       _supportedInterfaces[interfaceId_] = true;
-      console.log( "ERC165::_registerInterface:4 Set implementation self report of interface %s.", address( uint256( bytes32( interfaceId_ ) ) ) );
     }
 }
