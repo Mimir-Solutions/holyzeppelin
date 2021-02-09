@@ -1,0 +1,3 @@
+[submodule "to-import/power-oracle"]
+	path = to-import/power-oracle
+	url = git@github.com:powerpool-finance/power-oracle-contracts.git
