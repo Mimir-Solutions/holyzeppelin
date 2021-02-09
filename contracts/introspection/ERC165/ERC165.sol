@@ -55,7 +55,7 @@ abstract contract ERC165 is IERC165 {
      * Time complexity O(1), guaranteed to always use less than 30 000 gas.
      */
     function supportsInterface( bytes4 interfaceId_ ) external view override returns (bool) {
-      console.log( "Contract::holyzeppelin::ERC165::supportsInterface:01 Does this contract at %s implement interface %s? %s", address( this ), interfaceId_.toString, _supportedInterfaces[interfaceId_] );
+      // console.log( "Contract::holyzeppelin::ERC165::supportsInterface:01 Does this contract at %s implement interface %s? %s", address( this ), interfaceId_.toString, _supportedInterfaces[interfaceId_] );
       return _supportedInterfaces[interfaceId_];
     }
 
