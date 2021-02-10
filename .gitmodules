@@ -1,6 +1,3 @@
 [submodule "to-import/power-oracle"]
 	path = to-import/power-oracle
 	url = git@github.com:powerpool-finance/power-oracle-contracts.git
-[submodule "upstream/openzeppelin-contracts"]
-	path = upstream/openzeppelin-contracts
-	url = git@github.com:OpenZeppelin/openzeppelin-contracts.git
