@@ -44,6 +44,16 @@ library FixedPoint {
         return uint144(self._x >> RESOLUTION);
     }
 
+    // decode a uq112x112 into a uint with 18 decimals of precision
+  function decode112with18(uq112x112 memory self) internal pure returns (uint) {
+    // we only have 256 - 224 = 32 bits to spare, so scaling up by ~60 bits is dangerous
+    // instead, get close to:
+    //  (x * 1e18) >> 112
+    // without risk of overflowing, e.g.:
+    //  (x) / 2 ** (112 - lg(1e18))
+    return uint(self._x) / 5192296858534827;
+  }
+
     // multiply a UQ112x112 by a uint, returning a UQ144x112
     // reverts on overflow
     function mul(uq112x112 memory self, uint256 y) internal pure returns (uq144x112 memory) {
@@ -105,6 +115,13 @@ library FixedPoint {
         require(result <= uint224(-1), 'FixedPoint::divuq: overflow');
         return uq112x112(uint224(result));
     }
+
+  // returns a uq112x112 which represents the ratio of the numerator to the denominator
+  // equivalent to encode(numerator).div(denominator)
+  function fraction(uint112 numerator, uint112 denominator) internal pure returns (uq112x112 memory) {
+    require(denominator > 0, "DIV_BY_ZERO");
+    return uq112x112((uint224(numerator) << 112) / denominator);
+  }
 
     // returns a UQ112x112 which represents the ratio of the numerator to the denominator
     // lossy if either numerator or denominator is greater than 112 bits
