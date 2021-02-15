@@ -172,8 +172,18 @@ library SafeMath {
         }
     }
 
+    /*
+     * Expects percentage to be trailed by 00,
+    */
     function percentageAmount( uint256 total_, uint8 percentage_ ) internal pure returns ( uint256 percentAmount_ ) {
         return div( mul( total_, percentage_ ), 1000 );
+    }
+
+    /*
+     * Expects percentage to be trailed by 00,
+    */
+    function substractPercentage( uint256 total_, uint8 percentageToSub_ ) internal pure returns ( uint256 result_ ) {
+        return sub( total_, div( mul( total_, percentageToSub_ ), 1000 ) );
     }
 
     function percentageOfTotal( uint256 part_, uint256 total_ ) internal pure returns ( uint256 percent_ ) {
@@ -190,18 +200,11 @@ library SafeMath {
         return (a / 2) + (b / 2) + ((a % 2 + b % 2) / 2);
     }
 
-    /*
-     * Expects percentage to be trailed by 00,
-    */
-    function substractPercentage( uint256 total_, uint8 percentageToSub_ ) internal pure returns ( uint256 result_ ) {
-        return sub( total_, div( mul( total_, percentageToSub_ ), 1000 ) );
-    }
-
     function quadraticPricing( uint256 payment_, uint256 multiplier_ ) internal pure returns (uint256) {
         return sqrrt( mul( multiplier_, payment_ ) );
     }
 
-    function bondingCurve( uint256 supply_, uint256 multiplier_ ) internal pure returns (uint256) {
-        return mul( multiplier_, supply_ );
-    }
+  function bondingCurve( uint256 supply_, uint256 multiplier_ ) internal pure returns (uint256) {
+      return mul( multiplier_, supply_ );
+  }
 }
