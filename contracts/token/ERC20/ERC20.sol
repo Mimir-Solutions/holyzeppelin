@@ -37,7 +37,7 @@ import "../../introspection/ERC1820/ERC1820Implementer.sol";
  // TODO see if there is a way to make identification variables immutable once sent through the constructor.
 abstract contract ERC20 is IERC20, ERC1820Implementer {
 
-    using SafeMath for uint256;
+  using SafeMath for uint256;
 
   // TODO comment actual hash value.
   bytes32 constant private ERC20TOKEN_ERC1820_INTERFACE_ID = keccak256( "ERC20Token" );

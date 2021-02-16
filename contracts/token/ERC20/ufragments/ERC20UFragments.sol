@@ -112,10 +112,10 @@ abstract contract ERC20UFragments is IERC20, Ownable {
         _decimals = DECIMALS;
 
         _totalSupply = INITIAL_FRAGMENTS_SUPPLY;
-        _gonBalances[Context._msgSender()] = TOTAL_GONS;
+        _gonBalances[msg.sender] = TOTAL_GONS;
         _gonsPerFragment = TOTAL_GONS.div(_totalSupply);
 
-        emit Transfer(address(0x0), Context._msgSender(), _totalSupply);
+        emit Transfer(address(0x0), msg.sender, _totalSupply);
     }
 
     /**
