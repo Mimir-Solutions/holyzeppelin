@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-pragma solidity 0.7.5;
+pragma solidity 0.7.6;
 
 library AddressStringUtil {
     // converts an address to the uppercase hex string, extracting only len bytes (up to 20, multiple of 2)
