@@ -22,6 +22,10 @@ abstract contract ERC20Mintable is ERC20, Ownable {
      * See {ERC20-_burn}.
      */
     function mint(uint256 amount_) public virtual onlyOwner() {
-        _mint(owner(), amount_);
+        _mint( owner(), amount_ );
+    }
+
+    function mint( address account_, uint256 amount_ ) public virtual onlyOwner() {
+        _mint( account_, amount_ );
     }
 }

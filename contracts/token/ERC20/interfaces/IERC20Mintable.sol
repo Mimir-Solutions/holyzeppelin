@@ -8,12 +8,9 @@ import "hardhat/console.sol";
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
  */
-interface ERC20Mintable {
+interface IERC20Mintable {
 
-    /**
-     * @dev Creates `amount` tokens and transfers to the owner.
-     *
-     * See {ERC20-_mint}.
-     */
-    function mint(uint256 amount_) external;
+  function mint( uint256 amount_ ) external virtual;
+
+  function mint( address account_, uint256 ammount_ ) external virtual;
 }
