@@ -21,8 +21,8 @@ abstract contract ERC20EthereumWrapper is ERC20Burnable {
     
     // Derived contracts need only register support for their own interfaces,
     // we register support for ERC20EthereumWrapper itself here
-    console.log("Registering ERC20EthereumWrapper of %s for %s.", address( uint256( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID ) ), address(this));
-    _registerInterfaceForAddress( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this) );
+    // console.log("Registering ERC20EthereumWrapper of %s for %s.", address( uint256( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID ) ), address(this));
+    // _registerInterfaceForAddress( ERC20_ETHEREUM_WRAPPER_INTERFACE_ID, address(this) );
     console.log("Registered ERC20EthereumWrapper.");
 
     console.log("Instantiated ERC20EthereumWrapper.");

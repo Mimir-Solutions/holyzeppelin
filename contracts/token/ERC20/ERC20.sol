@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 import "../../security/Context.sol";
 import "./interfaces/IERC20.sol";
 import "../../math/SafeMath.sol";
-import "../../introspection/ERC1820/ERC1820Implementer.sol";
+// import "../../introspection/ERC1820/ERC1820Implementer.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -35,7 +35,11 @@ import "../../introspection/ERC1820/ERC1820Implementer.sol";
  // TODO convert public function to external ones that wrap internal virtual functions to optimize internal function calls.
  // TODO make global variables private accessable through internal functions.
  // TODO see if there is a way to make identification variables immutable once sent through the constructor.
-abstract contract ERC20 is IERC20, ERC1820Implementer {
+abstract contract ERC20
+  is 
+    IERC20
+    // , ERC1820Implementer
+  {
 
   using SafeMath for uint256;
 
