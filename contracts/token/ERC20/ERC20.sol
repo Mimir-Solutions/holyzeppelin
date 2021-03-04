@@ -126,7 +126,7 @@ abstract contract ERC20
    * @dev See {IERC20-balanceOf}.
    */
   // Present in ERC777
-  function balanceOf(address account) public view override returns (uint256) {
+  function balanceOf(address account) public view virtual override returns (uint256) {
     return _balances[account];
   }
 
