@@ -7,7 +7,7 @@ interface IERC20Permit {
   mapping(address => Counters.Counter) private _nonces;
 
     // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
-    function PERMIT_TYPEHASH() external view returns ( bytes32 )
+    function PERMIT_TYPEHASH() external view returns ( bytes32 );
 
     function DOMAIN_SEPARATOR() external view returns ( bytes32 );
 
