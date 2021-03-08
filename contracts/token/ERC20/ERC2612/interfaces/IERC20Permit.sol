@@ -14,7 +14,7 @@ interface IERC20Permit {
    * @dev See {IERC2612Permit-permit}.
    *
    */
-  function permit( address owner, address spender, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s ) public;
+  function permit( address owner, address spender, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s ) external;
 
   /**
    * @dev See {IERC2612Permit-nonces}.
