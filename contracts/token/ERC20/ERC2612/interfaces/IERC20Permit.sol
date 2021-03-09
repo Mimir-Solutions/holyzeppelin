@@ -5,8 +5,8 @@ import "hardhat/console.sol";
 
 interface IERC20Permit {
 
-  // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
-  function PERMIT_TYPEHASH() external view returns ( bytes32 );
+    // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
+    function PERMIT_TYPEHASH() external view returns ( bytes32 );
 
   function DOMAIN_SEPARATOR() external view returns ( bytes32 );
 
