@@ -1,3 +1,0 @@
-[submodule "to-import/openzeppelin-contracts-upgradeable"]
-	path = to-import/openzeppelin-contracts-upgradeable
-	url = git@github.com:Mimir-Solutions/openzeppelin-contracts-upgradeable.git
