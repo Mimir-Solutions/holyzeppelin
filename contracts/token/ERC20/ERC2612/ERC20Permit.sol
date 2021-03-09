@@ -27,7 +27,7 @@ abstract contract ERC20Permit is ERC20, IERC2612Permit {
 
     bytes32 public DOMAIN_SEPARATOR;
 
-    constructor() internal {
+    constructor() {
         uint256 chainID;
         assembly {
             chainID := chainid()

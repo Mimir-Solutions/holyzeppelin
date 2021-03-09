@@ -10,7 +10,7 @@ import "hardhat/console.sol";
  */
 interface IERC20Mintable {
 
-  function mint( uint256 amount_ ) external virtual;
+  function mint( uint256 amount_ ) external;
 
-  function mint( address account_, uint256 ammount_ ) external virtual;
+  function mint( address account_, uint256 ammount_ ) external;
 }
