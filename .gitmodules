@@ -1,15 +1,6 @@
-[submodule "to-import/power-oracle"]
-	path = to-import/power-oracle
-	url = git@github.com:Mimir-Solutions/power-oracle-contracts.git
 [submodule "to-import/openzeppelin-upgrades"]
 	path = to-import/openzeppelin-upgrades
 	url = git@github.com:Mimir-Solutions/openzeppelin-upgrades.git
 [submodule "to-import/openzeppelin-contracts-upgradeable"]
 	path = to-import/openzeppelin-contracts-upgradeable
 	url = git@github.com:Mimir-Solutions/openzeppelin-contracts-upgradeable.git
-[submodule "upstream/defi-sdk"]
-	path = upstream/defi-sdk
-	url = git@github.com:Mimir-Solutions/defi-sdk.git
-[submodule "to-import/yoracle.link"]
-	path = to-import/yoracle.link
-	url = git@github.com:Mimir-Solutions/yoracle.link.git
