@@ -1,0 +1,37 @@
+# Overview
+
+A workflow is simply a sequence of steps that a user has set up.
+In this case these steps are function calls with their arguments.
+
+
+# Use Case: John create a workflow
+
+To create a workflow John will need to enter some information
+1) A name to identify the workflow
+2) The contract address
+3) The functions to be called with their arguments
+
+:Q: How and when do we validate the workflow?
+
+# Use Case: John alters an existing workflow
+
+John should be able to alter
+1) The workflow name
+2) The functions in the workflow
+3) The contract address
+
+:Q: If the contract address is altered then the functions must be altered too?
+
+# Use Case: John deletes one of his workflows
+
+Remove the object from our storage?
+
+# Retrieval of workflow information
+
+Are we queried by the controller with the ID or the name of the workflow?
+
+
+# Thoughts for later
+- I do not see how the controller can communicate with the registrar that looks
+  up the interface by a user and workflow ID. That requires some complex mapping
+  between a user and all of their contracts or every ID to be mapped to some contracts

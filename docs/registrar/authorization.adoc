@@ -1,0 +1,3 @@
+# Overview
+
+Allow contract to act on behalf of ppl instead of just msg.sender

@@ -1,0 +1,15 @@
+# Overview
+
+A registrar is similar to a lookup system such as Domain Name System (DNS).
+It is queried with information such as a workflow ID and a user and it returns
+data such as the address of an interface to be queried.
+
+
+# Thoughts for later
+- How many registrars do we need and what functions do they perform?
+  - How do we name them to be able to distinguish them?
+- How are interfaces added to the registrars and by who?
+  - Do we store a mapping of a contract name -> interface?
+  - How does passing in a workflow ID and a user allow us to resolve to an interface?
+    - We may need to use something other than the ID here like the actual contract name which would be stored in the workflow registrar
+    - This registrar would only resolve the contract name to the interface but then we do not need the user either

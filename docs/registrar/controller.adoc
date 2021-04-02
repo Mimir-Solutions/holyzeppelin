@@ -1,0 +1,28 @@
+# Overview
+
+The controller is the interface for the user and/or contracts that will initiate
+the sequence of steps required to execute a workflow.
+
+:Note: To prevent writing "user/contract" or any other entity we will refer to them all as a "user"
+
+the controller is the first step in the process that initiates the retrieval of
+the workflow and communicates with the registrar find where it must execute the actions
+
+
+# Thoughts for later
+- The user interacts with the contract by passing in a workflow ID
+  - How do they know what ID is what workflow?
+  - How do they add/remove/alter a workflow?
+  - How do they view the workflows that they have?
+    - I guess we are designing this "correctly" by only returning 1 thing at a time and thus forcing them to loop via a contract/themselves or a website
+  - Uhm... we can probably salvage the ToDo list code from auditing and repurpose it here with additional functionality!
+- The controller takes the workflow ID and knows who has called it therefore it queries a register to look up what the workflow actually consists of
+  - We do not want to restrict it to msg.sender because eventually it would be nice for a contract to pass in an ID and use authorization to verify the actions
+  - The workflow is stored... somewhere. Do we know need a whole "workflow lookup" registrar or can we add it into the "main" registrar that returns the interface at which you will perform the workflow
+    - Probably do not need a separate registrar. 1 main lookup system should be fine
+- The controller has the workflow and the arguments needed to perform the actions. Now it queries the main registrar to find out where it will perform the actions
+  - The arguments... are we assuming that they are set up and must be edited at the beginning or can you pass in new arguments per execution?
+    - New arguments suck, create a new workflow? but what if there is only a slight change such as a value change from "10" to "9"? does that necessitate a new workflow or can we somehow adjust the arguments? possibly use default workflow with overridable arguments... doesn't the compiler require all arguments to be filled in at the time though so we cannot just override 1...
+- The registrar performs its lookup and returns information regarding the location of the interface which the workflow will be carried out on
+- We execute the workflow, possibly with/through the "batcher"
+  - How do we indicate the workflow not being completed because of insufficient gas?

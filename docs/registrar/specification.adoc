@@ -1,0 +1,10 @@
+# Overview
+
+This is the general document that should contain a high level overview of how
+the different pieces interact.
+
+The main pieces are:
+1) The controller which interacts with registrars and users
+2) The registrars which contain lookup information and/or workflows
+3) A batcher that pays attention to the workflow to ensure that progress is not lost if gas runs out
+4) Authorization mechanism to allow someone else to execute a workflow on behalf of someone else
