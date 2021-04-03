@@ -1,0 +1,28 @@
+# Purpose of Document
+
+The purpose of the service register is similar to the Domain Name System (DNS).
+It will contain a mapping that is used to look up which contract must be called
+for any given workflow ID.
+
+# Overview
+
+In order to execute a workflow there must be an end point location (a contract)
+which is called with the functions and arguments that are contained within the
+workflow.
+
+The service registry will be a contract which stores the information associated
+between the workflow ID and which contract it should act upon.
+
+# Requirements
+
+1) The registry must contain a mapping associating a workflow ID with a contract
+that will be called
+
+2) When adding a workflow ID to the mapping only new/unique ID's can be added.
+
+:Note: The generation of the workflow ID is the responsibility of the user controller
+and thus it should make sure that a unique ID is created however we will defensively
+code anyway
+
+3) If an error occurred and a workflow ID is attempting to be added that already
+exists then we should revert and return the gas.
