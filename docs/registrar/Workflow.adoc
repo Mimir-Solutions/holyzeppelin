@@ -1,0 +1,19 @@
+# Overview
+
+A workflow can be thought of as a sequence of tasks that must be executed in the
+specified order.
+
+In this case the tasks are function calls with their arguments.
+
+# Requirements
+
+1) A workflow must be identifiable to the user by a human readable string.
+   E.g. "Pay John 5 ETH"
+2) A workflow must have the ability to store function selectors in a specified
+   order such that they can be sequentially retrieved for execution
+
+# Suggestions
+
+1) A workflow can be a struct containing the name, function selectors in an array
+   and a mapping between each function selector and its arguments (arguments may
+   also be an array)

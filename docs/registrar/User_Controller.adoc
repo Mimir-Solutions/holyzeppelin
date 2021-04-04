@@ -1,28 +1,73 @@
-# Overview
+# TODO
+- detail the nonce that will be appended to the end of the workflow ID
+- when adding the mapping to the workflow registry, what is being mapped to what?
+- when deleting a workflow do we actually try to delete it all or mark it as non-existent?
+- assuming that this is all through a GUI therefore execution may differ if this is automated
+- ugh, I am mixing the requirements and implementation together...
 
-The controller is the interface for the user and/or contracts that will initiate
-the sequence of steps required to execute a workflow.
+== Overview
 
-:Note: To prevent writing "user/contract" or any other entity we will refer to them all as a "user"
+The user controller is the central point that the user will use to add/edit/remove
+workflows and execute them.
 
-the controller is the first step in the process that initiates the retrieval of
-the workflow and communicates with the registrar find where it must execute the actions
+== Requirements
+
+. A user should be able to add a new workflow
+.. The workflow must have an ID associated with it that is
+... Unique
+... Type bytes32 and is made from the function selectors in their specified order
+in addition to a nonce
+.. The workflow ID should be added to the workflow registry mapping
+.. The workflow should be added to the workflow database
+
+. A user should be able to edit an existing workflow
+.. The human readable name should be editable
+.. The functions and their arguments should be editable
+
+. A user should be able to remove an existing workflow
+.. Either delete all references / objects or mark the workflow as non-existent
+so that it can be overwritten (move into implementation?)
+
+. A user should be able to view all of their workflows
+
+. A user must be able to add a workflow and associate it with a contract in the
+service registry
+
+5) A user should be able to create a mapping in the service registry via a the
+   workflow ID to the contract that will be called for that workflow
+5.1) The user operates with their human readable name therefore we resolve it
+     into the workflow ID and then map that to the contract address
+
+6) A user should be able to edit the service registry mappings between the
+   workflow ID's and their mapped contract calls
+
+7) A user should be able to remove a mapping from the service registry
+
+8) To be able to execute a workflow the user must add it, they cannot just fill
+   in the pieces in real time and execute it
+
+9) A user should be able to execute a workflow
+9.1) The controller checks the batcher to see if it has started the workflow but
+     was unable to finish the tasks
+9.1.1) If there are remaining tasks for that workflow then the batcher will
+       continue from its last location that was incomplete
+9.1.2) If the batcher has no record of the workflow ID then the controller will
+       initiate a new process through the batcher
+9.1.2.1) Check service registry for workflow ID
+9.1.2.1.1) Service registry does not find the workflow ID
+9.1.2.1.1.1) Exit and return gas
+9.1.2.1.2) Service registry finds the workflow ID
+9.1.2.1.2.1) Pass the workflow object and the contract to call to the Batcher
 
 
-# Thoughts for later
-- The user interacts with the contract by passing in a workflow ID
-  - How do they know what ID is what workflow?
-  - How do they add/remove/alter a workflow?
-  - How do they view the workflows that they have?
-    - I guess we are designing this "correctly" by only returning 1 thing at a time and thus forcing them to loop via a contract/themselves or a website
-  - Uhm... we can probably salvage the ToDo list code from auditing and repurpose it here with additional functionality!
-- The controller takes the workflow ID and knows who has called it therefore it queries a register to look up what the workflow actually consists of
-  - We do not want to restrict it to msg.sender because eventually it would be nice for a contract to pass in an ID and use authorization to verify the actions
-  - The workflow is stored... somewhere. Do we know need a whole "workflow lookup" registrar or can we add it into the "main" registrar that returns the interface at which you will perform the workflow
-    - Probably do not need a separate registrar. 1 main lookup system should be fine
-- The controller has the workflow and the arguments needed to perform the actions. Now it queries the main registrar to find out where it will perform the actions
-  - The arguments... are we assuming that they are set up and must be edited at the beginning or can you pass in new arguments per execution?
-    - New arguments suck, create a new workflow? but what if there is only a slight change such as a value change from "10" to "9"? does that necessitate a new workflow or can we somehow adjust the arguments? possibly use default workflow with overridable arguments... doesn't the compiler require all arguments to be filled in at the time though so we cannot just override 1...
-- The registrar performs its lookup and returns information regarding the location of the interface which the workflow will be carried out on
-- We execute the workflow, possibly with/through the "batcher"
-  - How do we indicate the workflow not being completed because of insufficient gas?
+== Implementation suggestions
+
+1) Take the function selectors and concatenate them in sequential order.
+1.1) Generate a nonce and append it to the end. +
+1.2) ABI encode and kekak256 it? +
+1.3) Query the workflow registry to check for the ID. +
+1.4.1) You have a new ID +
+1.4.1.1) Create 2 mappings: workflow name => ID, ID => workflow name +
+1.4.1.2) Store workflow in database +
+1.4.2) ID collision +
+1.4.2.1) Regenerate a new nonce and append it to the function selector string and repeat +
