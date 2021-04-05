@@ -1,9 +1,10 @@
 # TODO
+
 - detail the nonce that will be appended to the end of the workflow ID
-- when adding the mapping to the workflow registry, what is being mapped to what?
-- when deleting a workflow do we actually try to delete it all or mark it as non-existent?
 - assuming that this is all through a GUI therefore execution may differ if this is automated
-- ugh, I am mixing the requirements and implementation together...
+- assuming that the workflow is a fully contained box meaning they also supply the values to the functions and not just the types
+- if they delete the workflow then when they refresh the page the service registry will display the workflow ID instead of the human readable name since that no longer exists
+- what data do we actually have when we see our workflows? if we have the ID as well as the name then we can simply use the ID without doing any lookups in the workflow registry
 
 == Overview
 
@@ -15,7 +16,7 @@ workflows and execute them.
 . A user should be able to add a new workflow
 .. The workflow must have an ID associated with it that is
 ... Unique
-... Type bytes32 and is made from the function selectors in their specified order
+... Bytes type and is made from the function selectors in their specified order
 in addition to a nonce
 .. The workflow ID should be added to the workflow registry mapping
 .. The workflow should be added to the workflow database
@@ -30,44 +31,77 @@ so that it can be overwritten (move into implementation?)
 
 . A user should be able to view all of their workflows
 
-. A user must be able to add a workflow and associate it with a contract in the
+. A user should be able to associate a workflow ID with a contract in the
 service registry
 
-5) A user should be able to create a mapping in the service registry via a the
-   workflow ID to the contract that will be called for that workflow
-5.1) The user operates with their human readable name therefore we resolve it
-     into the workflow ID and then map that to the contract address
+. A user should be able to remove the mapping from the service registry
 
-6) A user should be able to edit the service registry mappings between the
-   workflow ID's and their mapped contract calls
+. A user should be able to edit the mapping in the service registry
 
-7) A user should be able to remove a mapping from the service registry
+. A user should interact with their workflows via a human readable name while
+the system uses the workflow ID to perform its actions
 
-8) To be able to execute a workflow the user must add it, they cannot just fill
-   in the pieces in real time and execute it
-
-9) A user should be able to execute a workflow
-9.1) The controller checks the batcher to see if it has started the workflow but
-     was unable to finish the tasks
-9.1.1) If there are remaining tasks for that workflow then the batcher will
-       continue from its last location that was incomplete
-9.1.2) If the batcher has no record of the workflow ID then the controller will
-       initiate a new process through the batcher
-9.1.2.1) Check service registry for workflow ID
-9.1.2.1.1) Service registry does not find the workflow ID
-9.1.2.1.1.1) Exit and return gas
-9.1.2.1.2) Service registry finds the workflow ID
-9.1.2.1.2.1) Pass the workflow object and the contract to call to the Batcher
+. A user should be able to execute a workflow if it is in their workflow database
+and is associated with a contract via the service registry
 
 
 == Implementation suggestions
 
-1) Take the function selectors and concatenate them in sequential order.
-1.1) Generate a nonce and append it to the end. +
-1.2) ABI encode and kekak256 it? +
-1.3) Query the workflow registry to check for the ID. +
-1.4.1) You have a new ID +
-1.4.1.1) Create 2 mappings: workflow name => ID, ID => workflow name +
-1.4.1.2) Store workflow in database +
-1.4.2) ID collision +
-1.4.2.1) Regenerate a new nonce and append it to the function selector string and repeat +
+A user should be able to add a new workflow::
+. Take each function signature and turn it into a function selector consisting
+of the most significant 4 bytes
+. Concatenate the function selectors in sequential order which is provided by the
+user and store this as a local variable ready for possible reuse.
+. Generate a nonce.
+. Append the nonce to a copy of the concatenated function selectors.
+. Check the workflow registry to see if the workflow ID is unique.
+.. The workflow registry should have a getter for this
+.. If not unique then regenerate nonce and start again by appending to the copy.
+. Create a mapping in the workflow registry
+.. string of human readable name => workflow ID
+.. workflow ID => human readable name
+. Store workflow in workflow database via a mapping of the workflow ID to data
+.. The database should have functions for this, do not proxy it via registry
+
+A user should be able to edit an existing workflow::
+The following is broken down into 2 sections for clarity and not because the user
+is forced to only change one option or the other
+. Workflow human readable name change
+.. Delete the mapping in the workflow registry for the old name => workflow ID
+.. Create a new mapping for the new name => workflow ID
+.. Update the value for the workflow ID
+. Functions and arguments
+.. The workflow ID be different therefore generate a new unique ID
+.. delete the old mapping in the workflow registry
+.. create a new mapping in the workflow registry
+.. delete the old data in the database mapping
+.. create the new entry into the database
+
+A user should be able to remove an existing workflow::
+. Remove the mapping from the workflow registry
+. Remove the data from the database
+
+A user should be able to view all of their workflows::
+. Functions should be atomic therefore you ask for something specifically and have
+that returned rather than looping and it somehow returning everything
+. This implies getter functions which keep track of the number of workflows such
+that the front end can then iterate over the same function with a new ID
+
+A user should be able to associate a workflow ID with a contract in the service registry::
+. Use the human readable name to fetch the workflow ID from the workflow registry
+and map that in the service registry to the contract address that they specify
+
+A user should be able to remove the mapping from the service registry::
+. Use the human readable name to fetch the workflow ID from the workflow registry
+and delete the mapping
+
+A user should be able to edit the mapping in the service registry::
+. Replace the value for the workflow ID key from one contract address to another
+
+A user should interact with their workflows via a human readable name while the system uses the workflow ID to perform its actions::
+. If we are using the ID then do a reverse lookup in the workflow registry to get the name
+
+A user should be able to execute a workflow if it is in their workflow database and is associated with a contract via the service registry::
+. Check via the workflow registry to see if the workflow exists
+. Check the service registry to see if there is a contract to execute upon
+. If both conditions are met then execute via the batcher else return the gas
