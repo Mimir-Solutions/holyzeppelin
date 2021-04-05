@@ -1,37 +1,56 @@
-# Overview
+== Overview
 
-A workflow is simply a sequence of steps that a user has set up.
-In this case these steps are function calls with their arguments.
+A workflow registry is a simple lookup system that points at itself to find
+whether a workflow exists. It does not store the workflow information itself.
 
+== Requirements
 
-# Use Case: John create a workflow
+. The registry must contain a mapping from a human readable name => workflow ID
 
-To create a workflow John will need to enter some information
-1) A name to identify the workflow
-2) The contract address
-3) The functions to be called with their arguments
+. The registry must contain a mapping from a workflow ID => human readable name
 
-:Q: How and when do we validate the workflow?
+. Adding a non-unique ID should revert and return the gas
 
-# Use Case: John alters an existing workflow
+. Adding a non-unique human readable name should revert and return the gas
 
-John should be able to alter
-1) The workflow name
-2) The functions in the workflow
-3) The contract address
+. The human readable name should be editable
 
-:Q: If the contract address is altered then the functions must be altered too?
+. The human readable name can have its mapping edited to point to a different ID
 
-# Use Case: John deletes one of his workflows
+. The ID can have its mapping edited to point at a different human readable name
 
-Remove the object from our storage?
+. Both mappings must have the same information mapped between them
 
-# Retrieval of workflow information
-
-Are we queried by the controller with the ID or the name of the workflow?
+. If one of the mappings must be removed then the other must also be removed
 
 
-# Thoughts for later
-- I do not see how the controller can communicate with the registrar that looks
-  up the interface by a user and workflow ID. That requires some complex mapping
-  between a user and all of their contracts or every ID to be mapped to some contracts
+== Implementation suggestions
+
+The registry must contain a mapping from a human readable name => workflow ID::
+. string => bytes
+
+The registry must contain a mapping from a workflow ID => human readable name::
+. bytes => string
+
+Adding a non-unique ID should revert and return the gas::
+. Check if the ID already exists
+
+Adding a non-unique human readable name should revert and return the gas::
+. Check if the name already exists
+
+The human readable name should be editable::
+. Replace the key in the name mapping and the value of the associated workflow ID key
+
+The human readable name can have its mapping edited to point to a different ID::
+. Based on the human readable name of the other workflow fetch its workflow ID
+. Update the mappings
+
+The ID can have its mapping edited to point at a different human readable name::
+. Based on the ID fetch the human readable name
+. Update the mappings
+
+Both mappings must have the same information mapped between them::
+. Cannot have a human readable name => ID and that same ID => a different human readable name
+
+If one of the mappings must be removed then the other must also be removed::
+. Removing a workflow should remove both records of the mappings
