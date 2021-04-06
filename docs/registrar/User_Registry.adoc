@@ -1,0 +1,12 @@
+== Overview
+
+A user registry is a simple lookup system that contains user information regarding
+the system that they have.
+
+== Requirements
+
+. Should contain a mapping from the user address => user controller contract address
+
+. Should allow the addition of new mappings
+
+. One user address per one user controller address

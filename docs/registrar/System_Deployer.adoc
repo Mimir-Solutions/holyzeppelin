@@ -1,0 +1,16 @@
+== Overview
+
+Each user will have their own system deployed for them to prevent
+cross-contamination between user actions via a central system.
+
+== Requirements
+
+. When asked to create a new system for the user it should deploy
+.. A user controller
+.. A service registry
+.. A workflow registry
+.. A workflow database
+.. An executor
+
+. After deploying the contracts the ownership of the contracts should be transferred
+to the user

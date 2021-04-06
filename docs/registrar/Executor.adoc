@@ -1,0 +1,31 @@
+== Overview
+
+The executor is a tool to manage the execution of the workflow and ensure its
+completion.
+
+== Requirements
+
+. Must contain information that allows it to determine the progress of each
+workflow that has been initiated
+
+. A workflow that was not able to be completed must be picked up from the last
+step that it failed on
+
+. Should use a gas estimator with a threshold to determine if the next step can
+be reasonably completed without running out of gas
+
+. If the estimator believes that the next step will not be completed given the
+remaining gas then it should return the remaining gas and remember the last completed
+step
+
+. A workflow that has not finished executing should be delete-able
+
+== Implementation suggestions
+
+Must contain information that allows it to determine the progress of each workflow that has been initiated::
+. Could be a mapping of the workflow ID to an object which stores information
+regarding how many steps have been completed and what remains to be completed
+
+A workflow that was not able to be completed must be picked up from the last step that it failed::
+. If the executor has completed 3 out of 5 steps then it should continue from the
+4th step

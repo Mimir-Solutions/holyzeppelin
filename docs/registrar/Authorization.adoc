@@ -1,3 +1,15 @@
-# Overview
+== Overview
 
-Allow contract to act on behalf of ppl instead of just msg.sender
+Users may directly interact with contracts or via an interface that makes the
+interaction smoother. Some users may eventually want to automate the whole process
+and thus they require that a contract can act on behalf of them.
+
+== Requirements
+
+. A user should be able to add an address that can perform actions on their behalf
+
+. A user should be able to revoke access from an address that currently has access
+to act on behalf of the user
+
+. A user should be able to limit the approved account to specific workflows rather
+than global "admin" access
