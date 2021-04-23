@@ -1,0 +1,57 @@
+# TODO: I am shit at overviews
+
+== Overview
+
+The website will be required to do a lot of the heavy lifting such as data encoding
+and gas estimation because it seems inviable to do so from within the contracts.
+Similar to any other front end it will need to present options to the user for
+managing their workflows.
+
+== Requirements
+
+. The user should be able to create a new workflow
+.. The user should be able to add a function with its parameters
+... The user should be able to add as many functions as they want
+.. The user should be able to select the order of the functions within the workflow
+.. The user should be able to save the workflow
+... The workflow must be saved with a unique name human readable name
+
+. The user should be able view all of their workflows
+
+. The user should be able to edit a workflow
+.. The associated name of the workflow
+.. The functions and their arguments
+.. The order of the functions
+
+. The user should be able to delete a workflow
+
+. The user should be able to associate a workflow with a contract address in the
+service registry
+
+. The user should be able to remove the association between a workflow and contract
+
+. The user should be able to edit the association to change either the workflow
+or the contract
+
+. When a workflow is created or edited the workflow ID should be created/edited
+accordingly via the website
+
+. Changing the name of the workflow does not affect its workflow ID
+
+
+== Possible future features?
+
+. The user should be able to lock a workflow
+
+. The user should be able to remove the lock from the workflow
+
+. The user should be able to delete all workflows that are not locked
+
+. The user should be able to reorder the workflows in the UI instead of having
+a predefined order
+
+. The user should be able to associate a workflow with a time for the scheduler
+
+. The user should be able to remove a workflow from the scheduler
+
+. The user should be able to edit the time for a workflow in the scheduler

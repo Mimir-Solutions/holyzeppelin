@@ -1,0 +1,29 @@
+== Overview
+
+A workflow can be thought of as a sequence of tasks that must be executed in the
+specified order.
+
+In this case the tasks are function calls with their arguments.
+
+== Context
+
+A workflow is a contract that stores information about a set of instructions
+that are to be carried by calls to contracts.
+
+
+== Requirements
+
+. Must store a human readable string as a "name" identifier
+.. Public visibility
+
+. Must store its own workflow ID as another variable identifier
+.. Public visibility
+
+. The name of the workflow is not a constant as it may be changed
+
+. The workflow ID is not a constant as it may be changed
+
+. Have the ability to store function selectors in a specified order such that
+they can be sequentially retrieved for execution
+
+. Contains a self destruct so that some of the funds are returned to the user

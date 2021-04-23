@@ -1,0 +1,17 @@
+== Questions
+
+. How and where do we handle the time conversions to set the time correctly via
+their local time?
+
+== Overview
+
+Workflows may be manually triggered however there may be use cases for allowing
+the user to specify a workflow execution repeatedly at a certain time.
+
+== Requirements
+
+. A workflow can be called autonomously at a specified time without intervention
+
+. A scheduled execution time for a workflow should be editable
+
+. A scheduled workflow can be canceled from autonomous calls
