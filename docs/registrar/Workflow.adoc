@@ -8,7 +8,9 @@ In this case the tasks are function calls with their arguments.
 == Context
 
 A workflow is a contract that stores information about a set of instructions
-that are to be carried by calls to contracts.
+that are to be carried out by calls to contracts.
+
+The way to identify a workflow should be through the use of a workflow ID.
 
 
 == Requirements

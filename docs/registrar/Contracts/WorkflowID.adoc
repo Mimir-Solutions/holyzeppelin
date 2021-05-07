@@ -1,0 +1,37 @@
+== Overview
+
+The workflow ID will be constructed in one way and thus a central location that
+handles that behavior is required.
+
+== Context
+
+JavaScript does not encompass the same variable types that Solidity does meaning
+we cannot have the JS generate the ID and send it down to the contracts for
+storage.
+
+In the future there may be cases where automated systems act on behalf of
+individuals based on authorization and that would lead to similar code being
+implemented in Solidity - leading to 2 versions of ID generation to maintain.
+
+To centralize the functionality it should be kept in Solidity as a "functionality
+provider" which enables the front end to create workflow ID's and make simple
+queries.
+
+There are two approaches
+. Concatenate the strings in JS and send them to a function and have it unpack
+the data
+. Loop through the functions and send them sequentially to the processor. Once
+all the data is sent call another function to process that stored array information.
+
+The single call approach may be more costly as it will require additional conversions
+and looping over individual characters to figure out how to split the functions.
+
+The buffered approach requires multiple actions which if not carried out may leave
+a user with a packed array rather than an empty one for their next use.
+For example, if you call the same function 3 times with 3 different functions from
+the workflow and after that you do not call the next function which takes that data,
+transforms it to an ID, clears the buffer and returns an ID then when the user
+goes through the process again they will have the previous functions in the buffer
+leading to an ID that is a mix of multiple workflows.
+
+== Requirements
