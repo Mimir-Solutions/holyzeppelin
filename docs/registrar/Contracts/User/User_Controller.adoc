@@ -19,15 +19,15 @@ workflows and execute them.
 ... Bytes type and is made from the function selectors in their specified order
 in addition to a nonce
 .. The workflow ID should be added to the workflow registry mapping
-.. The workflow should be added to the workflow database
+.. The workflow which consists of function selectors in their specified order
+should be added to the workflow database
 
 . A user should be able to edit an existing workflow
 .. The human readable name should be editable
 .. The functions and their arguments should be editable
 
-. A user should be able to remove an existing workflow
-.. Either delete all references / objects or mark the workflow as non-existent
-so that it can be overwritten (move into implementation?)
+. A user should be able to delete an existing workflow
+.. Delete just the key effectively marking it as non-existent or delete the value too?
 
 . A user should be able to view all of their workflows
 

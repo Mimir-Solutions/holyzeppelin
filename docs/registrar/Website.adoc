@@ -1,29 +1,39 @@
-# TODO: I am shit at overviews
-
 == Overview
 
-The website will be required to do a lot of the heavy lifting such as data encoding
-and gas estimation because it seems inviable to do so from within the contracts.
-Similar to any other front end it will need to present options to the user for
-managing their workflows.
+The website should be a portal bridging the contracts and the user.
 
 == Requirements
 
-. The user should be able to create a new workflow
-.. The user should be able to add a function with its parameters
-... The user should be able to add as many functions as they want
-.. The user should be able to select the order of the functions within the workflow
-.. The user should be able to save the workflow
-... The workflow must be saved with a unique name human readable name
+Note that the images are for visual purposes only to convey the idea.
 
-. The user should be able view all of their workflows
+. A user should be able to sign up with their wallet address
+
+. A user should be able to sign into their system by connecting their wallet
+
+. When signed in the user should be able to
+.. View all of their workflows
+
+image::./Images/Website/view_workflows.png[Viewing workflows]
+
+.. The user should be able to create a new workflow
+... The user should be able to add a function with its data types
+.... Workflow consists of 1 or more function with data types
+... The user should be able to select the order of the functions within the workflow
+... The user should be able to save the workflow
+... The workflow must be saved with a unique human readable name
+
+image::./Images/Website/example_workflow.png[Example workflow]
 
 . The user should be able to edit a workflow
 .. The associated name of the workflow
 .. The functions and their arguments
 .. The order of the functions
 
+image::./Images/Website/example_workflow_edited.png[Example of an edited workflow]
+
 . The user should be able to delete a workflow
+
+image::./Images/Website/view_workflows_edited.png[Viewing workflows after a deletion]
 
 . The user should be able to associate a workflow with a contract address in the
 service registry
@@ -37,6 +47,8 @@ or the contract
 accordingly via the website
 
 . Changing the name of the workflow does not affect its workflow ID
+
+. Gas estimation of workflow execution
 
 
 == Possible future features?

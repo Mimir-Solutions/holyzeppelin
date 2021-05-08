@@ -26,12 +26,17 @@ all the data is sent call another function to process that stored array informat
 The single call approach may be more costly as it will require additional conversions
 and looping over individual characters to figure out how to split the functions.
 
-The buffered approach requires multiple actions which if not carried out may leave
-a user with a packed array rather than an empty one for their next use.
-For example, if you call the same function 3 times with 3 different functions from
-the workflow and after that you do not call the next function which takes that data,
-transforms it to an ID, clears the buffer and returns an ID then when the user
-goes through the process again they will have the previous functions in the buffer
-leading to an ID that is a mix of multiple workflows.
+If the multi-call approach does not receive the "finish" signal the next time
+the user tries to alter the workflow there may be issues.
+
 
 == Requirements
+
+. Function that accepts a string representation of a function and its data types
+that adds it to an array of workflow functions used for ID generation
+
+. Function that when called will generate the ID from the data in the array.
+Empty the array after the ID is created
+// TODO: concat functions, somehow need to create and manage a NONCE..., query
+// the ID registry to check for collision creating a tight coupling of contracts...
+// need to store and return some value to UI to let the user know... smh

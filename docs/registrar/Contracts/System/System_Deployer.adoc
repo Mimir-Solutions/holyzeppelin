@@ -10,7 +10,10 @@ cross-contamination between user actions via a central system.
 .. A service registry
 .. A workflow registry
 .. A workflow database
+.. A scheduler
+.. A workflow ID generator
 .. An executor
 
 . After deploying the contracts the ownership of the contracts should be transferred
 to the user
+// TODO: how are things linked?

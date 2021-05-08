@@ -7,6 +7,8 @@ the system that they have.
 
 . Should contain a mapping from the user address => user controller contract address
 
-. Should allow the addition of new mappings
+. Should allow the addition of users to the mapping
 
 . One user address per one user controller address
+
+. Lookup function to check if a user has a system
