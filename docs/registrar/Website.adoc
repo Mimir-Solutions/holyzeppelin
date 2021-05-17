@@ -6,7 +6,7 @@ The website should be a portal bridging the contracts and the user.
 
 Note that the images are for visual purposes only to convey the idea.
 
-. A user should be able to sign up with their wallet address
+. A user should be able to sign up with their meta mask wallet address
 
 . A user should be able to sign into their system by connecting their wallet
 
@@ -16,40 +16,60 @@ Note that the images are for visual purposes only to convey the idea.
 image::./Images/Website/view_workflows.png[Viewing workflows]
 
 .. The user should be able to create a new workflow
-... The user should be able to add a function with its data types
-.... Workflow consists of 1 or more function with data types
-... The user should be able to select the order of the functions within the workflow
+... The user must provide a human readable name for the workflow
+... The user should be able to as many sections as they wish to the workflow
+.... Each section should contain
+..... A field to write the function with its data types e.g. `function pay(string,uint256)`
+..... A contract address for the function to be called upon
+..... Default values for the data types in the function e.g. string = "John", uint256 = 100. They must be separate from the function declaration field
+.... Since the function with its data types will be used to create a function selector there needs to be validation to ensure that the pattern `function functionName(commaSeparatedDataTypesWithoutSpaces)` is met
+.... Further validation is required on the data types and default values (where possible)
+... The user should be able to remove a section
+... The user should be able to select the order of the sections within the workflow
 ... The user should be able to save the workflow
-... The workflow must be saved with a unique human readable name
 
 image::./Images/Website/example_workflow.png[Example workflow]
 
-. The user should be able to edit a workflow
-.. The associated name of the workflow
-.. The functions and their arguments
-.. The order of the functions
+. The user should be able to edit a workflow by
+.. Changing the human readable name to a different unique human readable name
+.. Changing the order of the sections
+.. Changing any information within each section i.e.
+... `function pay(string,uint256)` to `function profitShare(string,string,string,uint256)` etc.
+... The default values for the data types
+... The contract address associated with the section
 
 image::./Images/Website/example_workflow_edited.png[Example of an edited workflow]
 
 . The user should be able to delete a workflow
+.. Display relevant information about the workflow and ask for a confirmation to delete or cancel
 
 image::./Images/Website/view_workflows_edited.png[Viewing workflows after a deletion]
 
-. The user should be able to associate a workflow with a contract address in the
-service registry
-
-. The user should be able to remove the association between a workflow and contract
-
-. The user should be able to edit the association to change either the workflow
-or the contract
-
-. When a workflow is created or edited the workflow ID should be created/edited
-accordingly via the website
+. When a workflow is saved or edited the workflow ID should be (re)generated according
+to the workflow ID generation specification
 
 . Changing the name of the workflow does not affect its workflow ID
 
-. Gas estimation of workflow execution
+. The user should be able to order their workflows
 
+. The user should be able to associate a workflow with a time for the scheduler
+
+. The user should be able to remove a workflow from the scheduler
+
+. The user should be able to edit the time for a workflow in the scheduler
+
+. When the user tries to save their workflow it must first pass validation checks
+and point out why it cannot save a workflow so that the user can edit their inputs
+
+. Once the validation checks are passed for saving a workflow we must call out to
+etherscan (or additional equivalents) where we can fetch the ABI of the contract address
+.. If the ABI exists then we will check with the function selector (or the function name?) to see if it exists
+... If it exists then we will perform gas estimation with the default values and store those values for later
+... Else if the function is not found within the contract then we indicate to the user that the function does not exist in the way that they have entered it
+.. Else if the ABI does not exists then we require some default values to indicate this
+
+. To be able to execute a workflow the user must have sufficient ETH deposited to
+their execution pool
 
 == Possible future features?
 
@@ -58,12 +78,3 @@ accordingly via the website
 . The user should be able to remove the lock from the workflow
 
 . The user should be able to delete all workflows that are not locked
-
-. The user should be able to reorder the workflows in the UI instead of having
-a predefined order
-
-. The user should be able to associate a workflow with a time for the scheduler
-
-. The user should be able to remove a workflow from the scheduler
-
-. The user should be able to edit the time for a workflow in the scheduler

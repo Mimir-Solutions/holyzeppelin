@@ -13,6 +13,8 @@ workflows and execute them.
 
 == Requirements
 
+. A user should be able to view all of their workflows
+
 . A user should be able to add a new workflow
 .. The workflow must have an ID associated with it that is
 ... Unique
@@ -28,8 +30,6 @@ should be added to the workflow database
 
 . A user should be able to delete an existing workflow
 .. Delete just the key effectively marking it as non-existent or delete the value too?
-
-. A user should be able to view all of their workflows
 
 . A user should be able to associate a workflow ID with a contract in the
 service registry
