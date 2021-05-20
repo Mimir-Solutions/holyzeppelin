@@ -1,0 +1,30 @@
+== Overview
+
+The workflow execution controller is a bridge linking the initial connection between
+the front end (user interface) and the system that is owned by the user.
+
+If the user is new i.e. they have not had a system deployed for them then the
+workflow execution controller will deploy a new system for the user and associate
+the MetaMask user account address with the address of the newly deployed user controller.
+
+If the user is attempting to gain access to their system by logging in then we
+will check to see what their user controller address is and return that.
+
+The workflow execution controller has no other purpose except to register new users
+and return the address of the user's user controller so that the front end can
+continue to perform its functions.
+
+== Requirements
+
+. Signing up
+.. Check the user registry
+... If they are a new user
+.... Send a message to the deployment contract to deploy a new system
+.... Send a message to the user registry contract to update itself by adding the new user
+and associating the user address with the address of the user controller
+... If they are an existing user trying to sign up again then revert
+
+. Logging in
+.. Check user registry
+... If they have not signed up then revert
+... If they have signed up then return the address of their user controller

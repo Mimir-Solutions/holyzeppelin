@@ -7,10 +7,9 @@ cross-contamination between user actions via a central system.
 
 . When asked to create a new system for the user it should deploy
 .. A user controller
-.. A service registry
-.. A workflow registry
-.. A workflow database
+.. A workflow hashtable
 .. A scheduler
+.. A treasury (piggy bank for the executor to pull funds from)
 .. A workflow ID generator
 .. An executor
 

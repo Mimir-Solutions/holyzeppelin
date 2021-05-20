@@ -1,3 +1,5 @@
+// TODO: review and purge. This is not relevant anymore
+
 == Overview
 
 In order to execute a workflow there must be an end point location (a contract)

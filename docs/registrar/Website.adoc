@@ -71,6 +71,14 @@ etherscan (or additional equivalents) where we can fetch the ABI of the contract
 . To be able to execute a workflow the user must have sufficient ETH deposited to
 their execution pool
 
+. Everything is done on the client side for security. No node connections.
+
+. Initially when the user is not signed in we will be calling the onboarding contract
+to make decisions about logging in or signing up.
+
+. Once a user is signed in we will communicate directly with their user controller until they sign out
+at which point we will communicate with the onboarding contract again
+
 == Possible future features?
 
 . The user should be able to lock a workflow

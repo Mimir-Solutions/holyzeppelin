@@ -1,3 +1,5 @@
+// TODO: review and purge. This is not relevant anymore
+
 == Overview
 
 A workflow registry is a simple lookup system that points at itself to find
