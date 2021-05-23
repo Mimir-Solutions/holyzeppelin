@@ -1,0 +1,38 @@
+== Overview
+
+The hashtable for workflows is a database that will map the workflow ID to the
+data describing the workflow.
+
+== Requirements
+
+. Each unique workflow ID will be mapped to a data structure containing information
+about the workflow
+
+. The information required about the workflow is
+.. The human readable name that identifies the entire workflow
+.. Each "block" of data requires
+... The human readable function name and its data types
+... The function selector equivalent of the function and its data types
+... The values that will be used in the workflow corresponding to the data types
+... The address of the contract that the function will be called on
+... An estimated gas cost to call the function with specific values
+// TODO: probably need to separated the workflow templates from the actual workflows
+// and thus only store valid workflows here while storing templates elsewhere?
+
+. The workflow name should be editable
+
+. Each block can be edited to the extent that the user can change
+.. The human readable function and its data types
+.. If the human readable function and its data types is changed then the function
+selector should also be updated to reflect this
+.. The input values into the function
+.. The contract address associated with that function selector
+.. The estimated gas should be recalculated based on any of the changes above
+
+. Adding a non-unique ID should revert and return the gas
+
+. Adding a non-unique human readable workflow name should revert and return the gas
+// TODO: consider the human name reverting... this may no longer be required as we may no longer require any reverse mappings
+
+. Each workflow should have an order number associated with it so that the front
+end can order the workflows
