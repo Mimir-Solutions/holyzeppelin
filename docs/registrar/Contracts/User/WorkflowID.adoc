@@ -1,5 +1,3 @@
-// TODO: I am still mixing requirements with explanations... should really split that up better... somehow
-
 == Overview
 
 A workflow ID is used for differentiating between different workflows.
@@ -14,12 +12,13 @@ however `strings` does not exist and is thus invalid.
 Another example is that `uint256` is valid however `uint257` is not.
 
 Once each function has been validated they will all be concatenated into one long
-javascript string with a salt starting with the value of 0.
+string with a salt appended to the end starting with the value of `0`.
 The long string will be hashed using web3's keccak256 function and used to check
 for collisions.
-If there is a collision then the value of 0 will be incremented to 1 and the string
+If there is a collision then the value of `0` will be incremented by `1` and the string
 will need to be hashed again and checked for collisions.
-Repeat the process until there are no more collisions.
+Repeat the process until there are no more collisions at which point a valid workflow
+ID has been generated.
 
 == Requirements
 
@@ -29,15 +28,18 @@ Repeat the process until there are no more collisions.
 
 . The validated functions must be concatenated in the order that the user has specified
 in their workflow
-.. E.g. `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)`
+.. E.g. if they have 3 functions in the following order
+... 1) `withdraw(string,uint256)`
+... 2) `invest(string,uint256)`
+... 3) `pay(string,unit256)`
+.. Then the string should be `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)`
 
-. Concatenated string must go through a process of finding a valid salt
-.. Append the value of 0 to `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)`
-to get `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)0`
-.. Hash the string using keccak256
-.. If there is a collision then increment that 0 by 1 value to get `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)1`
-and hash again
-.. Repeat incrementing process until there are no collisions
+. The function string should contain a salt at the end that does not cause a hash collision.
+.. Start with the value of `0` to get `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)0`
+.. A hash collision results in the increment of the salt by 1 therefore the next
+string to hash is `withdraw(string,uint256)invest(string,uint256)pay(string,unit256)1`
+.. Repeat until a hash collision does not occur
+
 
 == Future improvements
 

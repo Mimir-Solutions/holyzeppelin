@@ -2,24 +2,87 @@
 
 The website should be a portal bridging the contracts and the user.
 
+// TODO: The overview / context sections need to be thought through so that it is clear what each section contains
+
+== Context
+
+The website is a gateway that allows a user to generate workflows and execute them.
+
+There are 2 main sections to the website
+
+. Template workflows
+. Workflows
+
+A template workflow is almost identical to the workflow however as the name suggests
+it is meant to be a template that can be selected by the user and filled out.
+This allows the user to create "new" workflows simply by copying the template and
+filling in different values instead of recreating the workflow from scratch each time. +
+For instance, a template may be created to pay developers individually.
+To instantiate a new workflow the template would be imported and then the user can
+specify values such as the wallet address of an individual and the amount to pay.
+Each developer would have a new workflow copied and filled out for them (assuming
+that the same workflow applies to them all) and thus multiple workflows would be
+created from 1 template.
+
+The contents of the template are as follows
+
+. A name that uniquely identifies the template
+. A "block" that contains the following information
+.. A function name with its data types
+.. The contract address that the function will be called on
+. The user can add an unlimited number of blocks
+
+It is important to note that the order of blocks is the same as the execution order
+of their workflow meaning that if they have 3 blocks: A, B, C then when the workflow
+is executed the functions will be called in the order A, B, C.
+
+A workflow is an expansion upon the template in that the "block" now contains an
+additional input field and that is for the values that will correspond to their
+data types in the function.
+For example the function `pay(string,uint256)` will require 2 inputs
+
+. The `string` could represent a name e.g. "John"
+. The `uint256` could represent the compensation e.g. "0.5 ETH" (but in the proper notation)
+
+// TODO: expand on ID generation here?
+// TODO: talk about gas estimation
+// TODO: talk about the scheduler and how they can schedule workflows
+// TODO: talk about how they need to fund their account (contract) in order to execute workflows + via the scheduler
+// TODO: talk about how once a workflow is created it is decoupled from a template (which can be edited)
+// TODO: figure out where to put each explanation... most of this should probably be in the specification except the specifics...
+
+
 == Requirements
 
-Note that the images are for visual purposes only to convey the idea.
+Note that the images are for visual purposes only  and to convey the idea instead
+of the required UI design.
 
 . A user should be able to sign up with their meta mask wallet address
 
 . A user should be able to sign into their system by connecting their wallet
 
-. When signed in the user should be able to
-.. View all of their workflows
+. When the user is signed in they should be able to
+.. Templates
+... View all of their templates
+... Create a new template
+... Edit an existing template
+... Delete an existing template
+... Change the order of their templates i.e. "visually prioritize them"
+.. Workflows
+... View all of their workflows
+... Create a new workflow from a template
+... Edit an existing workflow
+... Delete an existing workflow
+... Change the order of their templates i.e. "visually prioritize them"
+
 
 image::./Images/Website/view_workflows.png[Viewing workflows]
 
 .. The user should be able to create a new workflow
 ... The user must provide a human readable name for the workflow
-... The user should be able to as many sections as they wish to the workflow
+... The user should be able to add as many sections as they wish to the workflow
 .... Each section should contain
-..... A field to write the function with its data types e.g. `function pay(string,uint256)`
+..... A field to write the function with its data types e.g. `pay(string,uint256)`
 ..... A contract address for the function to be called upon
 ..... Default values for the data types in the function e.g. string = "John", uint256 = 100. They must be separate from the function declaration field
 .... Since the function with its data types will be used to create a function selector there needs to be validation to ensure that the pattern `function functionName(commaSeparatedDataTypesWithoutSpaces)` is met
@@ -86,3 +149,7 @@ at which point we will communicate with the onboarding contract again
 . The user should be able to remove the lock from the workflow
 
 . The user should be able to delete all workflows that are not locked
+
+. The user should be able to allow others to import their workflow / workflow template
+.. This involves authorization that somehow reaches from one contract to another
+.. Should there be a separate AUTH contract that manages importing?
