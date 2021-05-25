@@ -1,18 +1,157 @@
 == Overview
 
-This is the general document that should contain a high level overview of how
-the different pieces interact.
+// Some description describing the system...
+// Mention security improvements because of the design pattern?
 
+The system is one that provides additional control to users by allowing them to
+choose which contracts and parts of those contracts are allowed within their system.
 
+This means that if a system is being upgraded by the developers then the user has
+the choice to choose to opt in or stay on the previous system.
 
-== Notes for later idk
+The whole idea is to function around the idea of micro-services and atomic contracts
+that do very little. Deploying all of these contracts is expensive however this has many
+benefits such as
 
-New user joins::
-Front end controller checks User Registry
-User is new
-Send command to the System_Deployer to create a new system
-Update User Registry
-Front end controller acts as proxy between user interface and the user controller
+. Easier to audit the code
+. Easier to test
+. Easier to extend the system
 
-User signs back in::
-Front end controller acts as proxy to user controller
+Assuming that contracts are written in such a way this means that the user can
+pick and choose which contracts and versions of those contracts they would like
+to use while limiting the scope of how much bloat is let into their system.
+
+Following on from this idea it means that the user can string together various contracts
+and their functions in any order that allows their particular "workflow" to function.
+This creates a "plug & play" system for the user rather than relying upon the conventional
+megalithic structure which forces the user to be a part of a large system which
+is more likely to have flaws that are overlooked for any number of reasons.
+
+== System Components
+
+The system consists of 2 parts
+
+. User interface
+. Smart contracts
+
+The user interface is meant to be a website that is hosted on IPFS and allows
+the user to
+
+. Sign up
+.. This deploys the smart contract system
+
+. Log in
+.. This allows them to interact with their system
+
+The initial focus is on integration with meta mask therefore they will be required
+to use meta mask to sign up and use the system. Additional wallets may or may not
+be added in the future.
+
+=== User Interface
+
+The user interface has a number of functions that it will perform and it will do
+a lot of the heavy lifting after which it will send the data down to the smart
+contracts to make sense of.
+
+There is a need for a working demonstration of what the system can do in order
+to entice the user and thus there are two options to choose from.
+
+. Create a smart contract that everyone can play with
+. Present the information as a walk-through that can be replayed
+
+It will be significantly easier to demonstrate the capabilities of the system with
+a walk through because that forgoes the requirement of an additional system that
+allows every user to interact with - which by the way goes against the point of the
+system design as each user is supposed to have their own system.
+
+At the conception stage of the project it is unlikely that there will be many projects
+that have developed their code-base in the micro-services architecture where the
+the entire point of any contract is to have an external contract call in to perform
+a simply task and receive an output.
+This is because most smart contracts are their own ecosystems targeted at a specific function.
+
+This implies that the user will not be able to use their system for some time...
+Anyway... // This is a great business pitch.
+
+The user interface has to demonstrate a single concept which consists of multiple features.
+
+==== Workflow Template
+
+The workflow template is just a template that can be selected at any time to create
+a new workflow. This is beneficial because the user does not have to keep recreating
+the workflow with different values.
+
+The template contains a few sections namely a uniquely identifiable name and any
+number of "blocks" where each block contains a function with its data types and
+the contract address to call that function upon.
+
+==== Workflow
+
+The workflow is a template that has been selected by the user with 1 additional
+section within each block which contains the values that will be used per function
+when making calls to the contract address.
+
+==== Interacting with the user interface
+
+Most of the same features should apply to both the workflow templates and the workflow.
+These features include
+
+. Being able to create templates / workflows
+. Being able to delete templates / workflows
+. Being able to edit templates / workflows to the extent that each allows
+. Being able to reorder entire workflows / templates on the screen
+
+==== Executing a workflow
+
+There are two ways that a workflow can be executed
+
+. Manually by the user pressing a button
+. By an automated system in a smart contract
+
+In order to create a functioning prototype the initial system requires that the
+user must deposit their funds into their treasury.
+
+If the user attempts to execute a workflow (or the scheduler reaches the time
+that requires the workflow to be called) then the system will attempt to execute
+the workflow with the funds that have been deposited in the treasury.
+
+// TODO: I have just realized that I do not know if the scheduler and treasury will actually work... come back to this
+
+=== Smart Contracts
+
+Since the idea is to follow a micro-services architecture there will be a lot of
+contracts floating around.
+
+There are 3 bootstrapping contracts which will onboard the user if they decide to
+create a system for themselves and then act as a lookup table to pass along the
+address of the root of the user's system so that the website can continue to function.
+
+==== Bootstrap
+
+The 3 components are
+
+. The workflow execution controller
+. User registry
+. System deployer
+
+The workflow execution controller is the go to contract that the website will know
+about as it is the only contract that it will interact with aside from the root of
+the user's system.
+
+The purpose of the controller is to interpret the messages from the website, perform
+any necessary actions and report back the appropriate information.
+
+The entire functionality encompassed within the controller is to
+
+. Deploy a system for a new user, create a record of the new user and return the address
+of the root of the user's system
+. Return the address of the root of an existing user's system
+
+==== User's system
+
+The user's system consists of the following components
+
+. User controller
+. Workflow hashtable
+. Executor
+. Scheduler
